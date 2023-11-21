@@ -1,7 +1,7 @@
 Package: milQuant
 Title: Basic Quantitative Visualizations of Data from Field Desktop for
     Find Processing in Miletus
-Version: 1.1.0
+Version: 2.0.0
 Authors@R: 
     person("Lisa", "Steinmann", , "lisa.steinmann@rub.de", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-2215-1243"))
@@ -12,6 +12,7 @@ Description: The milQuant-Shiny Dashboard provides quick quantitative
     visualizations for the project focused on find-resources.
 License: GPL (>= 3)
 Depends: 
+    datplot,
     dplyr,
     DT,
     forcats,

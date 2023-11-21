@@ -4,7 +4,7 @@
 \alias{app_ui}
 \title{UI for the milQuant app}
 \usage{
-app_ui(version = "1")
+app_ui(app_version = packageVersion("milQuant"))
 }
 \description{
 UI for the milQuant app
