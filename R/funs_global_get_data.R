@@ -37,7 +37,7 @@ get_index <- function(source = login_connection()) {
 #' @export
 #'
 #' @examples
-idf_uid_query <<- function(login_connection, uids) {
+idf_uid_query <- function(login_connection, uids) {
   message("Started the query...")
   query <- paste('{ "selector": { "_id": { "$in": [',
                  paste0('"', uids, '"', collapse = ", "),
@@ -82,7 +82,7 @@ idf_uid_query <<- function(login_connection, uids) {
 #' @export
 #'
 #' @examples
-get_resources <<- function(resource_category = find_categories) {
+get_resources <- function(resource_category = find_categories) {
   message("Invalidating and querying DB now:")
   uids <- react_index() %>%
     filter(isRecordedIn %in% db_trenches()) %>%

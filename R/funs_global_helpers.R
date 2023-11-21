@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-prep_for_shiny <<- function(data, reorder_periods = reorder_periods) {
+prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
   data <- data %>%
     idaifield_as_matrix() %>%
     as.data.frame() %>%
@@ -84,7 +84,7 @@ prep_for_shiny <<- function(data, reorder_periods = reorder_periods) {
 #' @export
 #'
 #' @examples
-uid_by_operation <<- function(filter_operation = "all",
+uid_by_operation <- function(filter_operation = "all",
                              index = react_index()) {
 
   if (filter_operation == "none") {
@@ -121,7 +121,7 @@ uid_by_operation <<- function(filter_operation = "all",
 #' @export
 #'
 #' @examples
-period_filter <<- function(find_df, is_milet = FALSE, selector = NULL) {
+period_filter <- function(find_df, is_milet = FALSE, selector = NULL) {
   if (is_milet) {
     find_df <- find_df %>%
       filter(period.start >= selector[1] & period.end <= selector[2])  %>%
@@ -138,7 +138,7 @@ period_filter <<- function(find_df, is_milet = FALSE, selector = NULL) {
 #' @export
 #'
 #' @examples
-mq_spinner <<- function(object) {
+mq_spinner <- function(object) {
   withSpinner(object,
               image = "img/quant-spinner-smooth.gif",
               image.width = 100,
@@ -155,7 +155,7 @@ mq_spinner <<- function(object) {
 #' @export
 #'
 #' @examples
-milquant_plotly_layout <<- function(plotly_fig, caption = FALSE) {
+milquant_plotly_layout <- function(plotly_fig, caption = FALSE) {
   plotly_fig <- plotly_fig %>%
     config(displaylogo = FALSE,
            modeBarButtonsToRemove = c("select2d", "lasso2d")) %>%
@@ -192,7 +192,7 @@ milquant_plotly_layout <<- function(plotly_fig, caption = FALSE) {
 #' @export
 #'
 #' @examples
-convert_to_Plotly <<- function(ggplot_p,
+convert_to_Plotly <- function(ggplot_p,
                                source = "ggplot_source",
                                tooltip = c("y", "x", "fill")) {
   # add theme
