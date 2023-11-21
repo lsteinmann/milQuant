@@ -140,7 +140,7 @@ period_filter <<- function(find_df, is_milet = FALSE, selector = NULL) {
 #' @examples
 mq_spinner <<- function(object) {
   withSpinner(object,
-              image = "quant-spinner-smooth.gif",
+              image = "img/quant-spinner-smooth.gif",
               image.width = 100,
               image.height = 100)
 }

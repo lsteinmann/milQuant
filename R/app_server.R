@@ -21,7 +21,7 @@ app_server <- function(input, output, session) {
   busy_dialog <- modalDialog(
     title = "Loading Project, please wait...",
     div(class = "warn-text", textOutput("load.error_msg") %>%
-          withSpinner(image = "quant-spinner-smooth.gif",
+          withSpinner(image = "/img/quant-spinner-smooth.gif",
                       image.width = 120,
                       image.height = 120,
                       proxy.height = "100px",
@@ -32,10 +32,12 @@ app_server <- function(input, output, session) {
   # show login dialog box when initiated
   showModal(login_dialog, session = session)
   # server code to handle the connection to field in the modal
-  default.username <- source("www/settings/settings.R")$value$username
+  default.username <- source(system.file(package = "milQuant", mustWork = TRUE,
+                                         "app/www/settings/settings.R"))$value$username
   updateTextInput(session, "tab_connect.user", value = default.username)
 
-  default.password <- source("www/settings/settings.R")$value$synchpw
+  default.password <- source(system.file(package = "milQuant", mustWork = TRUE,
+                                         "app/www/settings/settings.R"))$value$synchpw
   updateTextInput(session, "tab_connect.pwd", value = default.password)
 
   login_connection <<- reactiveVal(NA)

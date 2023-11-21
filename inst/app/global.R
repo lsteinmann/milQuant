@@ -49,8 +49,8 @@ drop_for_plot_vars <<- c("identifier", "shortDescription", "notes",
                          "analysisMethod", "localization")
 
 
-periods <- system.file(package = "milQuant", mustWork = TRUE,
-                       "extdata/milet-periods.RDS")
+periods <- readRDS(system.file(package = "milQuant", mustWork = TRUE,
+                               "extdata/milet-periods.RDS"))
 periods <- c(names(periods[[1]]), "multiple", "unbestimmt")
 periods <<- factor(periods,
                    levels = periods,
@@ -78,7 +78,9 @@ quant_categories <<- c("Quantification", "Brick_Quantification",
 
 
 read_settings <- function() {
-  result <- try(readRDS("www/settings/selection_settings.RDS"), silent = TRUE)
+  result <- try(readRDS(system.file(package = "milQuant", mustWork = TRUE,
+                                    "app/www/settings/selection_settings.RDS")),
+                silent = TRUE)
   if (inherits(result, "try-error")) {
     result <- list("selected_project" = NULL,
                    "selected_operations" = NULL,

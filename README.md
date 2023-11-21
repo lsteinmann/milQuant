@@ -1,13 +1,13 @@
-# milQuant -- Quantitative Analysis with Data from Field Desktop <a href='https://www.miletgrabung.uni-hamburg.de/'><img src='www/quant-icon.png' align="right" height="139" /></a>
+# milQuant -- Quantitative Analysis with Data from Field Desktop <a href='https://www.miletgrabung.uni-hamburg.de/'><img src='inst/app/www/img/quant-icon.png' align="right" height="139" /></a>
 
 
 The milQuant-Shiny Dashboard provides quick quantitative overviews of the data in a [Field Desktop](https://github.com/dainst/idai-field)-project. It connects to the database automatically (when running on the same machine) and can plot various graphs to provide quantitative visualizations for the project focused on find-resources. See also the standalone app version at [lsteinmann/milQuant-dist](https://github.com/lsteinmann/milQuant-dist).
 
 The dashboard has been developed and is meant to be used with the milet-configuration and within the framework of the [Miletus Excavation Project](https://www.miletgrabung.uni-hamburg.de/). While very limited, some functionality and general overviews may also work with other project-configurations. In any case, the App could be adapted to work for different configurations! Feel free to modify it according to your needs. 
 
-![Screenshot from the Dashboard: Finds](readme/03_Finds.png "Screenshot from the Dashboard: Finds")
-![Screenshot from the Dashboard: Pottery Quantification A](readme/05_Pottery_Quant_A.png "Screenshot from the Dashboard: Pottery Quantification A")
-![Screenshot from the Dashboard: Loomweights](readme/07_Loomweights.png "Screenshot from the Dashboard: Loomweights")
+![Screenshot from the Dashboard: Finds](inst/static/03_Finds.png "Screenshot from the Dashboard: Finds")
+![Screenshot from the Dashboard: Pottery Quantification A](inst/static/05_Pottery_Quant_A.png "Screenshot from the Dashboard: Pottery Quantification A")
+![Screenshot from the Dashboard: Loomweights](inst/static/07_Loomweights.png "Screenshot from the Dashboard: Loomweights")
 
 ## Current Status
 
