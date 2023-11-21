@@ -39,7 +39,7 @@ vignettes/*.pdf
 .Renviron
 
 # private
-/priv_testing_dir/*
+.notes/*
 profile.R
 README.html
 dist/*
