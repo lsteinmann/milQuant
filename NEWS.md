@@ -7,7 +7,7 @@
 * Added many tabs for different 'Find'-categories using generalized 'barplot'-module (Plotly).
 * Modularized all other tabs. 
 * From now on, all plots are produced in Plotly directly to make better use of Plotly's features.
-* Corrected typos, minor text and layout changes
+* Corrected typos, minor text and layout changes.
 
 
 # milQuant 1.0.3 _2023-10-30_
