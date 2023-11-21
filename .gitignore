@@ -45,4 +45,4 @@ README.html
 dist/*
 NEWS.html
 dataprep/*
-defaults/selection_settings.RDS
+inst/app/www/settings/selection_settings.RDS
