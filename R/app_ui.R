@@ -21,6 +21,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
                                           container = tags$p))),
       actionButton("refreshIndex", "Refresh Index", icon = icon("refresh")),
       menuItem("Project overview", tabName = "db_overview_tab", icon = icon("graduation-cap")),
+      menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
       uiOutput("selected_operations"),
       uiOutput("selected_trenches"),
 
@@ -77,6 +78,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
     tabItems(
       make_home_tab(app_version = app_version, tabname = "home_tab"),
       db_overview_tab("db_overview", tabname = "db_overview_tab"),
+      db_activity_tab("db_activity", tabname = "db_activity_tab"),
 
       worflow_tab("workflow", tabname = "workflow_tab"),
 

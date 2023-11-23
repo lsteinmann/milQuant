@@ -279,6 +279,7 @@ app_server <- function(input, output, session) {
 
   # server code only for overview pages
   db_overview_server("db_overview")
+  db_activity_server("db_activity")
 
   worflow_tab_server("workflow")
 
