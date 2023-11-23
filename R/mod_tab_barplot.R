@@ -33,8 +33,7 @@ barplot_tab <- function(id, tabname) {
                            icon = icon("check"),
                            inline = TRUE, animation = "jelly",
                            choices = list("stacked" = "stack",
-                                          "dodging" = "group",
-                                          "percentage" = "percentage")),
+                                          "dodging" = "group")),
         uiPeriodSelector(ns("periods")),
         downloadPlotButtons(ns("download"))
       ),

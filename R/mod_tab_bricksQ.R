@@ -42,8 +42,7 @@ bricksQ_tab <- function(id) {
         prettyRadioButtons(inputId = ns("bar_display"),
                            label = "Display the bars...",
                            choices = list("stacked" = "stack",
-                                          "dodging" = "group",
-                                          "proportional" = "fill"),
+                                          "dodging" = "group"),
                            icon = icon("check"),
                            inline = TRUE, animation = "jelly"),
         downloadPlotButtons(ns("download"))

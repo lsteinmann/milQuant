@@ -42,8 +42,7 @@ basic_quant_tab <- function(id, tabname) {
         prettyRadioButtons(inputId = ns("bar_display"),
                            label = "Display the bars...",
                            choices = list("stacked" = "stack",
-                                          "dodging" = "group",
-                                          "proportional" = "fill"),
+                                          "dodging" = "group"),
                            icon = icon("check"),
                            inline = TRUE, animation = "jelly"),
         downloadPlotButtons(ns("download"))
@@ -151,14 +150,15 @@ basic_quant_server <- function(id, resource_category) {
                        colors = viridis(length(unique(plot_data$color))),
                        hovertemplate = paste0("<b>%{fullData.name}</b><br>",
                                               "%{x}<br>",
-                                              "count: <b>%{y}</b><br>",
+                                              gsub("Total", "", input$plot_by),
+                                              ": <b>%{y}</b><br>",
                                               "<extra></extra>"))
 
         plot_title <- paste0('<b>', input$title, '</b><br>', input$subtitle)
 
         caption <- paste0("Total ",
                           gsub("Total", "", input$plot_by),
-                          ": ", sum(plot_data$value))
+                          ": ", round(sum(plot_data$value), digits = 3))
 
         x_title <- "Type of Find"
         y_title <- ifelse(input$plot_by == "countTotal",

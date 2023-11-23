@@ -1,13 +1,13 @@
-# milQuant 1.1.0 _tba_
+# milQuant 1.1.0 _2023-11-23_
 * Added a button that refreshes the index, so that newly added resources can be seen as well.
-* Delay the evaluation of Operation-input to avoid unnecessary queries.
+* Added the 'Activity' tab which shows latest and overall changes to the database by *Place* and user.
 * All buttons are now disabled while shiny is busy to avoid unnecessary queries.
-* Moved the database query to each tab. Now only the data that is needed in each tab is queries from Field Desktop, hopefully reducing overall loading time and memory usage.
-* Redesigned the 'overview'-plot in Plotly. It now displays the complete project database with the exception of 'Type'- and 'Image'-categories.
-* Added many tabs for different 'Find'-categories using generalized 'barplot'-module (Plotly).
+* Moved the database query to each tab. Now only the data that is needed in each tab is queried from Field Desktop, hopefully reducing overall loading time and memory usage.
+* Redesigned the *overview*-plot in Plotly. It now displays the complete project database with the exception of *Type*- and *Image*-categories.
+* Added many tabs for different *Find*-categories using generalized *barplot*-module (Plotly).
 * Modularized all other tabs. 
-* From now on, all plots are produced in Plotly directly to make better use of Plotly's features.
-* Corrected typos, minor text and layout changes.
+* From now on, (almost) all plots are produced in Plotly directly to make better use of Plotlys features.
+* Corrected typos, minor text and made some layout changes.
 
 
 # milQuant 1.0.3 _2023-10-30_
