@@ -1,3 +1,7 @@
+# milQuant 2.0.0 _wip_
+* Restructure the app as a package.
+
+
 # milQuant 1.1.0 _2023-11-23_
 * Added a button that refreshes the index, so that newly added resources can be seen as well.
 * Added the 'Activity' tab which shows latest and overall changes to the database by *Place* and user.

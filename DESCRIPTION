@@ -31,7 +31,7 @@ Depends:
     viridis,
     idaifieldR
 Remotes: 
-    lsteinmann/idaifieldR@v0.3.3
+    lsteinmann/idaifieldR
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
