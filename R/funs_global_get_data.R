@@ -1,30 +1,32 @@
-#' get_index
+#' Download the index
 #'
-#' @param source
+#' Get the index from a project db using a connection object with
+#' `idaifieldR::get_field_index()` and prepares it for use in milQuant.
 #'
-#' @return
-#' @export get_index
+#' @param connection an object as returned by `idaifieldR::connect_idaifield()`
 #'
-#' @examples
-get_index <- function(source = login_connection()) {
+#' @return a data.frame with the index
+#'
+#' @export
+get_index <- function(connection = "") {
   options(digits = 20)
 
-  uidlist <- get_field_index(source,
-                          verbose = TRUE,
-                          gather_trenches = TRUE) %>%
+  index <- get_field_index(connection,
+                           verbose = TRUE,
+                           gather_trenches = TRUE) %>%
     mutate(Operation = ifelse(is.na(isRecordedIn),
                               liesWithin,
                               isRecordedIn)) %>%
-    mutate(Operation = ifelse(category %in% c("Type","TypeCatalog"),
+    mutate(Operation = ifelse(category %in% c("Type", "TypeCatalog"),
                               "Typenkatalog",
                               Operation)) %>%
-    mutate(Place = ifelse(category %in% c("Type","TypeCatalog"),
+    mutate(Place = ifelse(category %in% c("Type", "TypeCatalog"),
                           "Typenkatalog",
                           Place)) %>%
     mutate(Operation = ifelse(is.na(Operation),
                               "none",
                               Operation))
-  return(uidlist)
+  return(index)
 }
 
 
@@ -101,5 +103,54 @@ get_resources <- function(resource_category = find_categories) {
 
   message("Done.")
   selected
+}
+
+
+#' Compiles a vector of Places which contain finds
+#'
+#' Uses the index to build said vector. This way, Places which do not
+#' contain any finds are not listed in the UI-element. milQuant obviously
+#' needs find- and quantification-resources to work.
+#'
+#' @param index
+#'
+#' @return a vector of Place identifiers
+#' @export
+get_list_of_places_with_finds <- function(index) {
+  tmp_places <- index %>%
+    filter(category %in% c(find_categories, quant_categories)) %>%
+    pull(Place) %>%
+    unique()
+
+  tmp_places <- tmp_places[!is.na(tmp_places)]
+  places <- sort(tmp_places)
+  return(tmp_places)
+}
+
+#' Compiles a vector of Operations in the selected Place
+#'
+#' Uses the index to build said vector. Filters for Operations that are
+#' children of the selected places.
+
+#' @param index
+#' @param selected_operations
+#'
+#' @return a vector of operation identifiers
+#' @export
+get_list_of_operations_in_places <- function(index, selected_places) {
+  if ("select everything" %in% selected_places) {
+    tmp_operation <- index %>%
+      pull(isRecordedIn) %>%
+      unique()
+  } else {
+    tmp_operation <- index %>%
+      filter(Place %in% selected_places) %>%
+      pull(isRecordedIn) %>%
+      unique()
+  }
+
+  tmp_operation <- tmp_operation[!is.na(tmp_operation)]
+  operation <- sort(tmp_operation)
+  return(tmp_operation)
 }
 

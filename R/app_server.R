@@ -5,35 +5,52 @@
 #' @param session
 app_server <- function(input, output, session) {
 
+
+  # % -------------------------------------------------------------Connection
+
   #session <- getDefaultReactiveDomain()
 
-  # define the ui of the login and busy dialog boxes
-  login_dialog <- make_login_dialog()
-  busy_dialog <- make_busy_dialog()
+  # setup the two reactiveValues that will be used nearly everywhere
+  login_connection <<- reactiveVal()
+  projects <- reactiveVal()
+  db_settings <<- reactiveValues(selected_project = NA,
+                                 selected_places = NA,
+                                 selected_operations = NA)
+
+
+  # define the ui of the login modal
+  login_modal <- modalDialog(
+    title = "Enter connection details to continue",
+    footer = actionButton("tab_connect.connect","Connect"),
+    textInput("tab_connect.host","Host (Field Desktop)", value = "127.0.0.1"),
+    textInput("tab_connect.user","Username", value = "username"),
+    passwordInput("tab_connect.pwd","Password", value = "hallo"),
+    tags$div(class = "warn-text",textOutput("tab_connect.error_msg"))
+  )
 
   # show login dialog box when initiated
-  showModal(login_dialog, session = session)
+  showModal(login_modal, session = session)
+
   # server code to handle the connection to field in the modal
-  default.username <- source(system.file(package = "milQuant", mustWork = TRUE,
-                                         "app/www/settings/settings.R"))$value$username
-  updateTextInput(session, "tab_connect.user", value = default.username)
+  username <- source(system.file(
+    package = "milQuant", mustWork = TRUE,
+    "app/www/settings/shared_settings.R"))$value$username
+  updateTextInput(session, "tab_connect.user", value = username)
 
-  default.password <- source(system.file(package = "milQuant", mustWork = TRUE,
-                                         "app/www/settings/settings.R"))$value$synchpw
-  updateTextInput(session, "tab_connect.pwd", value = default.password)
-
-  login_connection <<- reactiveVal(NA)
+  password <- source(system.file(
+    package = "milQuant", mustWork = TRUE,
+    "app/www/settings/shared_settings.R"))$value$synchpw
+  updateTextInput(session, "tab_connect.pwd", value = password)
 
   observeEvent(input$tab_connect.connect, {
-    host <- input$tab_connect.host
-    user <- input$tab_connect.user
-    pwd <- input$tab_connect.pwd
 
     # manually validate connection
     message("Checking the connection you provided.")
-    test_connection <- connect_idaifield(serverip = host,
-                                         user = user,
-                                         pwd = pwd)
+    test_connection <- suppressMessages(
+      connect_idaifield(serverip = input$tab_connect.host,
+                        user = input$tab_connect.user,
+                        pwd = input$tab_connect.pwd)
+      )
 
     ping <- tryCatch({
       idf_ping(test_connection)
@@ -44,22 +61,24 @@ app_server <- function(input, output, session) {
     })
 
     if (ping == TRUE) {
-      # succesfully connect:
+      # succesfully connected:
       login_connection(test_connection)
       removeModal() # remove login dialog
-      output$tab_connect.welcome_text <- renderText(glue("Welcome to milQuant - Quantitative Analysis
-                                                       with Data from Field, {user}!"))
-      shinyjs::show("tab_connect.welcome_div") # show welcome message
+      output$welcome_text <- renderText(
+        glue("Welcome to milQuant - Quantitative Analysis
+              with Data from Field, {input$tab_connect.user}!")
+        )
+      shinyjs::show("welcome_div") # show welcome message
       message("Success! Can connect to Field.")
     } else if (ping == FALSE) {
-      message("Failed! Can't connect to Field and don't know why.")
-      # I have no idea what happened if this happens, but
-      # it can't be right
-      output$tab_connect.error_msg <- renderText(paste("Unforeseen Error:", ping))
-      shinyjs::show("tab_connect.error_msg")
-    } else {
       message("Failed! Can't connect to Field:")
       # display the message
+      output$tab_connect.error_msg <- renderText(ping)
+      shinyjs::show("tab_connect.error_msg")
+    } else {
+      message("Something unexpected happened: ")
+      # I have no idea what happened if this happens, but
+      # it can't be right
       output$tab_connect.error_msg <- renderText(ping)
       shinyjs::show("tab_connect.error_msg")
     }
@@ -67,11 +86,13 @@ app_server <- function(input, output, session) {
 
   observeEvent(input$tab_connect.connect, {
     validate(
-      need(inherits(login_connection(), "idf_connection_settings"), "No Connection set.")
+      need(inherits(login_connection(),
+                    "idf_connection_settings"),
+           "No Connection set.")
     )
     message("Getting list of projects.")
     # Produces the List of projects in the database
-    projects <<- idf_projects(login_connection())
+    projects(idf_projects(login_connection()))
     message("Done.\nWaiting for you to load project.")
   })
 
@@ -79,13 +100,19 @@ app_server <- function(input, output, session) {
   # seen on home_tab and sidebar
   observeEvent(input$tab_connect.connect, {
     validate(
-      need(exists("projects"), "Project list not available.")
+      need(projects(), "Project list not available.")
     )
-    output$selected_project <- renderUI({
+
+    tmp <- read_milQuant_settings()
+    db_settings$selected_project <- tmp$selected_project
+    db_settings$selected_places <- tmp$selected_places
+    db_settings$selected_operations <- tmp$selected_operations
+
+    output$project_selector <- renderUI({
       selectizeInput(inputId = "selected_project",
                      label = "Choose a Project to work with",
-                     choices = projects, multiple = FALSE,
-                     selected = selection_settings$selected_project,
+                     choices = projects(), multiple = FALSE,
+                     selected = db_settings$selected_project,
                      options = list(
                        placeholder = "Please select an option below")
       )
@@ -93,53 +120,47 @@ app_server <- function(input, output, session) {
   })
 
 
+  # % -------------------------------------------------------------Index
+
   react_index <<- reactiveVal(value = NULL)
 
   observeEvent(input$loadDatabase, {
-
-    # error message is only generated once and after this process here has been
-    # finished for the first time, the dialog doesnt show the spinner anymore
-    # i don't know how to fix that
-    # ...
+    busy_dialog <- make_busy_dialog(project = isolate(input$selected_project))
 
     shinyjs::hide("load.success_msg")
     showModal(busy_dialog)
 
-
     message("Trying to connect to the project:")
-    try_project <- tryCatch({
-      client <- idaifieldR:::proj_idf_client(login_connection(), include = "query",
-                                             project = input$selected_project)
-      query <- paste0(
-        '{
-      "selector": { "resource.id": "project" },
-      "fields": [ "resource.id", "resource.identifier" ]
-       }')
-      response <- idaifieldR:::response_to_list(client$post(body = query))
-      input$selected_project %in% unlist(response)
-    }, warning = function(w) {
-      conditionMessage(w)
-    }, error = function(e) {
-      conditionMessage(e)
-    })
+    try_project <- try_project_connection(
+      connection = login_connection(),
+      project = input$selected_project
+    )
 
     if (try_project) {
+      # manually assign the selected project to the connection object and
+      # update the loging connection in the settings-reactiveValues
       new_login_connection <- login_connection()
       new_login_connection$project <- input$selected_project
       login_connection(new_login_connection)
       message("Success! Getting the Index:")
-      newIndex <- get_index(source = login_connection())
-      react_index(newIndex)
+
+      # THEN get the index.
+      react_index(get_index(connection = login_connection()))
       message("Done.")
-      rm(newIndex)
-      output$load.success_msg <- renderText(paste("Using project:",
-                                                  isolate(input$selected_project)))
+
+      # make and show the success msg in the UI
+      msg <- paste("Using project:", isolate(input$selected_project))
+      output$load.success_msg <- renderText(msg)
       shinyjs::show("load.success_msg")
+
       output$current_project <- renderText({input$selected_project})
+      db_settings$selected_project <- input$selected_project
+
       removeModal()
     } else {
-      output$load.error_msg <- renderText(paste("An error has occured: ",
-                                                try_project))
+      # make and show the success msg in the UI if something went wrong
+      msg <- paste("An error has occured: ", try_project)
+      output$load.error_msg <- renderText(msg)
       shinyjs::show("load.error_msg")
     }
   })
@@ -158,78 +179,62 @@ app_server <- function(input, output, session) {
     }
   })
 
-
   observeEvent(input$refreshIndex, {
     message("Fetching the Index again...")
-    newIndex <- get_index(source = login_connection())
-    react_index(newIndex)
+    react_index(get_index(connection = login_connection()))
     message("Done.")
-    rm(newIndex)
   })
+
+  #
+  # % -------------------------------------------------------------DB Selection
+
 
 
   # Produces the List of Places to select from the reactive Index
   # may not update when index is refreshed
-  operations <- reactive({
-    tmp_operations <- react_index() %>%
-      filter(category %in% c(find_categories, quant_categories)) %>%
-      pull(Place) %>%
-      unique()
-    tmp_operations <- tmp_operations[!is.na(tmp_operations)]
-    #  ind <- tmp_operations %in% c("Bauwerkskatalog", "Inschriften",
-    #                               "Milet_Stadt", "Steindepot",
-    #                               "HU_Streufunde", "Kalabaktepe",
-    #                               "Südstadt", "Typenkatalog")
-    #  tmp_operations <- tmp_operations[!ind]
-    operations <- sort(tmp_operations)
-    rm(tmp_operations)
-    return(operations)
-  })
-
-
-  db_operations <<- reactive({input$selected_operations})
-
-  trenches <- reactive({
-    validate(
-      need(db_operations(), "No operation selected.")
-    )
-    if (db_operations()[1] == "select everything") {
-      tmp_trenches <- react_index() %>%
-        pull(isRecordedIn) %>%
-        unique()
-    } else {
-      tmp_trenches <- react_index() %>%
-        filter(Place %in% db_operations()) %>%
-        pull(isRecordedIn) %>%
-        unique()
-    }
-
-    tmp_trenches <- tmp_trenches[!is.na(tmp_trenches)]
-    trenches <- sort(tmp_trenches)
-    rm(tmp_trenches)
-    return(trenches)
-  })
-
-  db_trenches <<- reactive({input$selected_trenches}) %>% debounce(2000)
-
-
-  #Place Selector -- Return the requested dataset as text
-  # apparently i do not use this anywhere??
-  #output$selected_place <- renderText({
-  #  paste(input$selected_operations)
-  #})
-  output$selected_operations <- renderUI({
+  available_places <- reactive({
     validate(
       need(react_index(), "No project selected.")
     )
-    choices <- operations()
-    if (length(choices) == 0) {
-      choices <- c("select everything")
-    }
+    get_list_of_places_with_finds(index = react_index())
+  })
+
+  available_operations <- reactive({
+    validate(
+      need(available_places(), "No Place selected.")
+    )
+    get_list_of_operations_in_places(
+      index = react_index(),
+      selected_places = input$selected_places
+    )
+  })
+
+  output$place_selector <- renderUI({
+    validate(
+      need(react_index(), "No project selected."),
+      need(available_places(), "Waiting for Places...")
+    )
+
+    pickerInput(inputId = "selected_places",
+                label = "Choose one or more Places to work with",
+                choices = available_places(),
+                selected = db_settings$selected_places,
+                multiple = TRUE,
+                options = list("actions-box" = TRUE,
+                               "live-search" = TRUE,
+                               "live-search-normalize" = TRUE,
+                               "live-search-placeholder" = "Search here..."))
+  })
+
+  output$operation_selector <- renderUI({
+    validate(
+      need(react_index(), "No project selected."),
+      need(input$selected_places, "No Places selected.")
+    )
     pickerInput(inputId = "selected_operations",
-                label = "Choose one or more Places / Operations to work with",
-                choices = choices,
-                selected = selection_settings$selected_operations,
+                label = "Choose one or more Operations (Trenches, Surveys) to work with",
+                choices = available_operations(),
+                selected = db_settings$selected_operations,
                 multiple = TRUE,
                 options = list("actions-box" = TRUE,
                                "live-search" = TRUE,
@@ -237,44 +242,34 @@ app_server <- function(input, output, session) {
                                "live-search-placeholder" = "Search here..."))
   })
 
-  output$selected_trenches <- renderUI({
-    validate(
-      need(react_index(), "No project selected.")
-    )
-    pickerInput(inputId = "selected_trenches",
-                label = "Choose one or more Trenches to work with",
-                choices = trenches(),
-                selected = selection_settings$selected_trenches,
-                multiple = TRUE,
-                options = list("actions-box" = TRUE,
-                               "live-search" = TRUE,
-                               "live-search-normalize" = TRUE,
-                               "live-search-placeholder" = "Search here..."))
-  })
 
-  # TODO: try to get a periods list
-  # this is not going to work
-  #react_periods <- reactive({
-  #  validate(
-  #    need(react_index(), "No project selected.")
-  #  )
-  #  config <- get_configuration(login_connection, projectname = input$selected_project)
-  #  return(react_periods)
-  #})
-
+  # % ----------------------------------------------------------------On Exit
 
   observeEvent(input$close_app,{
-    selection_settings <- list("selected_project" = input$selected_project,
-                               "selected_operations" = input$selected_operations,
-                               "selected_trenches" = input$selected_trenches)
-    saveRDS(selection_settings, system.file(package = "milQuant", mustWork = TRUE,
-                                            "app/www/settings/selection_settings.RDS"))
+    tmp <- list(selected_project = isolate(input$selected_project),
+                selected_places = isolate(input$selected_places),
+                selected_operations = isolate(input$selected_operations))
+    try(saveRDS(tmp, system.file(package = "milQuant", mustWork = TRUE,
+                             "app/www/settings/db_settings.RDS")))
     print("Shiny: EXIT")
     stopApp()
   })
 
+  # run this is file does not exist
+  #tmp <- list(selected_project = "milet-test",
+  #            selected_places = "",
+  #            selected_operations = "")
+  #saveRDS(tmp, "inst/app/www/settings/db_settings.RDS")
 
 
+  # % ----------------------------------------------------------------Modules
+
+  # store both values in the reactiveValues only when selected_operations
+  # is updated to avoid weird behaviour
+  eventReactive(input$selected_operations, {
+    db_settings$selected_places <- input$selected_places
+    db_settings$selected_operations <- input$selected_operations
+  })
 
 
   # server code only for overview pages
@@ -289,31 +284,18 @@ app_server <- function(input, output, session) {
   basic_quant_server("all_finds_quant")
 
   # server code for pottery form (single)
-  barplot_server("pottery", resource_category = "Pottery")
   potteryQA_server("pottery_QA")
   potteryQB_server("pottery_QB")
 
   # server code for bricks
-  barplot_server("bricks", resource_category = "Brick")
   bricksQ_server("bricksQ_bar")
 
   # server code for coins
-  barplot_server("coins", resource_category = "Coin")
-  aoristic_server("coins_aor", resource_category = "Coin")
 
   # loomweights
   loomweights_server("lw_hist")
-  barplot_server("lw_bar", resource_category = "Loomweight")
 
   # all other (automated) finds
-  barplot_server("bone", resource_category = "Bone")
-  barplot_server("glass", resource_category = "Glass")
-  barplot_server("lamps", resource_category = "Lamp")
-  barplot_server("metal", resource_category = "Metal")
-  barplot_server("plaster", resource_category = "PlasterFragment")
-  barplot_server("sculpture", resource_category = "Sculpture")
-  barplot_server("stone", resource_category = "Stone")
-  barplot_server("terracotta", resource_category = "Terracotta")
 
 
 

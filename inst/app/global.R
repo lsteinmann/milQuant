@@ -27,7 +27,7 @@ Plot_Base_Guide <<- guides(fill = guide_legend(ncol = 10, byrow = TRUE))
 
 ## Global Variables
 
-#operations <- c("all", sort(na.omit(unique(index$Place))))
+#places <- c("all", sort(na.omit(unique(index$Place))))
 
 
 drop_for_plot_vars <<- c("identifier", "shortDescription", "notes",
@@ -69,23 +69,12 @@ scale_fill_period <<- function(ncol = 9) {
                                          byrow = TRUE))
 }
 
-find_categories <<- c("Find", "Pottery", "Lamp", "Loomweight", "Terracotta", "Brick",
-                      "Bone", "Glass", "Metal", "Stone", "Wood", "Coin",
-                      "PlasterFragment", "Mollusk", "Sculpture")
-quant_categories <<- c("Quantification", "Brick_Quantification",
-                       "Pottery_Quantification_A", "Pottery_Quantification_B",
-                       "QuantMollusks", "PlasterQuantification")
+find_categories <<- c("Find", "Pottery", "Lamp", "Loomweight",
+                      "Terracotta", "Brick", "Bone", "Glass", "Metal",
+                      "Stone", "Wood", "Coin", "PlasterFragment",
+                      "Mollusk", "Sculpture")
+quant_categories <<- c("Quantification", "Pottery_Quantification_A",
+                       "Pottery_Quantification_B", "QuantMollusks",
+                       "Brick_Quantification", "PlasterQuantification")
 
-
-read_settings <- function() {
-  result <- try(readRDS(system.file(package = "milQuant", mustWork = TRUE,
-                                    "app/www/settings/selection_settings.RDS")),
-                silent = TRUE)
-  if (inherits(result, "try-error")) {
-    result <- list("selected_project" = NULL,
-                   "selected_operations" = NULL,
-                   "selected_trenches" = NULL)
-  }
-  return(result)
-}
-selection_settings <<- read_settings()
+selection_settings <<- read_milQuant_settings()

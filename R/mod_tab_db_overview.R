@@ -104,9 +104,9 @@ db_overview_server <- function(id) {
         )
 
         # tmp_index <- react_index()
-        # if (!is.null(input$selected_operations)) {
+        # if (!is.null(input$selected_places)) {
         #   tmp_index <- react_index() %>%
-        #     filter(Place %in% input$selected_operations)
+        #     filter(Place %in% input$selected_places)
         # } else {
         #   tmp_index <- react_index()
         # }

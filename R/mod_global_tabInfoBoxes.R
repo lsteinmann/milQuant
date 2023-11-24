@@ -48,7 +48,7 @@ tabInfoRow_server <- function(id, tab_data) {
         n_layers <- length(unique(tab_data()$relation.liesWithinLayer))
         n_objects <- nrow(tab_data())
         paste("The selected trenches ", paste(db_trenches(), collapse = ", "),
-              " (from ", paste(db_operations(), collapse = ", "),
+              " (from ", paste(db_places(), collapse = ", "),
               ") contain a total of ", n_objects,
               " resources from ", n_layers, " contexts.",
               sep = "")

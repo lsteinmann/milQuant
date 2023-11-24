@@ -1,9 +1,11 @@
-#' Title
+#' Produce the UI of the Login modal
 #'
-#' @return
+#' The modal pops up on Startup and prompts
+#' IP-Adress and Password (as well as username,
+#' but that is currently optional.)
+#'
+#' @return UI-Element modalDialog()
 #' @export
-#'
-#' @examples
 make_login_dialog <- function() {
   modalDialog(
     title = "Enter connection details to continue",
@@ -15,15 +17,19 @@ make_login_dialog <- function() {
   )
 }
 
-#' Title
+#' Produce the modal which is used to indicate that the Index is loaded
 #'
-#' @return
+#' The modal pops up on Startup and prompts
+#' IP-Adress and Password (as well as username,
+#' but that is currently optional.)
+#'
+#' @return UI-Element modalDialog()
 #' @export
-#'
-#' @examples
-make_busy_dialog <- function() {
+make_busy_dialog <- function(project = "") {
   modalDialog(
-    title = "Loading Project, please wait...",
+    title = paste0("Loading index of project '",
+                   project,
+                   "', please wait..."),
     div(class = "warn-text", textOutput("load.error_msg") %>%
           withSpinner(image = "/img/quant-spinner-smooth.gif",
                       image.width = 120,

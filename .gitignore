@@ -46,3 +46,4 @@ dist/*
 NEWS.html
 dataprep/*
 inst/app/www/settings/selection_settings.RDS
+.RDataTmp
