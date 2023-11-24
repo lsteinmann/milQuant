@@ -14,7 +14,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
   #  sidebar
   sidebar <- dashboardSidebar(
     sidebarMenu(
-      menuItem("Home", tabName = "home_tab", icon = icon("right-to-bracket")),
+      menuItem("Home", tabName = "tab_home", icon = icon("right-to-bracket")),
       shinyjs::hidden(tags$div(id = "tab_connect.success-div",
                                class = "success-text",
                                textOutput("load.success_msg",
@@ -41,7 +41,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
     tags$script(src = "js/toggleBtnsOnBusy.js"),
 
     tabItems(
-      make_home_tab(app_version = app_version, tabname = "home_tab"),
+      make_home_tab("tab_home"),
       db_overview_tab("db_overview", tabname = "db_overview_tab"),
       db_activity_tab("db_activity", tabname = "db_activity_tab")
 

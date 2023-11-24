@@ -85,16 +85,26 @@ background-color: #e2001a;
 }
 
 .login-text {
-  color: #e2001a;
-  font-size: 50px;
-  font-weight: bold;
-}
-
-.welcome-row-div {
-  height: 100px;
+  /*color: #e2001a;
+  font-weight: bold;*/
+  font-size: 1.2em;
 }
 
 .wip-show {
   background-color: #76d2e4;
 }
 
+/* adjust the size of info boxes */
+.info-box {
+  min-height: 90px;
+}
+
+.info-box-icon {
+  height: 90px;
+  line-height: 90px;
+}
+
+.info-box-content {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
