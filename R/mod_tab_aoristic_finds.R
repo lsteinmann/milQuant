@@ -7,15 +7,27 @@
 #' @export
 #'
 #' @examples
-aoristic_tab <- function(id, tabname) {
+mod_aoristic_finds_ui <- function(id, tabname) {
 
   ns <- NS(id)
 
   tabItem(
     tabName = tabname,
-
-    htmlOutput(ns("tab_title")),
-
+    fluidRow(
+      box(solidHeader = TRUE, collapsible = TRUE,
+          width = 12,
+          title = "Selection Options for Bar Charts",
+          column(width = 4, uiCategorySelector(ns("categories"))),
+          column(width = 2, actionButton(inputId = ns("loadResources"),
+                                         label = "Load Resources",
+                                         style = "margin-top:25px")),
+          column(width = 4, p('The "Load Resources" button will query the
+          database for all resources of the selected categories from the
+          selected Operations. Depending on the number of resources,
+          this may take a while.')),
+          column(width = 2, tabValueBox_ui(ns("info"), width = 10))
+      )
+    ),
     fluidRow(
       box(
         width = 3, height = 650,
@@ -37,26 +49,31 @@ aoristic_tab <- function(id, tabname) {
 #' Title
 #'
 #' @param id
-#' @param resource_category
 #'
 #' @return
 #' @export
 #'
 #' @examples
-aoristic_server <- function(id, resource_category) {
+mod_aoristic_finds_serv <- function(id) {
 
   moduleServer(
     id,
     function(input, output, session) {
 
       ns <- NS(id)
-      resources <- reactive({
 
+      generateCategorySelector("categories",
+                               parent = "Find",
+                               inputid = ns("selected_categories"))
+
+      resources <- eventReactive(input$loadResources, {
         validate(
-          need(is.data.frame(react_index()), "No Trenches and/or Places selected.")
+          need(is.data.frame(react_index()), "No Trenches and/or Places selected."),
+          need(input$selected_categories, "No Categories selected.")
         )
+        db_selected_categories(input$selected_categories)
 
-        resources <- get_resources(resource_category = resource_category) %>%
+        resources <- get_resources(resource_category = input$selected_categories) %>%
           remove_na_cols() %>%
           mutate_if(is.logical, list(~ifelse(is.na(.), FALSE, .))) %>%
           mutate_if(is.factor, list(~fct_na_value_to_level(., "N/A"))) %>%
@@ -66,6 +83,7 @@ aoristic_server <- function(id, resource_category) {
         return(resources)
       })
 
+      tabInfoRow_server("info", tab_data = resources)
       generateLayerSelector("layers", resources, inputid = ns("selected_layers"))
 
       plot_data <- reactive({

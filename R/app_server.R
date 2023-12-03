@@ -267,8 +267,8 @@ app_server <- function(input, output, session) {
 
 
   # Generic Plots
-  #mod_aoristic_finds_serv("aoristic_finds", resource_category = "Pottery")
   mod_barchart_finds_serv("barchart_finds")
+  mod_aoristic_finds_serv("aoristic_finds")
 
   # all other (automated) finds
 
