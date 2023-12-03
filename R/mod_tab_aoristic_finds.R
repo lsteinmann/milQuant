@@ -36,6 +36,12 @@ mod_aoristic_finds_ui <- function(id, tabname) {
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
         uiLayerSelector(ns("layers")),
+        selectInput(inputId = ns("fill_var"),
+                    label = "Choose a variable for the color:",
+                    choices = list(Category = "category",
+                                   Context = "relation.liesWithinLayer",
+                                   Trench = "Operation"),
+                    selected = "category"),
         switchInput(inputId = ns("derive_dating"),
                     label = "Derive Dating from Periods",
                     labelWidth = "150px",
@@ -107,7 +113,7 @@ mod_aoristic_finds_serv <- function(id) {
 
         plot_data <- plot_data %>%
           filter(relation.liesWithinLayer %in% input$selected_layers) %>%
-          select(identifier, Operation, dating.min, dating.max) %>%
+          select(identifier, input$fill_var, dating.min, dating.max) %>%
           datsteps(stepsize = 1, calc = "prob", cumulative = TRUE) %>%
           scaleweight(var = "all", val = "probability")
 
