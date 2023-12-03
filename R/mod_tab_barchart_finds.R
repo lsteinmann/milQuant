@@ -74,7 +74,9 @@ mod_barchart_finds_serv <- function(id, resource_category) {
 
       ns <- NS(id)
 
-      generateCategorySelector("categories", inputid = ns("selected_categories"))
+      generateCategorySelector("categories",
+                               parent = "Find",
+                               inputid = ns("selected_categories"))
 
       resources <- eventReactive(input$loadResources, {
         validate(

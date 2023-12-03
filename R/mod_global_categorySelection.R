@@ -23,7 +23,7 @@ uiCategorySelector <- function(id) {
 #' @export
 #'
 #' @examples
-generateCategorySelector <- function(id, inputid) {
+generateCategorySelector <- function(id, inputid, parent = "Find") {
   moduleServer(
     id,
     function(input, output, session) {
@@ -33,9 +33,18 @@ generateCategorySelector <- function(id, inputid) {
       data("milQuant_cats")
 
       output$ui_category_selector <- renderUI({
+
+        available_cats <- react_index() %>%
+          filter(Operation %in% db_selected_operations()) %>%
+          filter(category %in% milQuant_cats[[parent]]) %>%
+          mutate(category = factor(category, milQuant_cats[[parent]])) %>%
+          pull(category) %>%
+          unique() %>%
+          sort()
+
         pickerInput(inputId = inputid,
                     label = label,
-                    choices = milQuant_cats$Finds,
+                    choices = available_cats,
                     multiple = TRUE,
                     options = list("actions-box" = TRUE,
                                    "live-search" = TRUE,

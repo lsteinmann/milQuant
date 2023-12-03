@@ -7,11 +7,21 @@ categories <- read.csv(system.file("extdata/milet_categories.csv",
                                    package = "milQuant"))
 
 milQuant_cats <- list(
-  Finds = c(categories$category[which(categories$parent == "Find")]),
-  Features = c(categories$category[which(categories$parent == "Feature")]),
-  Quantifications = c(categories$category[which(categories$parent == "Quantification")])
+
+  Find =
+    factor(categories$category[which(categories$parent == "Find")],
+           levels = categories$category[which(categories$parent == "Find")]),
+
+  Feature =
+    factor(categories$category[which(categories$parent == "Feature")],
+           levels = categories$category[which(categories$parent == "Feature")]),
+
+  Quantification =
+    factor(categories$category[which(categories$parent == "Quantification")],
+           levels = categories$category[which(categories$parent == "Quantification")])
+
 )
 
-
+milQuant_cats$Find
 
 usethis::use_data(milQuant_cats, overwrite = TRUE)

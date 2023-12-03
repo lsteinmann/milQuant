@@ -174,7 +174,7 @@ get_resources <- function(resource_category = find_categories) {
 get_list_of_places_with_finds <- function(index) {
   data("milQuant_cats")
   tmp_places <- index %>%
-    filter(category %in% c(milQuant_cats$Finds, milQuant_cats$Quantifications)) %>%
+    filter(category %in% c(milQuant_cats$Find, milQuant_cats$Quantification)) %>%
     pull(Place) %>%
     unique()
 
