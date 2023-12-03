@@ -152,11 +152,18 @@ app_server <- function(input, output, session) {
 
       # make and show the success msg in the UI
       msg <- paste("Using project:", isolate(input$selected_project))
-      output$load.success_msg <- renderText(msg)
+      output$load.success_msg <- renderText({msg})
       shinyjs::show("load.success_msg")
 
       output$current_project <- renderText({input$selected_project})
       db_settings$selected_project <- input$selected_project
+
+      is_milet <<- input$selected_project %in% c("milet", "milet-test")
+      if (is_milet) {
+        reorder_periods <<- TRUE
+      } else {
+        reorder_periods <<- FALSE
+      }
 
       removeModal()
     } else {
@@ -172,13 +179,7 @@ app_server <- function(input, output, session) {
   })
 
   observeEvent(input$selected_project, {
-    hide('load.success_msg')
-    is_milet <<- input$selected_project %in% c("milet", "milet-test")
-    if (is_milet) {
-      reorder_periods <<- TRUE
-    } else {
-      reorder_periods <<- FALSE
-    }
+    # hide('load.success_msg')
   })
 
   observeEvent(input$refreshIndex, {

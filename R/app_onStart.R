@@ -74,6 +74,7 @@ app_onstart <- function() {
 
   startup_settings <<- read_milQuant_settings()
 
-  print("SHINY READY")
+  message(paste(crayon::cyan(crayon::bold("!     ")),
+                crayon::bold("Loaded all data, milQuant will start now.")))
 
 }
