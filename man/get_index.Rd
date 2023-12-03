@@ -2,13 +2,17 @@
 % Please edit documentation in R/funs_global_get_data.R
 \name{get_index}
 \alias{get_index}
-\title{get_index}
+\title{Download the index}
 \usage{
-get_index(source = login_connection())
+get_index(connection)
 }
 \arguments{
-\item{source}{}
+\item{connection}{an object as returned by \code{idaifieldR::connect_idaifield()}}
+}
+\value{
+a data.frame with the index
 }
 \description{
-get_index
+Get the index from a project db using a connection object with
+\code{idaifieldR::get_field_index()} and prepares it for use in milQuant.
 }

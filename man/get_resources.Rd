@@ -4,7 +4,7 @@
 \alias{get_resources}
 \title{get_resources}
 \usage{
-get_resources(resource_category = find_categories)
+get_resources(resource_category = "Pottery", fields = "all")
 }
 \arguments{
 \item{resource_category}{}

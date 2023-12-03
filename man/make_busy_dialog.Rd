@@ -2,10 +2,15 @@
 % Please edit documentation in R/ui_modals.R
 \name{make_busy_dialog}
 \alias{make_busy_dialog}
-\title{Title}
+\title{Produce the modal which is used to indicate that the Index is loaded}
 \usage{
-make_busy_dialog()
+make_busy_dialog(project = "")
+}
+\value{
+UI-Element modalDialog()
 }
 \description{
-Title
+The modal pops up on Startup and prompts
+IP-Adress and Password (as well as username,
+but that is currently optional.)
 }
