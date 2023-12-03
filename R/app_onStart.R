@@ -50,16 +50,11 @@ app_onstart <- function() {
                            "analysisMethod", "localization")
 
 
-  periods <- readRDS(system.file(package = "milQuant", mustWork = TRUE,
-                                 "extdata/milet-periods.RDS"))
-  periods <- c(names(periods[[1]]), "multiple", "unbestimmt")
-  periods <<- factor(periods,
-                     levels = periods,
-                     ordered = TRUE)
+  data("milQuant_periods")
+  periods <<- milQuant_periods$order
 
   #period_colors <- read.csv("external/period_colors.csv", header = FALSE)[,1]
-  period_colors <- viridis::viridis_pal(option = "D")(length(periods)-2)
-  period_colors <<- c(period_colors, "#cd2436", "#a6a6a6")
+  period_colors <<- unname(unlist(milQuant_periods$colors))
 
   scale_fill_period <<- function(ncol = 9) {
     scale_fill_manual(values = period_colors,
