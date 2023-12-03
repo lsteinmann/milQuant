@@ -1,3 +1,58 @@
+#' Alternative to gather trenches for milQuant
+#'
+#'
+# connection <- connect_idaifield(project = "milet", pwd = "hallo")
+# uidlist <- get_field_index(connection)
+
+alt_gather_trenches <- function(uidlist) {
+  gather_mat <- as.data.frame(matrix(ncol = 1, nrow = nrow(uidlist)))
+  colnames(gather_mat) <- c("identifier")
+
+  places <- uidlist$identifier[which(uidlist$category == "Place")]
+
+  gather_mat$identifier <- uidlist$identifier
+  gather_mat$category <- uidlist$category
+
+  parents <- ifelse(is.na(uidlist$isRecordedIn),
+                    uidlist$liesWithin,
+                    uidlist$isRecordedIn)
+  gather_mat$Operation <- parents
+  parents <- unique(parents)
+  par_indices <- match(parents, uidlist$identifier)
+  parents <- data.frame("parent" = parents,
+                        "parent_category" = uidlist$category[par_indices])
+
+  parents$container <- ifelse(is.na(uidlist$isRecordedIn[par_indices]),
+                              uidlist$liesWithin[par_indices],
+                              uidlist$isRecordedIn[par_indices])
+
+  # all parents that are an operation on project level should be their own "place"
+  operation_categories <- getOption("idaifield_categories")$operations
+  ind <- is.na(parents$container) & parents$parent_category %in% operation_categories
+  parents$container <- ifelse(ind, parents$parent, parents$container)
+
+  catalog_categories <- getOption("idaifield_categories")$catalogues
+  ind <- parents$parent_category %in% catalog_categories
+  parents$container <- ifelse(ind, "TypeCatalog", parents$container)
+
+  gather_mat$Place <- parents$container[match(gather_mat$Operation, parents$parent)]
+
+  img <- c("Image", "Drawing", "Photo")
+  gather_mat$Place <- ifelse(gather_mat$category %in% img, "Images", gather_mat$Place)
+  gather_mat$Operation <- ifelse(gather_mat$category %in% img,
+                                 gather_mat$category,
+                                 gather_mat$Operation)
+
+  gather_mat$Place <- ifelse(is.na(gather_mat$Place),
+                             parents$container[match(gather_mat$identifier, parents$parent)],
+                             gather_mat$Place)
+
+  gather_mat$category <- NULL
+
+  return(gather_mat)
+}
+
+
 #' Download the index
 #'
 #' Get the index from a project db using a connection object with
@@ -8,24 +63,24 @@
 #' @return a data.frame with the index
 #'
 #' @export
-get_index <- function(connection = "") {
+get_index <- function(connection) {
   options(digits = 20)
 
   index <- get_field_index(connection,
                            verbose = TRUE,
-                           gather_trenches = TRUE) %>%
-    mutate(Operation = ifelse(is.na(isRecordedIn),
-                              liesWithin,
-                              isRecordedIn)) %>%
-    mutate(Operation = ifelse(category %in% c("Type", "TypeCatalog"),
-                              "Typenkatalog",
-                              Operation)) %>%
-    mutate(Place = ifelse(category %in% c("Type", "TypeCatalog"),
-                          "Typenkatalog",
-                          Place)) %>%
-    mutate(Operation = ifelse(is.na(Operation),
-                              "none",
-                              Operation))
+                           find_layers = TRUE,
+                           gather_trenches = FALSE)
+  index <- index %>%
+    left_join(alt_gather_trenches(index))
+
+
+  # everything will need an individual fix for surveys or the plots will
+  # never work!
+  # which(index$category == "Survey")
+  # TODO: get all items that are recorded in a survey and make SurveyArea the
+  # value in "isRecordedIn" while SurveyUnit is the value in "liesWithin"
+  # .... probably.
+
   return(index)
 }
 
