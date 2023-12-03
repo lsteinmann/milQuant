@@ -12,6 +12,7 @@ Description: The milQuant-Shiny Dashboard provides quick quantitative
     visualizations for the project focused on find-resources.
 License: GPL (>= 3)
 Depends: 
+    crayon,
     datplot,
     dplyr,
     DT,

@@ -1,5 +1,6 @@
 # milQuant 2.0.0 _wip_
 * Restructure the app as a package.
+* Generic Bar Chart and Aoristic Density graphs are now included instead of split tabs linked in the sidebar. 
 
 
 # milQuant 1.1.0 _2023-11-23_

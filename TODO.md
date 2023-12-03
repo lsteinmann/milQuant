@@ -1,7 +1,6 @@
 # TODO list 
 
 # UI
-* Add Aoristic Tab
 * add Pottery + Pottery Quant tabs with more love
 * add Brick + Brick Quant tabs with more love
 

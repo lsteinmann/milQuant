@@ -5,7 +5,6 @@
 #' @param session
 app_server <- function(input, output, session) {
 
-  validate <- function(x, ...) { shiny::validate(x, ...) }
   # % -------------------------------------------------------------Connection
 
   #session <- getDefaultReactiveDomain()
