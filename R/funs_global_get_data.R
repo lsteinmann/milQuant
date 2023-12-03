@@ -180,7 +180,8 @@ get_list_of_places_with_finds <- function(index) {
 
   tmp_places <- tmp_places[!is.na(tmp_places)]
   places <- sort(tmp_places)
-  return(tmp_places)
+
+  return(places)
 }
 
 #' Compiles a vector of Operations in the selected Place
@@ -206,7 +207,7 @@ get_list_of_operations_in_places <- function(index, selected_places) {
   }
 
   tmp_operation <- tmp_operation[!is.na(tmp_operation)]
-  operation <- sort(tmp_operation)
-  return(tmp_operation)
-}
+  operations <- sort(tmp_operation)
 
+  return(operations)
+}
