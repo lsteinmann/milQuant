@@ -81,7 +81,7 @@ mod_barchart_finds_serv <- function(id, resource_category) {
           need(is.data.frame(react_index()), "No Trenches and/or Places selected."),
           need(input$selected_categories, "No Categories selected.")
         )
-        db_settings$selected_categories <- input$selected_categories
+        db_selected_categories(input$selected_categories)
 
         resources <- get_resources(resource_category = input$selected_categories) %>%
           remove_na_cols() %>%

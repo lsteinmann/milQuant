@@ -78,7 +78,7 @@ db_activity_server <- function(id) {
 
       plot_data <- reactive({
         uuids <- react_index() %>%
-          filter(isRecordedIn %in% db_settings$selected_operations) %>%
+          filter(isRecordedIn %in% db_selected_operations()) %>%
           pull(identifier) %>%
           unique()
 
