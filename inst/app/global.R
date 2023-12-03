@@ -69,12 +69,6 @@ scale_fill_period <<- function(ncol = 9) {
                                          byrow = TRUE))
 }
 
-find_categories <<- c("Find", "Pottery", "Lamp", "Loomweight",
-                      "Terracotta", "Brick", "Bone", "Glass", "Metal",
-                      "Stone", "Wood", "Coin", "PlasterFragment",
-                      "Mollusk", "Sculpture")
-quant_categories <<- c("Quantification", "Pottery_Quantification_A",
-                       "Pottery_Quantification_B", "QuantMollusks",
-                       "Brick_Quantification", "PlasterQuantification")
+
 
 selection_settings <<- read_milQuant_settings()

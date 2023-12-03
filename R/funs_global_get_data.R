@@ -117,8 +117,9 @@ get_resources <- function(resource_category = find_categories) {
 #' @return a vector of Place identifiers
 #' @export
 get_list_of_places_with_finds <- function(index) {
+  data("milQuant_cats")
   tmp_places <- index %>%
-    filter(category %in% c(find_categories, quant_categories)) %>%
+    filter(category %in% c(milQuant_cats$Finds, milQuant_cats$Quantifications)) %>%
     pull(Place) %>%
     unique()
 

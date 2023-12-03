@@ -15,7 +15,8 @@ app_server <- function(input, output, session) {
   projects <- reactiveVal()
   db_settings <<- reactiveValues(selected_project = NA,
                                  selected_places = NA,
-                                 selected_operations = NA)
+                                 selected_operations = NA,
+                                 selected_categories = NA)
 
 
   # define the ui of the login modal
