@@ -95,7 +95,7 @@ get_index <- function(connection) {
 #'
 #' @examples
 idf_uid_query <- function(login_connection, uids) {
-  message("Started the query...")
+  message(milQ_message("Started the query..."))
   query <- paste('{ "selector": { "_id": { "$in": [',
                  paste0('"', uids, '"', collapse = ", "),
                  '] } }}',
@@ -139,7 +139,6 @@ idf_uid_query <- function(login_connection, uids) {
 #' @export
 #'
 #' @examples
-  message("Invalidating and querying DB now:")
 # conn <- connect_idaifield(project = "milet", pwd = "hallo")
 # index <- get_field_index(conn)
 # index <- index %>% left_join(alt_gather_trenches(index))
@@ -150,6 +149,7 @@ idf_uid_query <- function(login_connection, uids) {
 # fields <- c("period", "dating")
 # uids <- unique(index$UID)
 get_resources <- function(resource_category = "Pottery", fields = "all") {
+  message(milQ_message("Invalidating and querying DB now:"))
   uids <- react_index() %>%
     filter(isRecordedIn %in% db_selected_operations()) %>%
     filter(category %in% resource_category) %>%
@@ -185,7 +185,7 @@ get_resources <- function(resource_category = "Pottery", fields = "all") {
                        replace_uids = TRUE) %>%
     prep_for_shiny(reorder_periods = reorder_periods)
 
-  message("Done.")
+  message(milQ_message("Done."))
   return(result)
 }
 
@@ -240,3 +240,4 @@ get_list_of_operations_in_places <- function(index, selected_places) {
 
   return(operations)
 }
+

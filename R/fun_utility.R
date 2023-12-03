@@ -1,3 +1,29 @@
+#' Make warnings more visible
+#'
+#' @param msg
+#'
+#' @return
+#' @export
+#'
+#' @examples
+milQ_warning <- function(msg) {
+  msg <- paste(crayon::cyan("milQuant: "), crayon::red(crayon::bold("!  ")), msg)
+  msg
+}
+
+#' Make messages more visible
+#'
+#' @param msg
+#'
+#' @return
+#' @export
+#'
+#' @examples
+milQ_message <- function(msg) {
+  msg <- paste(crayon::cyan("milQuant: "), crayon::white(crayon::bold("i  ")), msg)
+  msg
+}
+
 #' Helper to remove columns that are empty
 #'
 #' @param data

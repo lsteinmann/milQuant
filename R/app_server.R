@@ -73,14 +73,14 @@ app_server <- function(input, output, session) {
               with Data from Field, {input$tab_connect.user}!")
         )
       shinyjs::show("welcome_div") # show welcome message
-      message("Success! Can connect to Field.")
+      message(milQ_message("Success! Can connect to Field."))
     } else if (ping == FALSE) {
-      message("Failed! Can't connect to Field:")
+      message(milQ_warning("Failed! Can't connect to Field:"))
       # display the message
       output$tab_connect.error_msg <- renderText(ping)
       shinyjs::show("tab_connect.error_msg")
     } else {
-      message("Something unexpected happened: ")
+      warning(milQ_warning("Something unexpected happened: "))
       # I have no idea what happened if this happens, but
       # it can't be right
       output$tab_connect.error_msg <- renderText(ping)
@@ -141,7 +141,7 @@ app_server <- function(input, output, session) {
       new_login_connection <- login_connection()
       new_login_connection$project <- input$selected_project
       login_connection(new_login_connection)
-      message("Success! Getting the Index:")
+      message(milQ_message("Success! Getting the Index:"))
 
       # THEN get the index.
       react_index(get_index(connection = login_connection()))
@@ -175,7 +175,7 @@ app_server <- function(input, output, session) {
   })
 
   observeEvent(input$refreshIndex, {
-    message("Fetching the Index again...")
+    message(milQ_message("Fetching the Index again..."))
     react_index(get_index(connection = login_connection()))
     message("Done.")
   })

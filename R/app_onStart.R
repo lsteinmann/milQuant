@@ -69,7 +69,5 @@ app_onstart <- function() {
 
   startup_settings <<- read_milQuant_settings()
 
-  message(paste(crayon::cyan(crayon::bold("!     ")),
-                crayon::bold("Loaded all data, milQuant will start now.")))
-
+  message(milQ_message("Loaded all data, milQuant will start now."))
 }
