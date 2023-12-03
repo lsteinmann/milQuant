@@ -73,7 +73,8 @@ mod_aoristic_finds_serv <- function(id) {
         )
         db_selected_categories(input$selected_categories)
 
-        resources <- get_resources(resource_category = input$selected_categories) %>%
+        resources <- get_resources(resource_category = input$selected_categories,
+                                   fields = c("period", "dating")) %>%
           remove_na_cols() %>%
           mutate_if(is.logical, list(~ifelse(is.na(.), FALSE, .))) %>%
           mutate_if(is.factor, list(~fct_na_value_to_level(., "N/A"))) %>%

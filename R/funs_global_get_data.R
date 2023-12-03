@@ -139,8 +139,17 @@ idf_uid_query <- function(login_connection, uids) {
 #' @export
 #'
 #' @examples
-get_resources <- function(resource_category = find_categories) {
   message("Invalidating and querying DB now:")
+# conn <- connect_idaifield(project = "milet", pwd = "hallo")
+# index <- get_field_index(conn)
+# index <- index %>% left_join(alt_gather_trenches(index))
+# react_index <- function() { index }
+# db_selected_operations <- function() { unique(index$isRecordedIn) }
+# db_selected_operations()
+# login_connection <- function () { conn }
+# fields <- c("period", "dating")
+# uids <- unique(index$UID)
+get_resources <- function(resource_category = "Pottery", fields = "all") {
   uids <- react_index() %>%
     filter(isRecordedIn %in% db_selected_operations()) %>%
     filter(category %in% resource_category) %>%
@@ -149,15 +158,35 @@ get_resources <- function(resource_category = find_categories) {
   message(paste0("Getting ", length(uids), " resources of category: ",
                  paste(resource_category, collapse = ", "), "..."))
 
-  selected <- idf_uid_query(login_connection(), uids)
+  q_selector <- paste0('"selector": { "resource.id": { "$in": [',
+                       paste0('"', uids, '"', collapse = ", "),
+                       '] } }')
+  if (length(fields) == 1 && fields == "all") {
+    f_selector <- ""
+  } else {
+    fields <- c("identifier", "category", "type",
+                "relations.liesWithin", "relations.isRecordedIn",
+                fields)
+    fields <- paste0("resource.", fields)
+    f_selector <- paste0(', "fields": [ ',
+                         paste0('"', fields, '"', collapse = ", "),
+                         ' ]')
+  }
+
+  query <- paste0('{ ', q_selector, f_selector, ' }')
+
+  selected <- idf_json_query(login_connection(), query = query)
+
   message("Processing data (simplify_idaifield(), prep_for_shiny()).\nMay point out possible problems:")
-  selected <- selected %>%
+  result <- selected %>%
     simplify_idaifield(uidlist = react_index(),
-                       keep_geometry = FALSE, replace_uids = TRUE) %>%
+                       keep_geometry = FALSE,
+                       find_layers = TRUE,
+                       replace_uids = TRUE) %>%
     prep_for_shiny(reorder_periods = reorder_periods)
 
   message("Done.")
-  selected
+  return(result)
 }
 
 
