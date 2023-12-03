@@ -30,24 +30,41 @@ mod_aoristic_finds_ui <- function(id, tabname) {
     ),
     fluidRow(
       box(
-        width = 3, height = 650,
+        width = 3, height = 700,
         textInput(inputId = ns("title"), label = "Title",
                   placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
         uiLayerSelector(ns("layers")),
-        selectInput(inputId = ns("fill_var"),
-                    label = "Choose a variable for the color:",
-                    choices = list(Category = "category",
-                                   Context = "relation.liesWithinLayer",
-                                   Trench = "Operation"),
-                    selected = "category"),
         switchInput(inputId = ns("derive_dating"),
                     label = "Derive Dating from Periods",
                     labelWidth = "150px",
                     size = "mini",
                     onStatus = "success",
-                    offStatus = "danger")
+                    offStatus = "danger"),
+        selectInput(inputId = ns("fill_var"),
+                    label = "Choose a variable for the color: ",
+                    choices = list(Category = "category",
+                                   Context = "relation.liesWithinLayer",
+                                   Trench = "Operation",
+                                   Place = "Place"),
+                    selected = "category"),
+        prettyCheckboxGroup(inputId = ns("plot_color"),
+                           label = "Seperate graph by variable for...",
+                           choices = list("Dating probability density" = "dens",
+                                          "Histogram of maximum number of objects" = "hist"),
+                           selected = "hist", status = "danger",
+                           fill = TRUE, bigger = TRUE,
+                           inline = FALSE, animation = "jelly"),
+        p("For information on this method see: "),
+        actionBttn(
+          inputId = "doi",
+          onclick = "window.open('https://doi.org/10.1017/aap.2021.8', '_blank')",
+          label = "10.1017/aap.2021.8",
+          style = "bordered",
+          color = "primary",
+          icon = icon("newspaper")
+        )
       ),
       box(
         width = 9, height = 700,
@@ -87,9 +104,8 @@ mod_aoristic_finds_serv <- function(id) {
 
         resources <- get_resources(resource_category = input$selected_categories,
                                    fields = c("period", "dating")) %>%
-          remove_na_cols() %>%
-          mutate_if(is.logical, list(~ifelse(is.na(.), FALSE, .))) %>%
-          mutate_if(is.factor, list(~fct_na_value_to_level(., "N/A"))) %>%
+          filter(!period == "unbestimmt") %>%
+          filter(!is.na(period) | !is.na(dating.complete)) %>%
           inner_join(react_index()[,c("identifier", "Operation", "Place")],
                      by = "identifier")
 
@@ -114,8 +130,7 @@ mod_aoristic_finds_serv <- function(id) {
         plot_data <- plot_data %>%
           filter(relation.liesWithinLayer %in% input$selected_layers) %>%
           select(identifier, input$fill_var, dating.min, dating.max) %>%
-          datsteps(stepsize = 1, calc = "prob", cumulative = TRUE) %>%
-          scaleweight(var = "all", val = "probability")
+          datsteps(stepsize = 1, calc = "prob", cumulative = TRUE)
 
 
         return(plot_data)
@@ -127,21 +142,72 @@ mod_aoristic_finds_serv <- function(id) {
           need(is.data.frame(plot_data()), "I am not getting the data!")
         )
 
-        dens <- density(plot_data()$DAT_step,
-                        weights = plot_data()$probability)
+        # calculate density depending on ...
+        if ("dens" %in% input$plot_color) {
+          split_data <- scaleweight(plot_data(), var = 2, val = "probability")
+          split_data <- split(split_data, f = plot_data()$variable)
+          split_data <- split_data[lapply(split_data, nrow) > 1]
+          dens <- lapply(split_data, function(x) {
+            density(x$DAT_step,
+                    weights = x$probability)
+          })
 
+          dens <- data.frame(
+            x = unlist(lapply(dens, "[[", "x")),
+            y = unlist(lapply(dens, "[[", "y")),
+            variable = rep(names(dens), each = length(dens[[1]]$x))
+          )
+        } else {
+          dens <- plot_data() %>%
+            scaleweight(var = "all", val = "probability")
+          dens <- density(dens$DAT_step,
+                    weights = dens$probability)
+        }
+
+        maxy <- max(dens$y) * 1.25
         miny <- 0
-        maxy <- max(dens$y)
 
-        fig <- plot_ly() %>%
-          add_histogram(data = plot_data(),
-                        x = ~DAT_step,
-                        color = ~variable,
-                        xbins = list(size = 1)) %>%
-          add_lines(data = dens,x = dens$x, y = dens$y,
-                    yaxis = "y2",
-                    name = "Probability Density",
-                    line = list(width = 3)) %>%
+        fig <- plot_ly()
+
+        # make the histogram
+        if ("hist" %in% input$plot_color) {
+          fig <- fig %>%
+            add_histogram(data = plot_data(),
+                          x = ~DAT_step,
+                          color = ~variable,
+                          xbins = list(size = 1),
+                          alpha = 0.6)
+        } else {
+          fig <- fig %>%
+            add_histogram(data = plot_data(),
+                          x = ~DAT_step,
+                          xbins = list(size = 1),
+                          alpha = 0.6)
+        }
+
+
+        # make the density plot
+        if ("dens" %in% input$plot_color) {
+          fig <- fig %>%
+            add_lines(data = dens,
+                      x = dens$x,
+                      y = dens$y,
+                      color = dens$variable,
+                      yaxis = "y2",
+                      name = dens$variable,
+                      line = list(width = 3))
+        } else {
+          fig <- fig %>%
+            add_lines(data = dens,
+                      x = dens$x,
+                      y = dens$y,
+                      yaxis = "y2",
+                      name = "Probability density",
+                      line = list(width = 3))
+        }
+
+
+        fig <- fig %>%
           layout(yaxis2 = list(overlaying = "y",
                                side = "right",
                                range = c(miny, maxy),
@@ -156,7 +222,8 @@ mod_aoristic_finds_serv <- function(id) {
 
         fig <- fig %>% layout(title = list(text = plot_title),
                               xaxis = list(title = "years BCE / CE"),
-                              yaxis = list(title = "maximum number of objects per year"))
+                              yaxis = list(title = "maximum number of objects per year"),
+                              yaxis2 = list(title = "density"))
 
 
         milquant_plotly_layout(fig, caption = caption)
