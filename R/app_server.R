@@ -178,10 +178,6 @@ app_server <- function(input, output, session) {
     removeModal()
   })
 
-  observeEvent(input$selected_project, {
-    # hide('load.success_msg')
-  })
-
   observeEvent(input$refreshIndex, {
     message("Fetching the Index again...")
     react_index(get_index(connection = login_connection()))
@@ -282,6 +278,7 @@ app_server <- function(input, output, session) {
 
   # Generic Plots
   mod_barchart_finds_serv("barchart_finds", resource_category = "Pottery")
+  #mod_aoristic_finds_serv("aoristic_finds", resource_category = "Pottery")
 
   # all other (automated) finds
 

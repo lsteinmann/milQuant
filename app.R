@@ -1,4 +1,5 @@
-
+shiny::reactlogReset()
+options(shiny.reactlog = TRUE)
 pkgload::load_all()
 milQuant::run_milQuant_app()
 milQuant:::devel_idf_version()
