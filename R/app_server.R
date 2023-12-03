@@ -13,6 +13,7 @@ app_server <- function(input, output, session) {
   # setup the two reactiveValues that will be used nearly everywhere
   login_connection <<- reactiveVal()
   projects <- reactiveVal()
+
   db_settings <<- reactiveValues(selected_project = NA,
                                  selected_places = NA,
                                  selected_operations = NA,
@@ -108,6 +109,7 @@ app_server <- function(input, output, session) {
     db_settings$selected_project <- tmp$selected_project
     db_settings$selected_places <- tmp$selected_places
     db_settings$selected_operations <- tmp$selected_operations
+    db_settings$selected_categories <- tmp$selected_categories
 
     output$project_selector <- renderUI({
       selectizeInput(inputId = "selected_project",
@@ -178,6 +180,7 @@ app_server <- function(input, output, session) {
     } else {
       reorder_periods <<- FALSE
     }
+    db_settings$selected_project <- input$selected_project
   })
 
   observeEvent(input$refreshIndex, {
@@ -189,6 +192,10 @@ app_server <- function(input, output, session) {
   #
   # % -------------------------------------------------------------DB Selection
 
+  observeEvent(input$selected_operations, {
+    db_settings$selected_places <- input$selected_places
+    db_settings$selected_operations <- input$selected_operations
+  })
 
 
   # Produces the List of Places to select from the reactive Index
@@ -249,7 +256,8 @@ app_server <- function(input, output, session) {
   observeEvent(input$close_app,{
     tmp <- list(selected_project = isolate(input$selected_project),
                 selected_places = isolate(input$selected_places),
-                selected_operations = isolate(input$selected_operations))
+                selected_operations = isolate(input$selected_operations),
+                selected_categories = isolate(db_settings$selected_categories))
     try(saveRDS(tmp, system.file(package = "milQuant", mustWork = TRUE,
                              "app/www/settings/db_settings.RDS")))
     print("Shiny: EXIT")
@@ -265,12 +273,7 @@ app_server <- function(input, output, session) {
 
   # % ----------------------------------------------------------------Modules
 
-  # store both values in the reactiveValues only when selected_operations
-  # is updated to avoid weird behaviour
-  eventReactive(input$selected_operations, {
-    db_settings$selected_places <- input$selected_places
-    db_settings$selected_operations <- input$selected_operations
-  })
+
 
 
   # server code only for overview pages

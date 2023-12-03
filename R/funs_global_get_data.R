@@ -142,7 +142,7 @@ idf_uid_query <- function(login_connection, uids) {
 get_resources <- function(resource_category = find_categories) {
   message("Invalidating and querying DB now:")
   uids <- react_index() %>%
-    filter(isRecordedIn %in% db_trenches()) %>%
+    filter(isRecordedIn %in% db_settings$selected_operations) %>%
     filter(category %in% resource_category) %>%
     pull(UID)
 
