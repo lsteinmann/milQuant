@@ -35,7 +35,13 @@ mod_aoristic_finds_ui <- function(id, tabname) {
                   placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
-        uiLayerSelector(ns("layers"))
+        uiLayerSelector(ns("layers")),
+        switchInput(inputId = ns("derive_dating"),
+                    label = "Derive Dating from Periods",
+                    labelWidth = "150px",
+                    size = "mini",
+                    onStatus = "success",
+                    offStatus = "danger")
       ),
       box(
         width = 9, height = 700,
@@ -92,7 +98,14 @@ mod_aoristic_finds_serv <- function(id) {
           need(is.data.frame(resources()), "Waiting for data...")
         )
 
-        plot_data <- resources() %>%
+        if (input$derive_dating) {
+          plot_data <- resources() %>%
+            derive_dating_from_periods()
+        } else {
+          plot_data <- resources()
+        }
+
+        plot_data <- plot_data %>%
           filter(relation.liesWithinLayer %in% input$selected_layers) %>%
           select(identifier, Operation, dating.min, dating.max) %>%
           datsteps(stepsize = 1, calc = "prob", cumulative = TRUE) %>%
