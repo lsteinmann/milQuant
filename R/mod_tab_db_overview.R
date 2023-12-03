@@ -13,60 +13,61 @@ db_overview_tab <- function(id, tabname) {
 
   tabItem(
     tabName = tabname,
-    title = "Overview",
-
+    title = "Project overview",
     fluidRow(
-      infoBox(
+      box(
+        width = 9, collapsible = TRUE,
+        style = "min-height:100px;",
+        title = "Plot options", solidHeader = TRUE,
+        column(
+          width = 4,
+          prettyRadioButtons(
+            inputId = ns("barmode"),
+            label = "Choose how to display the bars",
+            icon = icon("check"),
+            inline = TRUE, animation = "jelly",
+            choices = list("stacked" = "stack",
+                           "dodging" = "group"))
+        ),
+        column(
+          width = 4,
+          prettyRadioButtons(
+            inputId = ns("display_x"),
+            label = "Choose what to display on the x-axis",
+            icon = icon("check"),
+            inline = TRUE, animation = "jelly",
+            choices = list("Place" = "Place",
+                           "Operation" = "Operation",
+                           "Category" = "category"),
+            selected = "Place")
+        ),
+        column(
+          width = 4,
+          prettyRadioButtons(
+            inputId = ns("display_color"),
+            label = "Choose what to display as color",
+            icon = icon("check"),
+            inline = TRUE, animation = "jelly",
+            choices = list("Place" = "Place",
+                           "Operation" = "Operation",
+                           "Category" = "category"),
+            selected = "category")
+        )
+      ),
+      box(
         title = "Info",
-        value = "This is an overview of all resources in the selected database, excluding images and types.
-        All other tabs display resources from the selected Trenches.",
-        icon = icon("vial"),
-        color = "light-blue",
-        width = 10),
-      valueBox(
-        uiOutput(ns("overview_n")),
-        "Total Resources",
-        icon = icon("file"),
-        color = "light-blue",
-        width = 2)),
+        width = 3, background = "light-blue",
+        style = "min-height:100px;",
+        solidHeader = TRUE, collapsible = TRUE,
+        p(textOutput(ns("overview_info")))
+      )
+    ),
     fluidRow(
       box(title = "Overview", status = "primary",
           solidHeader = TRUE, collapsible = FALSE,
-          width = 12, height = 750,
-          fluidRow(width = 12, height = 670,
-                   column(width = 12,
-                          plotlyOutput(ns("display_plot"), height = 570) %>%
-                            mq_spinner())),
-
-          fluidRow(width = 12, height = 100,
-                   title = "Plot Controls",
-                   column(width = 1),
-                   column(width = 3,
-                          prettyRadioButtons(inputId = ns("barmode"),
-                                             label = "bar display",
-                                             icon = icon("check"),
-                                             inline = TRUE, animation = "jelly",
-                                             choices = list("stacked" = "stack",
-                                                            "dodging" = "group"))),
-                   column(width = 3,
-                          prettyRadioButtons(inputId = ns("display_x"),
-                                             label = "x-axis",
-                                             icon = icon("check"),
-                                             inline = TRUE, animation = "jelly",
-                                             choices = list("Place" = "Place",
-                                                            "Operation" = "Operation",
-                                                            "Category" = "category"),
-                                             selected = "Place")),
-                   column(width = 3,
-                          prettyRadioButtons(inputId = ns("display_color"),
-                                             label = "bar color",
-                                             icon = icon("check"),
-                                             inline = TRUE, animation = "jelly",
-                                             choices = list("Place" = "Place",
-                                                            "Operation" = "Operation",
-                                                            "Category" = "category"),
-                                             selected = "category")),
-                   column(width = 2))
+          width = 12, height = 700,
+          plotlyOutput(ns("display_plot"), height = 630) %>%
+            mq_spinner()
       )
     )
   )
@@ -82,7 +83,7 @@ db_overview_tab <- function(id, tabname) {
 #' @export
 #'
 #' @examples
-db_overview_server <- function(id) {
+db_overview_server <- function(id, project = "") {
 
   moduleServer(
     id,
@@ -91,11 +92,16 @@ db_overview_server <- function(id) {
       ns <- NS(id)
 
 
-      output$overview_n <- renderText({
+      output$overview_info <- renderText({
         validate(
           need(react_index(), "No project selected.")
         )
-        prettyNum(nrow(react_index()), big.mark = ",")
+        n <- prettyNum(nrow(react_index()), big.mark = ",")
+        text <- paste("This plot displays all", n, "resources in the",
+        db_settings$selected_project,
+        "project database, excluding images and types.",
+        "All other tabs display resources from the selected Operations.")
+        return(text)
       })
 
       output$display_plot <- renderPlotly({
