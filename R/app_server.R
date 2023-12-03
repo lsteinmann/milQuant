@@ -280,24 +280,9 @@ app_server <- function(input, output, session) {
   db_overview_server("db_overview")
   db_activity_server("db_activity")
 
-  worflow_tab_server("workflow")
 
-
-  # general finds plot
-  all_finds_server("all_finds")
-  basic_quant_server("all_finds_quant")
-
-  # server code for pottery form (single)
-  potteryQA_server("pottery_QA")
-  potteryQB_server("pottery_QB")
-
-  # server code for bricks
-  bricksQ_server("bricksQ_bar")
-
-  # server code for coins
-
-  # loomweights
-  loomweights_server("lw_hist")
+  # Generic Plots
+  mod_barchart_finds_serv("barchart_finds", resource_category = "Pottery")
 
   # all other (automated) finds
 

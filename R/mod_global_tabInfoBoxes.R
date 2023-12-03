@@ -6,21 +6,24 @@
 #' @export
 #'
 #' @examples
-tabInfoRow_ui <- function(id) {
 
+tabInfoBox_ui <- function(id, width = 10) {
   ns <- NS(id)
 
-  fluidRow(
-    infoBox(title = "Info", value = textOutput(ns("overview")),
-            icon = icon("list"),
-            color = "olive", width = 10),
-    valueBox(
-      uiOutput(ns("n")),
-      "Total Resources",
-      icon = icon("file"),
-      color = "olive",
-      width = 2)
-  )
+  infoBox(title = "Info", value = textOutput(ns("overview")),
+          icon = icon("list"),
+          color = "olive", width = width)
+}
+
+tabValueBox_ui <- function(id, width = 2) {
+  ns <- NS(id)
+
+  valueBox(
+    uiOutput(ns("n")),
+    "Total Resources",
+    icon = icon("file"),
+    color = "olive",
+    width = width)
 }
 
 #' Title
@@ -45,6 +48,9 @@ tabInfoRow_server <- function(id, tab_data) {
       })
 
       output$overview <- renderText({
+        validate(
+          need(is.data.frame(tab_data()), "Waiting for data...")
+        )
         n_layers <- length(unique(tab_data()$relation.liesWithinLayer))
         n_objects <- nrow(tab_data())
         paste("The selected trenches ", paste(db_settings$selected_operations, collapse = ", "),

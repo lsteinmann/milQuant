@@ -24,6 +24,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       uiOutput("place_selector"),
       uiOutput("operation_selector"),
       menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
+      menuItem("Bar Charts for Find Groups", tabName = "tab_barchart_finds", icon = icon("chart-bar")),
       menuItem("Issues / Contact", icon = icon("file-contract"),
                href = "https://github.com/lsteinmann/milQuant")
     )
@@ -43,7 +44,8 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
     tabItems(
       make_home_tab("tab_home"),
       db_overview_tab("db_overview", tabname = "db_overview_tab"),
-      db_activity_tab("db_activity", tabname = "db_activity_tab")
+      db_activity_tab("db_activity", tabname = "db_activity_tab"),
+      mod_barchart_finds_ui("barchart_finds", tabname = "tab_barchart_finds"),
 
       # others, grouped
     )
