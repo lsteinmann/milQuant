@@ -60,13 +60,12 @@ mod_barchart_finds_ui <- function(id, tabname) {
 #' Title
 #'
 #' @param id
-#' @param resource_category
 #'
 #' @return
 #' @export
 #'
 #' @examples
-mod_barchart_finds_serv <- function(id, resource_category) {
+mod_barchart_finds_serv <- function(id) {
 
   moduleServer(
     id,
