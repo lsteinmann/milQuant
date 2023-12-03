@@ -21,9 +21,9 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
                                           container = tags$p))),
       actionButton("refreshIndex", "Refresh Index", icon = icon("refresh")),
       menuItem("Project overview", tabName = "db_overview_tab", icon = icon("graduation-cap")),
-      menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
       uiOutput("place_selector"),
       uiOutput("operation_selector"),
+      menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
       menuItem("Issues / Contact", icon = icon("file-contract"),
                href = "https://github.com/lsteinmann/milQuant")
     )

@@ -5,10 +5,10 @@ db_activity_tab <- function(id, tabname) {
   tabItem(
     tabName = tabname,
     title = "Project database activity",
-
     fluidRow(
       box(
         width = 9, collapsible = TRUE,
+        style = "min-height:100px;",
         title = "Plot options", solidHeader = TRUE,
         column(
           width = 4,
@@ -40,6 +40,7 @@ db_activity_tab <- function(id, tabname) {
         title = "Last changed",
         width = 3, background = "light-blue",
         solidHeader = TRUE, collapsible = TRUE,
+        style = "min-height:100px;",
         "The last 10 changes were made to: ",
         textOutput(ns("last_ten_changes")))
     ),
@@ -47,8 +48,8 @@ db_activity_tab <- function(id, tabname) {
       box(
         title = "Recent database activity", status = "primary",
         solidHeader = TRUE, collapsible = FALSE,
-        width = 12, height = 750,
-        plotlyOutput(ns("display_plot"), height = 570) %>%
+        width = 12, height = 700,
+        plotlyOutput(ns("display_plot"), height = 630) %>%
           mq_spinner()
       )
     )
@@ -66,7 +67,7 @@ db_activity_server <- function(id) {
       latest_changed_resources <- reactive({
         validate(
           need(login_connection(), "Not connected."),
-          need(react_index(), "No project selected.")
+          need(react_index(), "No project loaded.")
         )
         idf_last_changed(login_connection(), index = react_index(), n = 10)
       })
@@ -76,8 +77,13 @@ db_activity_server <- function(id) {
       )
 
       plot_data <- reactive({
+        uuids <- react_index() %>%
+          filter(isRecordedIn %in% db_settings$selected_operations) %>%
+          pull(identifier) %>%
+          unique()
+
         plot_data <- idf_get_changes(connection = login_connection(),
-                                     ids = unique(react_index()$identifier)) %>%
+                                     ids = uuids) %>%
           mutate(date = as.Date(date)) %>%
           left_join(react_index(), by = "identifier")
         return(plot_data)
