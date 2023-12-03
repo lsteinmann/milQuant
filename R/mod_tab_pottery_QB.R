@@ -7,14 +7,13 @@
 #' @export
 #'
 #' @examples
-potteryQB_tab <- function(id, tabname) {
+mod_pottery_QB_ui <- function(id, tabname) {
 
   ns <- NS(id)
 
   tabItem(
     tabName = tabname,
     h1("Pottery Quantification B"),
-    tabInfoRow_ui(ns("info")),
     fluidRow(
       box(
         width = 3, height = 650,
@@ -55,13 +54,12 @@ potteryQB_tab <- function(id, tabname) {
 #' Title
 #'
 #' @param id
-#' @param resource_category
 #'
 #' @return
 #' @export
 #'
 #' @examples
-potteryQB_server <- function(id, resource_category) {
+mod_pottery_QB_serv <- function(id) {
 
   moduleServer(
     id,
@@ -79,8 +77,6 @@ potteryQB_server <- function(id, resource_category) {
           remove_na_cols()
         return(potteryQB)
       })
-
-      tabInfoRow_server("info", tab_data = potteryQB)
 
       generateLayerSelector("layers", potteryQB, inputid = ns("selected_layers"))
 

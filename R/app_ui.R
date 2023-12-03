@@ -26,6 +26,14 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
       menuItem("Bar Charts for Find Groups", tabName = "tab_barchart_finds", icon = icon("chart-bar")),
       menuItem("Aoristic Density Plots", tabName = "tab_aoristic_finds", icon = icon("chart-area")),
+      menuItem("Pottery", tabName = "tab_pottery_all", icon = icon("trophy"),
+               menuSubItem("Pottery (single)", tabName = "tab_pottery_single",
+                           icon = icon("martini-glass-empty")),
+               menuSubItem("Pottery Quantification A", tabName = "tab_potteryQA",
+                           icon = icon("champagne-glasses")),
+               menuSubItem("Pottery Quantification B", tabName = "tab_potteryQB",
+                           icon = icon("champagne-glasses"))
+      ),
       menuItem("Issues / Contact", icon = icon("file-contract"),
                href = "https://github.com/lsteinmann/milQuant")
     )
@@ -47,7 +55,10 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       db_overview_tab("db_overview", tabname = "db_overview_tab"),
       db_activity_tab("db_activity", tabname = "db_activity_tab"),
       mod_barchart_finds_ui("barchart_finds", tabname = "tab_barchart_finds"),
-      mod_aoristic_finds_ui("aoristic_finds", tabname = "tab_aoristic_finds")
+      mod_aoristic_finds_ui("aoristic_finds", tabname = "tab_aoristic_finds"),
+      mod_pottery_single_ui("pottery_single", tabname = "tab_pottery_single"),
+      mod_pottery_QA_ui("pottery_QA", tabname = "tab_potteryQA"),
+      mod_pottery_QB_ui("pottery_QB", tabname = "tab_potteryQB")
     )
   )
 

@@ -268,6 +268,9 @@ app_server <- function(input, output, session) {
   # Generic Plots
   mod_barchart_finds_serv("barchart_finds")
   mod_aoristic_finds_serv("aoristic_finds")
+  mod_pottery_single_serv("pottery_single")
+  mod_pottery_QA_serv("pottery_QA")
+  mod_pottery_QB_serv("pottery_QB")
 
   # all other (automated) finds
 
