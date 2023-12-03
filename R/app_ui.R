@@ -45,7 +45,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       make_home_tab("tab_home"),
       db_overview_tab("db_overview", tabname = "db_overview_tab"),
       db_activity_tab("db_activity", tabname = "db_activity_tab"),
-      mod_barchart_finds_ui("barchart_finds", tabname = "tab_barchart_finds"),
+      mod_barchart_finds_ui("barchart_finds", tabname = "tab_barchart_finds")
 
       # others, grouped
     )

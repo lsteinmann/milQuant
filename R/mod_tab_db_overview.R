@@ -98,7 +98,7 @@ db_overview_server <- function(id, project = "") {
         )
         n <- prettyNum(nrow(react_index()), big.mark = ",")
         text <- paste("This plot displays all", n, "resources in the",
-        db_settings$selected_project,
+        db_selected_project(),
         "project database, excluding images and types.",
         "All other tabs display resources from the selected Operations.")
         return(text)

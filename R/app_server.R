@@ -14,10 +14,12 @@ app_server <- function(input, output, session) {
   login_connection <<- reactiveVal()
   projects <- reactiveVal()
 
-  db_settings <<- reactiveValues(selected_project = NA,
-                                 selected_places = NA,
-                                 selected_operations = NA,
-                                 selected_categories = NA)
+  db_selected_project <<- reactive({ input$selected_project })
+  db_selected_places <<- reactive({ input$selected_places }) %>%
+    debounce(500)
+  db_selected_operations <<- reactive({ input$selected_operations }) %>%
+    debounce(2000)
+  db_selected_categories <<- reactiveVal(NA)
 
 
   # define the ui of the login modal
@@ -105,11 +107,6 @@ app_server <- function(input, output, session) {
       need(projects(), "Project list not available.")
     )
 
-    db_settings$selected_project <- startup_settings$selected_project
-    db_settings$selected_places <- startup_settings$selected_places
-    db_settings$selected_operations <- startup_settings$selected_operations
-    db_settings$selected_categories <- startup_settings$selected_categories
-
     output$project_selector <- renderUI({
       selectizeInput(inputId = "selected_project",
                      label = "Choose a Project to work with",
@@ -156,7 +153,6 @@ app_server <- function(input, output, session) {
       shinyjs::show("load.success_msg")
 
       output$current_project <- renderText({input$selected_project})
-      db_settings$selected_project <- input$selected_project
 
       is_milet <<- input$selected_project %in% c("milet", "milet-test")
       if (is_milet) {
@@ -190,12 +186,6 @@ app_server <- function(input, output, session) {
 
   #
   # % -------------------------------------------------------------DB Selection
-
-  observeEvent(input$selected_operations, {
-    db_settings$selected_places <- input$selected_places
-    db_settings$selected_operations <- input$selected_operations
-  })
-
 
   # Produces the List of Places to select from the reactive Index
   # may not update when index is refreshed
@@ -253,10 +243,10 @@ app_server <- function(input, output, session) {
   # % ----------------------------------------------------------------On Exit
 
   observeEvent(input$close_app,{
-    tmp <- list(selected_project = isolate(db_settings$selected_project),
-                selected_places = isolate(db_settings$selected_places),
-                selected_operations = isolate(db_settings$selected_operations),
-                selected_categories = isolate(db_settings$selected_categories))
+    tmp <- list(selected_project = isolate(db_selected_project()),
+                selected_places = isolate(db_selected_places()),
+                selected_operations = isolate(db_selected_operations()),
+                selected_categories = isolate(db_selected_categories()))
     try(saveRDS(tmp, system.file(package = "milQuant", mustWork = TRUE,
                              "app/www/settings/db_settings.RDS")))
     print("Shiny: EXIT")
