@@ -105,17 +105,16 @@ app_server <- function(input, output, session) {
       need(projects(), "Project list not available.")
     )
 
-    tmp <- read_milQuant_settings()
-    db_settings$selected_project <- tmp$selected_project
-    db_settings$selected_places <- tmp$selected_places
-    db_settings$selected_operations <- tmp$selected_operations
-    db_settings$selected_categories <- tmp$selected_categories
+    db_settings$selected_project <- startup_settings$selected_project
+    db_settings$selected_places <- startup_settings$selected_places
+    db_settings$selected_operations <- startup_settings$selected_operations
+    db_settings$selected_categories <- startup_settings$selected_categories
 
     output$project_selector <- renderUI({
       selectizeInput(inputId = "selected_project",
                      label = "Choose a Project to work with",
                      choices = projects(), multiple = FALSE,
-                     selected = db_settings$selected_project,
+                     selected = startup_settings$selected_project,
                      options = list(
                        placeholder = "Please select an option below")
       )
@@ -180,7 +179,6 @@ app_server <- function(input, output, session) {
     } else {
       reorder_periods <<- FALSE
     }
-    db_settings$selected_project <- input$selected_project
   })
 
   observeEvent(input$refreshIndex, {
@@ -226,7 +224,7 @@ app_server <- function(input, output, session) {
     pickerInput(inputId = "selected_places",
                 label = "Choose one or more Places to work with",
                 choices = available_places(),
-                selected = db_settings$selected_places,
+                selected = startup_settings$selected_places,
                 multiple = TRUE,
                 options = list("actions-box" = TRUE,
                                "live-search" = TRUE,
@@ -242,7 +240,7 @@ app_server <- function(input, output, session) {
     pickerInput(inputId = "selected_operations",
                 label = "Choose one or more Operations (Trenches, Surveys) to work with",
                 choices = available_operations(),
-                selected = db_settings$selected_operations,
+                selected = startup_settings$selected_operations,
                 multiple = TRUE,
                 options = list("actions-box" = TRUE,
                                "live-search" = TRUE,
@@ -254,9 +252,9 @@ app_server <- function(input, output, session) {
   # % ----------------------------------------------------------------On Exit
 
   observeEvent(input$close_app,{
-    tmp <- list(selected_project = isolate(input$selected_project),
-                selected_places = isolate(input$selected_places),
-                selected_operations = isolate(input$selected_operations),
+    tmp <- list(selected_project = isolate(db_settings$selected_project),
+                selected_places = isolate(db_settings$selected_places),
+                selected_operations = isolate(db_settings$selected_operations),
                 selected_categories = isolate(db_settings$selected_categories))
     try(saveRDS(tmp, system.file(package = "milQuant", mustWork = TRUE,
                              "app/www/settings/db_settings.RDS")))

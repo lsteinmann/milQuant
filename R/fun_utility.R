@@ -29,7 +29,8 @@ read_milQuant_settings <- function() {
     warning(paste("Some error in read_milQuant_settings(): ", result))
     result <- list("selected_project" = NULL,
                    "selected_places" = NULL,
-                   "selected_trenches" = NULL)
+                   "selected_trenches" = NULL,
+                   "selected_categories" = NULL)
   }
   return(result)
 }
