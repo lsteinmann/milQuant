@@ -6,16 +6,14 @@
 #' @export
 #'
 #' @examples
-all_finds_tab <- function(id) {
+mod_finds_overview_ui <- function(id, tabname) {
 
   ns <- NS(id)
 
   tabItem(
-    tabName = "all_finds",
+    tabName = tabname,
 
     h1("Overview of all 'Find'-resources"),
-
-    tabInfoRow_ui(ns("info")),
 
     fluidRow(
       box(
@@ -61,7 +59,7 @@ all_finds_tab <- function(id) {
 #' @export
 #'
 #' @examples
-all_finds_server <- function(id) {
+mod_finds_overview_serv <- function(id) {
 
   moduleServer(
     id,
@@ -75,7 +73,9 @@ all_finds_server <- function(id) {
           need(is.data.frame(react_index()), "No Index available.")
         )
 
-        finds <- get_resources(resource_category = find_categories) %>%
+        data("milQuant_cats")
+
+        finds <- get_resources(resource_category = milQuant_cats$Find) %>%
           remove_na_cols() %>%
           mutate_if(is.logical, list(~ifelse(is.na(.), FALSE, .))) %>%
           mutate_if(is.factor, list(~fct_na_value_to_level(., "N/A"))) %>%
@@ -158,10 +158,7 @@ all_finds_server <- function(id) {
                        type = "bar",
                        source = "allfinds_plot",
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = paste0("<b>%{fullData.name}</b><br>",
-                                              "%{x}<br>",
-                                              "count: <b>%{y}</b><br>",
-                                              "<extra></extra>"))
+                       hovertemplate = milQuant_count_hovertemplate)
 
         legend_title <- ifelse(input$var_display == "var_is_fill",
                                input$secondary_var,

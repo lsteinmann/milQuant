@@ -265,9 +265,12 @@ app_server <- function(input, output, session) {
   db_activity_server("db_activity")
 
 
-  # Generic Plots
+  # Generic Plots for Finf Overview
+  mod_finds_overview_serv("finds_overview")
+  mod_finds_quant_serv("finds_quant")
   mod_barchart_finds_serv("barchart_finds")
   mod_aoristic_finds_serv("aoristic_finds")
+
   mod_pottery_single_serv("pottery_single")
   mod_pottery_QA_serv("pottery_QA")
   mod_pottery_QB_serv("pottery_QB")

@@ -24,8 +24,11 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       uiOutput("place_selector"),
       uiOutput("operation_selector"),
       menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
-      menuItem("Bar Charts for Find Groups", tabName = "tab_barchart_finds", icon = icon("chart-bar")),
-      menuItem("Aoristic Density Plots", tabName = "tab_aoristic_finds", icon = icon("chart-area")),
+      menuItem("Find Overview", tabName = "tab_all_finds", icon = icon("magnifying-glass-chart"),
+               menuSubItem("Inventoried Finds", tabName = "tab_finds_overview", icon = icon("ranking-star")),
+               menuSubItem("Quantifications", tabName = "tab_finds_quant", icon = icon("chart-simple")),
+               menuSubItem("Bar Charts for Find Groups", tabName = "tab_barchart_finds", icon = icon("chart-column")),
+               menuSubItem("Aoristic Density Plots", tabName = "tab_aoristic_finds", icon = icon("chart-area"))),
       menuItem("Pottery", tabName = "tab_pottery_all", icon = icon("trophy"),
                menuSubItem("Pottery (single)", tabName = "tab_pottery_single",
                            icon = icon("martini-glass-empty")),
@@ -54,8 +57,14 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       make_home_tab("tab_home"),
       db_overview_tab("db_overview", tabname = "db_overview_tab"),
       db_activity_tab("db_activity", tabname = "db_activity_tab"),
+
+      # generic and overview of all finds
+      mod_finds_overview_ui("finds_overview", tabname = "tab_finds_overview"),
+      mod_finds_quant_ui("finds_quant", tabname = "tab_finds_quant"),
       mod_barchart_finds_ui("barchart_finds", tabname = "tab_barchart_finds"),
       mod_aoristic_finds_ui("aoristic_finds", tabname = "tab_aoristic_finds"),
+
+      # pottery
       mod_pottery_single_ui("pottery_single", tabname = "tab_pottery_single"),
       mod_pottery_QA_ui("pottery_QA", tabname = "tab_potteryQA"),
       mod_pottery_QB_ui("pottery_QB", tabname = "tab_potteryQB")

@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-basic_quant_tab <- function(id, tabname) {
+mod_finds_quant_ui <- function(id, tabname) {
 
   ns <- NS(id)
 
@@ -18,7 +18,7 @@ basic_quant_tab <- function(id, tabname) {
 
     fluidRow(
       box(
-        width = 3, height = 650,
+        width = 3, height = 700,
         textInput(inputId = ns("title"), label = "Title",
                   placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
@@ -59,13 +59,12 @@ basic_quant_tab <- function(id, tabname) {
 #' Title
 #'
 #' @param id
-#' @param resource_category
 #'
 #' @return
 #' @export
 #'
 #' @examples
-basic_quant_server <- function(id, resource_category) {
+mod_finds_quant_serv <- function(id) {
 
   moduleServer(
     id,
@@ -88,7 +87,9 @@ basic_quant_server <- function(id, resource_category) {
                   "quantificationType",
                   "countTotal", "weightTotal")
 
-        quants <- get_resources(resource_category = quant_cats) %>%
+        data("milQuant_cats")
+
+        quants <- get_resources(resource_category = milQuant_cats$Quantification) %>%
           select(all_of(keep)) %>%
           remove_na_cols() %>%
           droplevels() %>%
