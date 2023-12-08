@@ -14,8 +14,6 @@ mod_finds_quant_ui <- function(id, tabname) {
   tabItem(
     tabName = tabname,
 
-    h1("Overview of all Quantifications"),
-
     fluidRow(
       box(
         width = 3, height = 700,

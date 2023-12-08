@@ -13,8 +13,6 @@ mod_finds_overview_ui <- function(id, tabname) {
   tabItem(
     tabName = tabname,
 
-    h1("Overview of all 'Find'-resources"),
-
     fluidRow(
       box(
         width = 3, height = 700,

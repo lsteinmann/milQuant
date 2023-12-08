@@ -12,7 +12,7 @@ plotDataTable_ui <- function(id) {
 
   fluidRow(
     box(width = 12,
-        h1("Click a bar to display table of resources"),
+        h2("Click a bar to display table of resources"),
         htmlOutput(ns("column_selector")),
         dataTableOutput(ns("clickDataTable"))
     )

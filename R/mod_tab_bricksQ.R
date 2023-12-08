@@ -13,12 +13,11 @@ bricksQ_tab <- function(id) {
   tabItem(
     tabName = "bricksQ_tab",
 
-    h1("Quantification of Bricks, Tiles and Pipes"),
-
     tabInfoRow_ui(ns("info")),
 
     fluidRow(
       box(
+        h3("Quantification of Bricks, Tiles and Pipes"),
         width = 3, height = 700,
         textInput(inputId = ns("title"), label = "Title",
                   value = "Quantification of Bricks, Tiles and Pipes"),

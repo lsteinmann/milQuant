@@ -13,8 +13,6 @@ loomweights_tab <- function(id) {
   tabItem(
     tabName = "loomweights_hist_tab",
 
-    h1("Weight-Histogram of 'Loomweight'-resources"),
-
     tabInfoRow_ui(ns("info")),
 
     fluidRow(

@@ -13,7 +13,7 @@ mod_pottery_QA_ui <- function(id, tabname) {
 
   tabItem(
     tabName = tabname,
-    h1("Pottery Quantification A"),
+
     fluidRow(
       box(
         width = 3, height = 650,
