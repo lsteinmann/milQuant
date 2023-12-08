@@ -5,9 +5,10 @@
 #'
 #' @examples
 devel_idf_version <- function () {
-  idfdevel <- grepl("9000", getNamespaceVersion("idaifieldR"))
+  idfdevel <- grepl("90", getNamespaceVersion("idaifieldR"))
   check <- check_idaifieldr_version(getNamespaceVersion("idaifieldR"))
-  if (idfdevel) {
+
+  if (idfdevel == TRUE) {
     msg <- paste(crayon::bold("You are working with a development-version of idaifieldR!"),
                  "Be sure to publish it before you publish milQuant.")
     msg <- msg %>%
@@ -15,7 +16,7 @@ devel_idf_version <- function () {
       crayon::bgRed()
     warning(msg)
     return(FALSE)
-  } else if (check) {
+  } else if (check == TRUE) {
     msg <- paste0(crayon::bold("You are working with idaifieldR v",
                                getNamespaceVersion("idaifieldR"), ". ",
                                "That is not the current release!"))
@@ -28,4 +29,3 @@ devel_idf_version <- function () {
     return(TRUE)
   }
 }
-
