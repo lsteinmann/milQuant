@@ -154,10 +154,7 @@ loomweights_server <- function(id) {
                        #histnorm = input$lw_histnorm,
                        source = "loomweights_histogram",
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = paste0("<b>%{fullData.name}</b><br>",
-                                              "%{x}<br>",
-                                              "count: <b>%{y}</b><br>",
-                                              "<extra></extra>"))
+                       hovertemplate = milQuant_count_hovertemplate)
 
         legend_title <- names(color_var_choices[which(color_var_choices == color_var())])
 

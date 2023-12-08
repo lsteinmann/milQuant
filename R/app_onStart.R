@@ -69,5 +69,10 @@ app_onstart <- function() {
 
   startup_settings <<- read_milQuant_settings()
 
+  milQuant_count_hovertemplate <<- paste0("<b>%{fullData.name}</b><br>",
+                                          "%{x}<br>",
+                                          "count: <b>%{y}</b><br>",
+                                          "<extra></extra>")
+
   message(milQ_message("Loaded all data, milQuant will start now."))
 }

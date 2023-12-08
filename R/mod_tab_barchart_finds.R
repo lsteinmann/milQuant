@@ -186,10 +186,7 @@ mod_barchart_finds_serv <- function(id) {
                        color = ~color, customdata = ~color,
                        type = "bar", source = ns("plot"),
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = paste0("<b>%{fullData.name}</b><br>",
-                                              "%{x}<br>",
-                                              "count: <b>%{y}</b><br>",
-                                              "<extra></extra>"))
+                       hovertemplate = milQuant_count_hovertemplate)
 
         fig <- fig %>% event_register('plotly_click')
 
