@@ -14,7 +14,7 @@ plotDataTable_ui <- function(id) {
     box(width = 12,
         h2("Click a bar to display table of resources"),
         htmlOutput(ns("column_selector")),
-        dataTableOutput(ns("clickDataTable"))
+        DTOutput(ns("clickDataTable"))
     )
   )
 }
@@ -56,7 +56,7 @@ plotDataTable_server <- function(id, resources, click_data, x, customdata) {
         )
       })
 
-      output$clickDataTable <- renderDataTable({
+      output$clickDataTable <- renderDT({
 
         if (is.null(click_data())) {
           resources() %>%

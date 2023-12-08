@@ -24,6 +24,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       uiOutput("place_selector"),
       uiOutput("operation_selector"),
       menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
+      menuItem("Workflow", tabName = "tab_workflow", icon = icon("gears")),
       menuItem("Find Overview", tabName = "tab_all_finds", icon = icon("magnifying-glass-chart"),
                menuSubItem("Inventoried Finds", tabName = "tab_finds_overview", icon = icon("ranking-star")),
                menuSubItem("Quantifications", tabName = "tab_finds_quant", icon = icon("chart-simple")),
@@ -57,6 +58,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       make_home_tab("tab_home"),
       db_overview_tab("db_overview", tabname = "db_overview_tab"),
       db_activity_tab("db_activity", tabname = "db_activity_tab"),
+      mod_worflow_ui("workflow", tabname = "tab_workflow"),
 
       # generic and overview of all finds
       mod_finds_overview_ui("finds_overview", tabname = "tab_finds_overview"),

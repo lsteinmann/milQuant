@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-worflow_tab <- function(id, tabname = "workflow_tab") {
+mod_worflow_ui <- function(id, tabname = NULL) {
 
   ns <- NS(id)
 
@@ -31,7 +31,7 @@ worflow_tab <- function(id, tabname = "workflow_tab") {
 #' @export
 #'
 #' @examples
-worflow_tab_server <- function(id, resource_category) {
+mod_worflow_serv <- function(id) {
 
   moduleServer(
     id,
@@ -50,7 +50,8 @@ worflow_tab_server <- function(id, resource_category) {
           need(is.data.frame(react_index()), "No Index available.")
         )
 
-        base_data <- get_resources(resource_category = find_categories) %>%
+        data("milQuant_cats")
+        base_data <- get_resources(resource_category = milQuant_cats$Find) %>%
           remove_na_cols() %>%
           select(any_of(wf_disp_cols()), contains("workflow")) %>%
           mutate_at(vars(contains("workflow")), ~ ifelse(is.na(.), FALSE, TRUE))
@@ -100,18 +101,18 @@ worflow_tab_server <- function(id, resource_category) {
                                          fluidRow(
                                            column(width = 12,
                                                   h3("Objects in the plot where this box has been checked: "),
-                                                  renderDataTable(workflow_data() %>%
-                                                                    filter(get(wfcol) == TRUE) %>%
-                                                                    select(any_of(wf_disp_cols()))
+                                                  renderDT(workflow_data() %>%
+                                                             filter(get(wfcol) == TRUE) %>%
+                                                             select(any_of(wf_disp_cols()))
                                                   )
                                            )
                                          ),
                                          fluidRow(
                                            column(width = 12,
                                                   h3("... and objects where it has not:"),
-                                                  renderDataTable(workflow_data() %>%
-                                                                    filter(get(wfcol) == FALSE) %>%
-                                                                    select(any_of(wf_disp_cols()))
+                                                  renderDT(workflow_data() %>%
+                                                             filter(get(wfcol) == FALSE) %>%
+                                                             select(any_of(wf_disp_cols()))
                                                   )
                                            )
                                          )
