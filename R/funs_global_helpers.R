@@ -10,7 +10,16 @@
 prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
   data <- data %>%
     idaifield_as_matrix() %>%
-    as.data.frame() %>%
+    as.data.frame()
+
+  if (is.null(data$relation.liesWithin)) {
+    data$relation.liesWithin <- NA
+  }
+  if (is.null(data$relation.liesWithinLayer)) {
+    data$relation.liesWithinLayer <- "NA"
+  }
+
+  data <- data %>%
     mutate(relation.liesWithinLayer = na_if(relation.liesWithinLayer, "NA")) %>%
     mutate(relation.liesWithinLayer = ifelse(is.na(relation.liesWithinLayer),
                                              relation.liesWithin,
