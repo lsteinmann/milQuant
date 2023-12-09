@@ -149,7 +149,7 @@ mod_pottery_single_serv <- function(id) {
                        color = ~color, customdata = ~color,
                        type = "bar", source = ns("plot"),
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = milQuant_count_hovertemplate)
+                       hovertemplate = milQuant_count_hovertemplate())
 
         fig <- fig %>% event_register('plotly_click')
 

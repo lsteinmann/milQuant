@@ -152,7 +152,7 @@ mod_loomweights_hist_serv <- function(id) {
                        #histnorm = input$lw_histnorm,
                        source = "loomweights_histogram",
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = milQuant_count_hovertemplate)
+                       hovertemplate = milQuant_count_hovertemplate())
 
         legend_title <- names(color_var_choices[which(color_var_choices == color_var())])
 

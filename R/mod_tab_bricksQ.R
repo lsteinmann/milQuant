@@ -121,7 +121,7 @@ mod_bricksQ_serv <- function(id) {
           fig <- plot_ly(plot_data, type = "bar",
                          x = ~variable, y = ~value, color = ~color,
                          colors = viridis(length(unique(plot_data$color))),
-                         hovertemplate = milQuant_count_hovertemplate)
+                         hovertemplate = milQuant_count_hovertemplate())
         } else {
           fig <- plot_data %>%
             select(variable, value) %>%

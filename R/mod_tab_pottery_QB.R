@@ -175,13 +175,13 @@ mod_pottery_QB_serv <- function(id) {
           legend_title <- "Period"
           x_title <- "Functional Group"
           custom_colors <- unlist(milQuant_periods$colors)
-          custom_hovertemplate <- milQuant_count_hovertemplate
+          custom_hovertemplate <- milQuant_count_hovertemplate()
 
         } else if (input$display_xaxis == "period") {
           legend_title <- "Functional Group"
           x_title <- "Period"
           custom_colors <- viridis(length(unique(plot_data()$color)))
-          custom_hovertemplate <- milQuant_count_hovertemplate
+          custom_hovertemplate <- milQuant_count_hovertemplate()
         }
 
         if (input$display_context) {

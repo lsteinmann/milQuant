@@ -56,23 +56,13 @@ app_onstart <- function() {
   #period_colors <- read.csv("external/period_colors.csv", header = FALSE)[,1]
   period_colors <<- unname(unlist(milQuant_periods$colors))
 
-  scale_fill_period <<- function(ncol = 9) {
-    scale_fill_manual(values = period_colors,
-                      breaks = periods,
-                      limits = periods,
-                      guide = guide_legend(name = "Period",
-                                           ncol = ncol,
-                                           byrow = TRUE))
-  }
+
 
 
 
   startup_settings <<- read_milQuant_settings()
 
-  milQuant_count_hovertemplate <<- paste0("<b>%{fullData.name}</b><br>",
-                                          "%{x}<br>",
-                                          "count: <b>%{y}</b><br>",
-                                          "<extra></extra>")
+
 
   message(milQ_message("Loaded all data, milQuant will start now."))
 }

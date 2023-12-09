@@ -156,7 +156,7 @@ mod_finds_overview_serv <- function(id) {
                        type = "bar",
                        source = "allfinds_plot",
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = milQuant_count_hovertemplate)
+                       hovertemplate = milQuant_count_hovertemplate())
 
         legend_title <- ifelse(input$var_display == "var_is_fill",
                                input$secondary_var,

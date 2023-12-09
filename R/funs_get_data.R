@@ -1,9 +1,101 @@
+#' Prep for shiny
+#'
+#' @param data
+#' @param reorder_periods
+#'
+#' @return
+#' @export
+#'
+#' @examples
+prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
+  data <- data %>%
+    idaifield_as_matrix() %>%
+    as.data.frame()
+
+  if (is.null(data$relation.liesWithin)) {
+    data$relation.liesWithin <- NA
+  }
+  if (is.null(data$relation.liesWithinLayer)) {
+    data$relation.liesWithinLayer <- "NA"
+  }
+
+  data <- data %>%
+    mutate(relation.liesWithinLayer = na_if(relation.liesWithinLayer, "NA")) %>%
+    mutate(relation.liesWithinLayer = ifelse(is.na(relation.liesWithinLayer),
+                                             relation.liesWithin,
+                                             relation.liesWithinLayer)) %>%
+    mutate(relation.liesWithinLayer = ifelse(is.na(relation.liesWithinLayer),
+                                             relation.isRecordedIn,
+                                             relation.liesWithinLayer)) %>%
+    remove_na_cols() %>%
+    type.convert(as.is = FALSE)
+
+  tryCatch({
+    data <- data %>%
+      mutate(date = as.Date(as.character(date), format = "%d.%m.%Y"))
+  }, error = function(e) message(paste("Caught problem in prep_for_shiny(): ", e)))
+
+  tryCatch({
+    data <- data %>%
+      mutate(beginningDate = as.Date(as.character(beginningDate), format = "%d.%m.%Y"))
+  }, error = function(e) message(paste("Caught problem in prep_for_shiny(): ", e)))
+
+  tryCatch({
+    data <- data %>%
+      mutate(endDate = as.Date(as.character(endDate), format = "%d.%m.%Y"))
+  }, error = function(e) message(paste("Caught problem in prep_for_shiny(): ", e)))
+
+
+  if(reorder_periods) {
+    if (length(data$period) == 0) {
+      data$period <- NA
+    }
+    if (length(data$period.start) == 0) {
+      data$period.start <- NA
+    }
+    if (length(data$period.end) == 0) {
+      data$period.end <- NA
+    }
+    data <- data %>%
+      mutate_at(c("period", "period.end", "period.start"), as.character) %>%
+      # fix value for periods that have been assigned multiple periods
+      # TODO i need to think of something better here, it is horrible
+      mutate(period = ifelse(grepl(pattern = ";", period), "multiple", period)) %>%
+      # assign "unbestimmt" instead of NA to make period picker work
+      # TODO i need to think of something better here as well
+      mutate(period = ifelse(is.na(period), "unbestimmt", period)) %>%
+      mutate(period.end = ifelse(is.na(period.end), "unbestimmt", period.end)) %>%
+      mutate(period.start = ifelse(is.na(period.start), "unbestimmt", period.start)) %>%
+      mutate(period = factor(period,
+                             levels = levels(periods),
+                             ordered = TRUE),
+             period.end = factor(period.end,
+                                 levels = levels(periods),
+                                 ordered = TRUE),
+             period.start = factor(period.start,
+                                   levels = levels(periods),
+                                   ordered = TRUE))
+  }
+
+
+  return(data)
+}
+
+
+
+
 #' Alternative to gather trenches for milQuant
 #'
 #'
+#'
+#' @param uidlist
+#'
+#' @return
+#' @export
+#'
+#' @examples
 # connection <- connect_idaifield(project = "milet", pwd = "hallo")
 # uidlist <- get_field_index(connection)
-
 alt_gather_trenches <- function(uidlist) {
   gather_mat <- as.data.frame(matrix(ncol = 1, nrow = nrow(uidlist)))
   colnames(gather_mat) <- c("identifier")

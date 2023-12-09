@@ -1,65 +1,23 @@
-#' Make warnings more visible
+
+#' apply the period filter if the config is milet
 #'
-#' @param msg
+#' @param find_df
+#' @param is_milet
+#' @param selector
 #'
 #' @return
 #' @export
 #'
 #' @examples
-milQ_warning <- function(msg) {
-  msg <- paste(crayon::cyan("milQuant: "), crayon::red(crayon::bold("!  ")), msg)
-  msg
-}
-
-#' Make messages more visible
-#'
-#' @param msg
-#'
-#' @return
-#' @export
-#'
-#' @examples
-milQ_message <- function(msg) {
-  msg <- paste(crayon::cyan("milQuant: "), crayon::white(crayon::bold("i  ")), msg)
-  msg
-}
-
-#' Helper to remove columns that are empty
-#'
-#' @param data
-#'
-#' @return
-#' @export
-#'
-#' @examples
-remove_na_cols <- function(data) {
-  na_cols <- apply(data, function(x) all(is.na(x)), MARGIN = 2)
-  data <- data[, !na_cols]
-  return(data)
-}
-
-
-#' Read the selection settings from the sys.file
-#'
-#' This is used to make the selection settings restorable (i.e. which
-#' Operation / Place / project was selected when milQuant was closed using
-#' the save & close button)
-#'
-#' @return a list with the settings
-#' @export
-read_milQuant_settings <- function() {
-  result <- try(readRDS(system.file(package = "milQuant", mustWork = TRUE,
-                                    "app/www/settings/db_settings.RDS")),
-                silent = TRUE)
-  if (inherits(result, "try-error")) {
-    warning(paste("Some error in read_milQuant_settings(): ", result))
-    result <- list("selected_project" = NULL,
-                   "selected_places" = NULL,
-                   "selected_trenches" = NULL,
-                   "selected_categories" = NULL)
+period_filter <- function(find_df, is_milet = FALSE, selector = NULL) {
+  if (is_milet) {
+    find_df <- find_df %>%
+      filter(period.start >= selector[1] & period.end <= selector[2])  %>%
+      filter(period.end <= selector[2])
   }
-  return(result)
+  return(find_df)
 }
+
 
 #' derive_dating_from_periods
 #'
@@ -73,8 +31,8 @@ derive_dating_from_periods <- function(data) {
   data("milQuant_periods")
 
   needed_cols <- c("period.start", "period.end",
-            "dating.min", "dating.max",
-            "dating.source")
+                   "dating.min", "dating.max",
+                   "dating.source")
 
   if (!all(needed_cols %in% colnames(data))) {
     warning(milQ_warning("Cannot derive dating from periods because columns are missing!"))
@@ -214,6 +172,5 @@ add_all_periods_to_all_contexts <- function(data) {
   result <- do.call(bind_rows, sp_data)
   return(result)
 }
-
 
 

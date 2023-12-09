@@ -120,7 +120,7 @@ db_activity_server <- function(id) {
                                 levels = sort(unique(Place),
                                               decreasing = TRUE))) %>%
           plot_ly(x = ~date, color = ~Place,
-                       hovertemplate = milQuant_count_hovertemplate,
+                       hovertemplate = milQuant_count_hovertemplate(),
                   type = "histogram")
 
         plot_title <- paste0("Activity in project ", input$selected_project)

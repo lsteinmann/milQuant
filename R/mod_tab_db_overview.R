@@ -142,7 +142,7 @@ db_overview_server <- function(id, project = "") {
         fig <- plot_ly(plot_data, x = ~x, y = ~n, color = ~color, text = ~color,
                        type = "bar", textposition = "none", source = "overview_plot",
                        colors = viridis(length(unique(plot_data$color))),
-                       hovertemplate = milQuant_count_hovertemplate)
+                       hovertemplate = milQuant_count_hovertemplate())
         fig <- fig %>% layout(barmode = input$barmode,
                               title = plot_title,
                               xaxis = list(title = x_label, categoryorder = "total descending"),
