@@ -77,3 +77,52 @@ scale_fill_period <<- function(ncol = 9) {
                                          byrow = TRUE))
 }
 
+
+
+#' Title
+#'
+#' @param resource_category
+#' @param colnames
+#' @param type
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get_plot_vars <- function(resource_category, colnames, type = "categorical") {
+
+  match.arg(type, choices = c("categorical", "numeric", "textual"), several.ok = TRUE)
+
+  switch (type,
+          categorical = posInputTypes <- c("dropdown", "radio", "boolean"),
+          numeric = posInputTypes <- c("unsignedInt", "radio", "unsignedFloat", "date", "float"),
+          textual = posInputTypes <- c("input", "multiInput", "simpleInput", "literature")
+  )
+
+  switch (type,
+          categorical = default <- c("category", "Operation", "Place", "storagePlace", "relation.liesWithinLayer", "period.start", "period.end", "period"),
+          numeric = default <- c("dating.min", "dating.max"),
+          textual = default <- c("processor")
+  )
+
+  data("milQuant_inputTypes")
+  data("milQuant_cats")
+
+  parent <- lapply(milQuant_cats, function(x) {
+    any(resource_category %in% x)
+  })
+  parent <- names(parent[unlist(parent)])
+
+  useable <- milQuant_inputTypes %>%
+    filter(category %in% c(parent, resource_category)) %>%
+    filter(inputType %in% posInputTypes) %>%
+    pull(field)
+
+
+  useable <- c(default, useable)
+
+  result <- colnames[colnames %in% useable]
+  result <- sort(result)
+
+  return(result)
+}

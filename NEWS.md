@@ -1,6 +1,11 @@
 # milQuant 2.0.0 _wip_
 * Restructure the app as a package.
 * Generic Bar Chart and Aoristic Density graphs are now included instead of split tabs linked in the sidebar. 
+* Place and Operations are now selected in the Home-Tab.
+* The Home-Tab now contains the Version history and better information / guides on the App.
+* DB-Overview is now a tabpanel in the Home-Tab. 
+* Variables for plots are preselected by inputType.
+
 
 
 # milQuant 1.1.0 _2023-11-23_

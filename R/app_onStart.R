@@ -31,25 +31,6 @@ app_onstart <- function() {
   #places <- c("all", sort(na.omit(unique(index$Place))))
 
 
-  drop_for_plot_vars <<- c("identifier", "shortDescription", "notes",
-                           "processor",
-                           "storagePlaceOther", "measuringPointID",
-                           "localizationDescription", "conditionComment",
-                           "comparison", "comparisonLit",
-                           "MuseumInventoryNr", "OldInventoryNr",
-                           "FotoNr", "DrawingNr", "vesselFormDescription",
-                           "fabricStructure", "temperType", "temperTypeOther",
-                           "temperAmount", "temperGrain", "surfaceTreatment",
-                           "surfaceTreatmentDescription", "analysisMethodOther",
-                           "analysisAim", "analysisActor", "analysisResult",
-                           "otherNotes", "id", "relation.isRecordedIn",
-                           "relation.isDepictedIn", "relation.liesWithin",
-                           "relation.liesWithinLayer",
-                           "relation.isSameAs",
-                           "category", "workflow",
-                           "analysisMethod", "localization")
-
-
   data("milQuant_periods")
   periods <<- milQuant_periods$order
 

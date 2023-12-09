@@ -128,25 +128,27 @@ mod_barchart_finds_serv <- function(id) {
         validate(
           need(is.data.frame(resources()), "No Resources loaded.")
         )
-        var_choices <- colnames(resources())
-        var_choices <- var_choices[!var_choices %in% drop_for_plot_vars]
-        var_choices <- var_choices[!grepl("dimension", var_choices)]
-        var_choices <- var_choices[!grepl("coin", var_choices)]
-        var_choices <- var_choices[!grepl("amount.*", var_choices)]
+        cols <- colnames(resources())
+
+        var_choices <- get_plot_vars(resource_category, cols, type = "categorical")
+
+        return(var_choices)
       })
+
 
       output$x_selector <- renderUI({
         validate(
-          need(var_choices(), "No Variables selected."),
+          need(var_choices(), "No variables available."),
           need(sel_vars(), "Can't reach preset variables.")
         )
+
         selectInput(inputId = ns("x_var"), label = "Choose a variable for the x-axis:",
                     choices = var_choices(), selected = sel_vars()[1])
       })
 
       output$fill_selector <- renderUI({
         validate(
-          need(var_choices(), "No Variables selected.")
+          need(var_choices(), "No variables available.")
         )
         selectInput(inputId = ns("fill_var"), label = "Choose a variable for the color:",
                     choices = var_choices(), selected = sel_vars()[2])
@@ -181,6 +183,7 @@ mod_barchart_finds_serv <- function(id) {
         validate(
           need(is.data.frame(plot_data()), "I am not getting the data!")
         )
+
 
         fig <- plot_ly(plot_data(), x = ~x, y = ~n,
                        color = ~color, customdata = ~color,

@@ -94,11 +94,11 @@ mod_pottery_single_serv <- function(id) {
         validate(
           need(is.data.frame(resources()), "No Resources loaded.")
         )
-        var_choices <- colnames(resources())
-        var_choices <- var_choices[!var_choices %in% drop_for_plot_vars]
-        var_choices <- var_choices[!grepl("dimension", var_choices)]
-        var_choices <- var_choices[!grepl("coin", var_choices)]
-        var_choices <- var_choices[!grepl("amount.*", var_choices)]
+        cols <- colnames(resources())
+
+        var_choices <- get_plot_vars("Pottery", cols, type = "categorical")
+
+        return(var_choices)
       })
 
       output$x_selector <- renderUI({
