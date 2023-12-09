@@ -14,7 +14,21 @@ mod_worflow_ui <- function(id, tabname = NULL) {
   tabItem(
     tabName = tabname,
     title = "Workflow",
-
+    fluidRow(
+      box(
+        width = 12,
+        title = tagList(icon("geats"), "Layer and category selection"),
+        collapsible = TRUE, solidHeader = TRUE,
+        column(
+          width = 6,
+          uiLayerSelector(ns("layers"))
+        ),
+        column(
+          width = 6,
+          uiCategorySelector(ns("categories"))
+        )
+      )
+    ),
     fluidRow(
       uiOutput(ns("workflow_tabs")) %>% mq_spinner()
     )
@@ -40,8 +54,8 @@ mod_worflow_serv <- function(id) {
       ns <- NS(id)
 
       wf_disp_cols <- reactive({
-        wf_disp_cols <- c("identifier", "shortDescription", "processor",
-                          "date", "notes", "storagePlace")
+        wf_disp_cols <- c("identifier", "category", "shortDescription", "processor",
+                          "date", "notes", "storagePlace", "relation.liesWithinLayer")
         wf_disp_cols
       })
 
@@ -59,72 +73,88 @@ mod_worflow_serv <- function(id) {
         return(base_data)
       })
 
+      generateLayerSelector("layers", workflow_data, inputid = ns("selected_layers"))
+      generateCategorySelector("categories",
+                               parent = "Find",
+                               selected = "all",
+                               inputid = ns("selected_categories"))
+
       ## Workflow Tabbox
       output$workflow_tabs <- renderUI({
 
-        #  workflow <- workflow_data() %>%
-        #    select(identifier, contains("workflow"))
+        db_selected_categories(input$selected_categories)
 
-        workflow_cols <- grep("workflow", colnames(workflow_data()))
-        workflow_cols <- colnames(workflow_data())[workflow_cols]
+        tmp_workflow_data <- workflow_data() %>%
+          filter(relation.liesWithinLayer %in% input$selected_layers) %>%
+          filter(category %in% input$selected_categories)
 
-        total <- nrow(workflow_data())
+        workflow_cols <- grep("workflow", colnames(tmp_workflow_data))
+        workflow_cols <- colnames(tmp_workflow_data)[workflow_cols]
 
-        do.call(tabBox,
-                append(list(width = 12,
-                            title = tagList(icon("gear"), "Workflow status")),
-                       lapply(workflow_cols,
-                              function(wfcol) {
-                                n <- workflow_data() %>%
-                                  select(any_of(wfcol)) %>%
-                                  sum()
+        total <- nrow(tmp_workflow_data)
 
-                                title <- gsub("workflow.", "", wfcol, fixed = TRUE)
-                                perc <- round(n / total * 100, digits = 1)
-                                col <- ifelse(grepl("Fehlerhaft", wfcol),
-                                              "red", "blue")
+        do.call(
+          tabBox,
+          append(
+            list(
+              width = 12,
+              title = tagList(icon("gear"), "Workflow status")),
+            lapply(
+              workflow_cols,
+              function(wfcol) {
+                n <- tmp_workflow_data %>%
+                  select(any_of(wfcol)) %>%
+                  sum()
 
-                                tabPanel(title = title,
-                                         align = "left",
-                                         fluidRow(
-                                           infoBox(width = 8, color = col,
-                                                   title = title,
-                                                   value = p("Applies to", strong(n),
-                                                             "out of", strong(total),
-                                                             "objects (",
-                                                             perc, "%).")),
-                                           valueBox(subtitle = "Progress",
-                                                    value = paste0(perc, "%"),
-                                                    icon = icon("list"), width = 4,
-                                                    color = col)
-                                         ),
-                                         fluidRow(
-                                           column(width = 12,
-                                                  h3("Objects in the plot where this box has been checked: "),
-                                                  renderDT(workflow_data() %>%
-                                                             filter(get(wfcol) == TRUE) %>%
-                                                             select(any_of(wf_disp_cols()))
-                                                  )
-                                           )
-                                         ),
-                                         fluidRow(
-                                           column(width = 12,
-                                                  h3("... and objects where it has not:"),
-                                                  renderDT(workflow_data() %>%
-                                                             filter(get(wfcol) == FALSE) %>%
-                                                             select(any_of(wf_disp_cols()))
-                                                  )
-                                           )
-                                         )
-                                )
-                              })
+                title <- gsub("workflow.", "", wfcol, fixed = TRUE)
+                perc <- round(n / total * 100, digits = 1)
+                col <- ifelse(grepl("Fehlerhaft", wfcol),
+                              "red", "blue")
+
+                tabPanel(
+                  title = title,
+                  align = "left",
+                  fluidRow(
+                    infoBox(
+                      width = 8, color = col,
+                      title = title,
+                      value = p("Applies to", strong(n),
+                                "out of", strong(total),
+                                "objects (",
+                                perc, "%).")),
+                    valueBox(
+                      subtitle = "Progress",
+                      value = paste0(perc, "%"),
+                      icon = icon("list"), width = 4,
+                      color = col)
+                  ),
+                  fluidRow(
+                    column(
+                      width = 12,
+                      h3("Objects in the plot where this box has been checked: "),
+                      renderDT(
+                        tmp_workflow_data %>%
+                          filter(get(wfcol) == TRUE) %>%
+                          select(any_of(wf_disp_cols()))
+                      )
+                    )
+                  ),
+                  fluidRow(
+                    column(
+                      width = 12,
+                      h3("... and objects where it has not:"),
+                      renderDT(
+                        tmp_workflow_data %>%
+                          filter(get(wfcol) == FALSE) %>%
+                          select(any_of(wf_disp_cols()))
+                      )
+                    )
+                  )
                 )
+              })
+          )
         )
       })
-
-
-
     }
   )
-
 }

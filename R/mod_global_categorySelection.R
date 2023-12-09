@@ -23,7 +23,7 @@ uiCategorySelector <- function(id) {
 #' @export
 #'
 #' @examples
-generateCategorySelector <- function(id, inputid, parent = "Find") {
+generateCategorySelector <- function(id, inputid, parent = "Find", selected = "auto") {
   moduleServer(
     id,
     function(input, output, session) {
@@ -42,11 +42,20 @@ generateCategorySelector <- function(id, inputid, parent = "Find") {
           unique() %>%
           sort()
 
+        if (selected == "auto") {
+          selected <- db_selected_categories()
+        } else if (selected == "all") {
+          selected <- available_cats
+        } else {
+          match.arg(selected, choices = milQuant_cats[[parent]], several.ok = TRUE)
+        }
+
+
         pickerInput(inputId = inputid,
                     label = label,
                     choices = available_cats,
                     multiple = TRUE,
-                    selected = db_selected_categories(),
+                    selected = selected,
                     options = list("actions-box" = TRUE,
                                    "live-search" = TRUE,
                                    "live-search-normalize" = TRUE,
