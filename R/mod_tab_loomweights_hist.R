@@ -6,14 +6,14 @@
 #' @export
 #'
 #' @examples
-loomweights_tab <- function(id) {
+mod_loomweights_hist_ui <- function(id, tabname) {
 
   ns <- NS(id)
 
   tabItem(
-    tabName = "loomweights_hist_tab",
+    tabName = tabname,
 
-    tabInfoRow_ui(ns("info")),
+    #tabInfoRow_ui(ns("info")),
 
     fluidRow(
       box(
@@ -60,7 +60,7 @@ loomweights_tab <- function(id) {
 #' @export
 #'
 #' @examples
-loomweights_server <- function(id) {
+mod_loomweights_hist_serv <- function(id) {
 
   moduleServer(
     id,

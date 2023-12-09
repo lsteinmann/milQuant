@@ -27,7 +27,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       menuItem("Workflow", tabName = "tab_workflow", icon = icon("gears")),
       menuItem("Find Overview", tabName = "tab_all_finds", icon = icon("magnifying-glass-chart"),
                menuSubItem("Inventoried Finds", tabName = "tab_finds_overview", icon = icon("ranking-star")),
-               menuSubItem("Quantifications", tabName = "tab_finds_quant", icon = icon("chart-simple")),
+               menuSubItem("Quantification (General)", tabName = "tab_finds_quant", icon = icon("chart-simple")),
                menuSubItem("Bar Charts for Find Groups", tabName = "tab_barchart_finds", icon = icon("chart-column")),
                menuSubItem("Aoristic Density Plots", tabName = "tab_aoristic_finds", icon = icon("chart-area"))),
       menuItem("Pottery", tabName = "tab_pottery_all", icon = icon("trophy"),
@@ -37,6 +37,11 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
                            icon = icon("champagne-glasses")),
                menuSubItem("Pottery Quantification B", tabName = "tab_potteryQB",
                            icon = icon("champagne-glasses"))
+      ),
+      menuItem("Loomweights", tabName = "tab_loomweights_hist", icon = icon("scale-unbalanced")),
+      menuItem("Quantifications", tabName = "quants", icon = icon("chart-simple"),
+               menuSubItem("Brick/Tile/Pipe Quantification", tabName = "tab_bricksQ",
+                           icon = icon("shapes"))
       ),
       menuItem("Issues / Contact", icon = icon("file-contract"),
                href = "https://github.com/lsteinmann/milQuant")
@@ -69,7 +74,13 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       # pottery
       mod_pottery_single_ui("pottery_single", tabname = "tab_pottery_single"),
       mod_pottery_QA_ui("pottery_QA", tabname = "tab_potteryQA"),
-      mod_pottery_QB_ui("pottery_QB", tabname = "tab_potteryQB")
+      mod_pottery_QB_ui("pottery_QB", tabname = "tab_potteryQB"),
+
+      # loomweights
+      mod_loomweights_hist_ui("loomweights_hist", tabname = "tab_loomweights_hist"),
+
+      # quants
+      mod_bricksQ_ui("bricksQ", tabname = "tab_bricksQ")
     )
   )
 

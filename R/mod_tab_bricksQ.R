@@ -6,14 +6,14 @@
 #' @export
 #'
 #' @examples
-bricksQ_tab <- function(id) {
+mod_bricksQ_ui <- function(id, tabname) {
 
   ns <- NS(id)
 
   tabItem(
-    tabName = "bricksQ_tab",
+    tabName = tabname,
 
-    tabInfoRow_ui(ns("info")),
+    #tabInfoRow_ui(ns("info")),
 
     fluidRow(
       box(
@@ -64,7 +64,7 @@ bricksQ_tab <- function(id) {
 #' @export
 #'
 #' @examples
-bricksQ_server <- function(id) {
+mod_bricksQ_serv <- function(id) {
 
   moduleServer(
     id,

@@ -276,7 +276,9 @@ app_server <- function(input, output, session) {
   mod_pottery_QA_serv("pottery_QA")
   mod_pottery_QB_serv("pottery_QB")
 
-  # all other (automated) finds
+  mod_loomweights_hist_serv("loomweights_hist")
+
+  mod_bricksQ_serv("bricksQ")
 
 
 
