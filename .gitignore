@@ -47,3 +47,6 @@ NEWS.html
 dataprep/*
 inst/app/www/settings/selection_settings.RDS
 .RDataTmp
+inst/extdata/Categories.json
+inst/extdata/Config-Milet.json
+inst/extdata/Forms.json
