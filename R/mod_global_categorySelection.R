@@ -46,11 +46,13 @@ generateCategorySelector <- function(id, inputid, parent = "Find") {
                     label = label,
                     choices = available_cats,
                     multiple = TRUE,
+                    selected = db_selected_categories(),
                     options = list("actions-box" = TRUE,
                                    "live-search" = TRUE,
                                    "live-search-normalize" = TRUE,
                                    "live-search-placeholder" = "Search here..."))
       })
+
     }
   )
 }

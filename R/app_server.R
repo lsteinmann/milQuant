@@ -19,7 +19,7 @@ app_server <- function(input, output, session) {
     debounce(500)
   db_selected_operations <<- reactive({ input$selected_operations }) %>%
     debounce(2000)
-  db_selected_categories <<- reactiveVal(NA)
+  db_selected_categories <<- reactiveVal(startup_settings$selected_categories)
 
 
   # define the ui of the login modal
