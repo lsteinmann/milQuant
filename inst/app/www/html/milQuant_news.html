@@ -1,0 +1,109 @@
+<div id="milquant-2.0.0-wip">
+<h1>milQuant 2.0.0 <em>wip</em></h1>
+<ul>
+<li>Restructure the app as a package.</li>
+<li>Generic Bar Chart and Aoristic Density graphs are now included
+instead of split tabs linked in the sidebar.</li>
+</ul>
+</div>
+<div id="milquant-1.1.0-2023-11-23">
+<h1>milQuant 1.1.0 <em>2023-11-23</em></h1>
+<ul>
+<li>Added a button that refreshes the index, so that newly added
+resources can be seen as well.</li>
+<li>Added the ‘Activity’ tab which shows latest and overall changes to
+the database by <em>Place</em> and user.</li>
+<li>All buttons are now disabled while shiny is busy to avoid
+unnecessary queries.</li>
+<li>Moved the database query to each tab. Now only the data that is
+needed in each tab is queried from Field Desktop, hopefully reducing
+overall loading time and memory usage.</li>
+<li>Redesigned the <em>overview</em>-plot in Plotly. It now displays the
+complete project database with the exception of <em>Type</em>- and
+<em>Image</em>-categories.</li>
+<li>Added many tabs for different <em>Find</em>-categories using
+generalized <em>barplot</em>-module (Plotly).</li>
+<li>Modularized all other tabs.</li>
+<li>From now on, (almost) all plots are produced in Plotly directly to
+make better use of Plotlys features.</li>
+<li>Corrected typos, minor text and made some layout changes.</li>
+</ul>
+</div>
+<div id="milquant-1.0.3-2023-10-30">
+<h1>milQuant 1.0.3 <em>2023-10-30</em></h1>
+<ul>
+<li>uses <a
+href="https://github.com/lsteinmann/idaifieldR/releases/tag/v0.3.2">idaifieldR
+0.3.2</a></li>
+<li>change the plot download buttons and handlers to a module: fixes
+non-reactive plot download</li>
+</ul>
+</div>
+<div id="milquant-1.0.2-skippedinternal">
+<h1>milQuant 1.0.2 <em>skipped/internal</em></h1>
+<ul>
+<li>use <a
+href="https://github.com/lsteinmann/idaifieldR/releases/tag/v0.3.1">idaifieldR
+0.3.1</a></li>
+</ul>
+</div>
+<div id="milquant-1.0.1-2023-03-05">
+<h1>milQuant 1.0.1 <em>2023-03-05</em></h1>
+<ul>
+<li>the connection settings (name/pw) are reusable (with
+milQuant-dist)</li>
+<li>improved plot legends and added bar plot display options</li>
+<li>fixed period order in pottery &amp; quant B plots</li>
+<li>fixed issue with dates</li>
+<li>use plotly for all graphs</li>
+<li>add a workflow overview</li>
+<li>add object table to pottery plot</li>
+<li>project, operation and trench(es) are saved and restored on exit by
+button</li>
+</ul>
+</div>
+<div id="milquant-1.0.0-2023-02-21">
+<h1>milQuant 1.0.0 <em>2023-02-21</em></h1>
+<ul>
+<li>first “release” (version number changed to be same as the standalone
+version)</li>
+<li>no more fluidPage()</li>
+<li>fixed if-condition for trench selection</li>
+</ul>
+</div>
+<div id="milquant-0.2.3-2023-02-18">
+<h1>milQuant 0.2.3 <em>2023-02-18</em></h1>
+<ul>
+<li>use idaifieldR v0.2.2 (fixing a problem where with an
+if-condition)</li>
+<li>rudimentary form for bricks and brick quantification added</li>
+<li>fix downloading plot in Finds, Loomweights and Bricks</li>
+<li>fix error handling in connection (now actually displays the
+error)</li>
+<li>proper label in period selector</li>
+<li>custom titles and subtitles for all plots</li>
+<li>add logo/icon and custom spinner</li>
+<li>restructure directories and connect/home/overview pages</li>
+</ul>
+</div>
+<div id="milquant-0.2.1-2022-05-15">
+<h1>milQuant 0.2.1 <em>2022-05-15</em></h1>
+<ul>
+<li>uses idaifieldR v0.2.1</li>
+<li>WIP</li>
+</ul>
+</div>
+<div id="milquant-0.2.0-2022-05-15">
+<h1>milQuant 0.2.0 <em>2022-05-15</em></h1>
+<ul>
+<li>First executable version</li>
+<li>login screen to change connection details (ip, username, password)
+to suit different field clients and projects</li>
+<li>contains plot generation and download for: find overview, pottery
+(single), pottery quantification forms A &amp; B from the
+milt-configuration, loomweight (milet configuration)</li>
+<li>uses idaifieldR v0.2</li>
+<li>not perfect, but currently working for miletus</li>
+</ul>
+</div>
+<!-- code folding -->

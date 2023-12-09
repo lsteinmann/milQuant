@@ -15,14 +15,10 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
   sidebar <- dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "tab_home", icon = icon("right-to-bracket")),
-      shinyjs::hidden(tags$div(id = "tab_connect.success-div",
-                               class = "success-text",
-                               textOutput("load.success_msg",
-                                          container = tags$p))),
+      tags$div(id = "tab_connect.success-div",
+               class = "success-text",
+               htmlOutput("load.success_msg")),
       actionButton("refreshIndex", "Refresh Index", icon = icon("refresh")),
-      menuItem("Project overview", tabName = "db_overview_tab", icon = icon("graduation-cap")),
-      uiOutput("place_selector"),
-      uiOutput("operation_selector"),
       menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
       menuItem("Workflow", tabName = "tab_workflow", icon = icon("gears")),
       menuItem("Find Overview", tabName = "tab_all_finds", icon = icon("magnifying-glass-chart"),
@@ -61,7 +57,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
 
     tabItems(
       make_home_tab("tab_home"),
-      db_overview_tab("db_overview", tabname = "db_overview_tab"),
+
       db_activity_tab("db_activity", tabname = "db_activity_tab"),
       mod_worflow_ui("workflow", tabname = "tab_workflow"),
 

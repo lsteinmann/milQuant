@@ -2,12 +2,13 @@
 
 # UI
 * update Pottery + Pottery Quant tabs with more love
-* add Brick + Brick Quant tabs with more love
-* readd-loomweight tab
+* Brick Quant tab needs more love
 * make it possible to include quantifications in aoristic tab
 
 # Background
 * Make a configurable period list object? with settings on 'home' tab
+  * Settings to: Derive Dating from periods
+  * Group / Ungroup periods
 * load language replacements
 * clean up the server code even more
-* solce the debouncing thing
+* solve the debouncing thing

@@ -11,9 +11,9 @@ db_overview_tab <- function(id, tabname) {
 
   ns <- NS(id)
 
-  tabItem(
-    tabName = tabname,
-    title = "Project overview",
+  tabPanel(
+    #tabName = tabname,
+    title = tagList(icon("graduation-cap"), "Project Overview"),
     fluidRow(
       box(
         width = 9, collapsible = TRUE,

@@ -8,12 +8,13 @@ app_server <- function(input, output, session) {
   # % -------------------------------------------------------------Connection
 
   #session <- getDefaultReactiveDomain()
+  shinyjs::hide("load.success_msg")
 
   # setup the two reactiveValues that will be used nearly everywhere
   login_connection <<- reactiveVal()
   projects <- reactiveVal()
 
-  db_selected_project <<- reactive({ input$selected_project })
+  db_selected_project <<- reactiveVal(NA)
   db_selected_places <<- reactive({ input$selected_places }) %>%
     debounce(500)
   db_selected_operations <<- reactive({ input$selected_operations }) %>%
@@ -108,7 +109,7 @@ app_server <- function(input, output, session) {
 
     output$project_selector <- renderUI({
       selectizeInput(inputId = "selected_project",
-                     label = "Choose a Project to work with",
+                     label = "Database-Projects", # "Choose a Project to work with",
                      choices = projects(), multiple = FALSE,
                      selected = startup_settings$selected_project,
                      options = list(
@@ -125,7 +126,6 @@ app_server <- function(input, output, session) {
   observeEvent(input$loadDatabase, {
     busy_dialog <- make_busy_dialog(project = isolate(input$selected_project))
 
-    shinyjs::hide("load.success_msg")
     showModal(busy_dialog)
 
     message("Trying to connect to the project:")
@@ -146,12 +146,9 @@ app_server <- function(input, output, session) {
       react_index(get_index(connection = login_connection()))
       message("Done.")
 
-      # make and show the success msg in the UI
-      msg <- paste("Using project:", isolate(input$selected_project))
-      output$load.success_msg <- renderText({msg})
+      # show project info and success msg in sidebar
+      db_selected_project(isolate(input$selected_project))
       shinyjs::show("load.success_msg")
-
-      output$current_project <- renderText({input$selected_project})
 
       is_milet <<- input$selected_project %in% c("milet", "milet-test")
       if (is_milet) {
@@ -177,6 +174,26 @@ app_server <- function(input, output, session) {
     message(milQ_message("Fetching the Index again..."))
     react_index(get_index(connection = login_connection()))
     message("Done.")
+  })
+
+  # make and show the success msg in the UI
+
+  output$load.success_msg <- renderUI({
+    if (length(input$selected_places) > 2) {
+      plc <- paste(length(input$selected_places), " Places")
+    } else {
+      plc <- paste(input$selected_places, collapse = ", ")
+    }
+    if (length(input$selected_operations) > 4) {
+      ops <- paste(length(input$selected_operations), " Operations")
+    } else {
+      ops <- paste(input$selected_operations, collapse = ", ")
+    }
+
+    tagList(
+      tags$p(paste("On project: ", db_selected_project(), sep = ""))#,
+      #tags$p(paste("Working with", ops, "from", plc))
+    )
   })
 
   #
@@ -208,7 +225,7 @@ app_server <- function(input, output, session) {
     )
 
     pickerInput(inputId = "selected_places",
-                label = "Choose one or more Places to work with",
+                label = "Places", # "Choose one or more Places to work with",
                 choices = available_places(),
                 selected = startup_settings$selected_places,
                 multiple = TRUE,
@@ -224,7 +241,7 @@ app_server <- function(input, output, session) {
       need(input$selected_places, "No Places selected.")
     )
     pickerInput(inputId = "selected_operations",
-                label = "Choose one or more Operations (Trenches, Surveys) to work with",
+                label = "Operations (Trenches, Surveys)", # "Choose one or more Operations (Trenches, Surveys) to work with",
                 choices = available_operations(),
                 selected = startup_settings$selected_operations,
                 multiple = TRUE,
@@ -234,6 +251,13 @@ app_server <- function(input, output, session) {
                                "live-search-placeholder" = "Search here..."))
   })
 
+  output$on_project_info <- reactive({
+    tags$div(
+      tags$ul(
+        tags$li("On project: ", input$selected_project)
+      )
+    )
+  })
 
   # % ----------------------------------------------------------------On Exit
 
