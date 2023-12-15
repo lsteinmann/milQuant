@@ -29,6 +29,7 @@ Depends:
     shinycssloaders,
     shinyjs,
     shinyWidgets,
+    stringi,
     tidyr,
     viridis,
     idaifieldR

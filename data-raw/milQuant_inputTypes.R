@@ -1,29 +1,38 @@
 ## code to prepare `milQuant_inputTypes` dataset goes here
 
 config <- get_configuration(conn)
-milet_new <- get_field_inputtypes(config) %>%
+milet_new <- get_field_inputtypes(config, remove_config_names = FALSE) %>%
   as.data.frame() %>%
   mutate(source = "config")
 
+
+
 tmp <- jsonlite::read_json("https://raw.githubusercontent.com/dainst/idai-field/master/core/config/Config-Milet.json")
-milet_old <- get_field_inputtypes(tmp) %>%
+milet_old <- get_field_inputtypes(tmp, remove_config_names = FALSE) %>%
   as.data.frame() %>%
   mutate(source = "Config-Milet.json")
 
 
 tmp <- jsonlite::read_json("https://raw.githubusercontent.com/dainst/idai-field/master/core/config/Library/Categories.json")
 tmp <- list(forms = tmp)
-def_cats <- get_field_inputtypes(tmp) %>%
+def_cats <- get_field_inputtypes(tmp, remove_config_names = FALSE) %>%
   as.data.frame() %>%
   mutate(source = "Categories.json")
 
 tmp <- jsonlite::read_json("https://raw.githubusercontent.com/dainst/idai-field/master/core/config/Library/Forms.json")
 tmp <- list(forms = tmp)
-def_forms <- get_field_inputtypes(tmp) %>%
+def_forms <- get_field_inputtypes(tmp, remove_config_names = FALSE) %>%
   as.data.frame() %>%
   mutate(source = "Forms.json")
 
 milQuant_inputTypes <- rbind(milet_new, milet_old, def_cats, def_forms)
+
+milQuant_inputTypes <- milQuant_inputTypes %>%
+  mutate(category_prj = category,
+         category = remove_config_names(category)) %>%
+  mutate(field_prj = field,
+         field = remove_config_names(field))
+
 
 milQuant_inputTypes <- milQuant_inputTypes %>%
   filter(!category == "archaeoDox") %>%

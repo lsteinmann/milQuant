@@ -18,10 +18,13 @@ milQuant_cats <- list(
 
   Quantification =
     factor(categories$category[which(categories$parent == "Quantification")],
-           levels = categories$category[which(categories$parent == "Quantification")])
+           levels = categories$category[which(categories$parent == "Quantification")]),
+
+  Other =
+    factor(categories$category[which(categories$parent == "Other")],
+           levels = categories$category[which(categories$parent == "Other")])
 
 )
 
-milQuant_cats$Find
 
 usethis::use_data(milQuant_cats, overwrite = TRUE)
