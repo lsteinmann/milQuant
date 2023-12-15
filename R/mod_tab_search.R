@@ -60,7 +60,7 @@ mod_search_serv <- function(id) {
       #generateLayerSelector("layers", resources, inputid = ns("selected_layers"))
       generateCategorySelector("categories",
                                parent = c("Find", "Other", "Feature"),
-                               selected = "none",
+                               selected = "auto",
                                inputid = ns("selected_categories"))
 
       observeEvent(input$selected_categories, {
