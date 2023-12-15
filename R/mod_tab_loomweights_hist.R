@@ -85,8 +85,6 @@ mod_loomweights_hist_serv <- function(id) {
         return(loomweights)
       })
 
-      tabInfoRow_server("info", tab_data = loomweights)
-
       generateLayerSelector("layers", loomweights, inputid = ns("selected_layers"))
       #generatePeriodSelector("periods", inputid = ns("selected_periods"))
 

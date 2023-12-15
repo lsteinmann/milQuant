@@ -90,6 +90,10 @@ db_activity_server <- function(id) {
       })
 
       output$user_selection <- renderUI({
+        validate(
+          need(is.data.frame(plot_data()), "Wating for data...")
+        )
+
         pickerInput(inputId = ns("user_display"),
                     label = "Select users to display",
                     choices = sort(unique(plot_data()$user), decreasing = FALSE),

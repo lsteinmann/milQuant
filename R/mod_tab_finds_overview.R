@@ -90,8 +90,6 @@ mod_finds_overview_serv <- function(id) {
           period_filter(is_milet = is_milet, selector = input$selected_periods)
       })
 
-      tabInfoRow_server("info", tab_data = finds)
-
       generateLayerSelector("layers", finds, inputid = ns("selected_layers"))
 
       output$var_selector <- renderUI({

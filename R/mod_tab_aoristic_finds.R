@@ -26,7 +26,7 @@ mod_aoristic_finds_ui <- function(id, tabname) {
           database for all resources of the selected categories from the
           selected Operations. Depending on the number of resources,
           this may take a while.')),
-        column(width = 2, tabValueBox_ui(ns("info"), width = 10))
+        column(width = 2, totalResourcesValueBox(ns("info"), width = 10))
       )
     ),
     fluidRow(
@@ -113,6 +113,10 @@ mod_aoristic_finds_serv <- function(id) {
                                parent = "Find",
                                inputid = ns("selected_categories"))
 
+      observeEvent(input$selected_categories, {
+        totalResources_serv("info", sel_categories = isolate(input$selected_categories))
+      })
+
       resources <- eventReactive(input$loadResources, {
         validate(
           need(is.data.frame(react_index()), "No Trenches and/or Places selected."),
@@ -130,7 +134,6 @@ mod_aoristic_finds_serv <- function(id) {
         return(resources)
       })
 
-      tabInfoRow_server("info", tab_data = resources)
       generateLayerSelector("layers", resources, inputid = ns("selected_layers"))
 
       plot_data <- reactive({

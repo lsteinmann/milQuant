@@ -87,8 +87,6 @@ mod_bricksQ_serv <- function(id) {
         return(bricksQ)
       })
 
-      tabInfoRow_server("info", tab_data = bricksQ)
-
       generateLayerSelector("layers", bricksQ, inputid = ns("selected_layers"))
 
       make_plot <- reactive({
