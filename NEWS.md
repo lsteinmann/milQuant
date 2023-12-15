@@ -1,10 +1,17 @@
 # milQuant 2.0.0 _wip_
 * Restructure the app as a package.
 * Generic Bar Chart and Aoristic Density graphs are now included instead of split tabs linked in the sidebar. 
-* Place and Operations are now selected in the Home-Tab.
-* The Home-Tab now contains the Version history and better information / guides on the App.
-* DB-Overview is now a tabpanel in the Home-Tab. 
+* The new Search-tab lets users perform fulltext-searches on any text input field. 
+* There are now tabs to display Plaster and Mollusk Quantifications.
+* Place and Operations are now selected in the Home-Tab, and a Popover in the sidebar informs users of the selection.
+* The Home-Tab now contains the Version history and better information / guides on the App, as well as the DB-Overview, which is now a tabpanel here. 
+* Resources in the workflow-tab have to be manually loaded with Layer and Category selection to reduce loading time. 
+* Some buttons and options now feature informative tooltips.
+
+### Smaller fixes
 * Variables for plots are preselected by inputType.
+* If the selected Place only contains one Operation, it is automatically selected. 
+* Better binning of bars and display of axis in the Activity-tab.
 
 
 

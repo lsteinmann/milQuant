@@ -88,7 +88,7 @@ make_home_tab <- function(tabname = "tab_home") {
         tabPanel(
           title = tagList(icon("newspaper"), "News"),
           fluidRow(
-            box(width = 12, includeHTML("www/html/milQuant_news.html"))
+            box(width = 12, includeHTML("www/html/NEWS.html"))
           )
         )
       )

@@ -4,7 +4,7 @@
 \alias{generateCategorySelector}
 \title{Title}
 \usage{
-generateCategorySelector(id, inputid, parent = "Find")
+generateCategorySelector(id, inputid, parent = "Find", selected = "auto")
 }
 \arguments{
 \item{inputid}{}
