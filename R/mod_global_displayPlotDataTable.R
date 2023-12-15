@@ -71,7 +71,14 @@ plotDataTable_server <- function(id, resources, click_data, x, customdata) {
         resources() %>%
           filter(get(customdata()) %in% click_data()$customdata) %>%
           filter(get(x()) %in% click_data()$x) %>%
-          select(any_of(c("identifier", input$selected_tbl_columns)))
+          select(any_of(c("identifier", input$selected_tbl_columns))) %>%
+          datatable(escape = FALSE, rownames = FALSE, filter = FALSE,
+                    selection = "none",
+                    options = list(
+                      columnDefs = list(list(className = "dt-left", targets = "_all"),
+                                        list(width = "75px", targets = 0)),
+                      pageLength = 25)) %>%
+          formatStyle("identifier",  fontWeight = "bold")
 
       })
 
