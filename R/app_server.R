@@ -179,22 +179,28 @@ app_server <- function(input, output, session) {
   # make and show the success msg in the UI
 
   output$load.success_msg <- renderUI({
-    if (length(input$selected_places) > 2) {
-      plc <- paste(length(input$selected_places), " Places")
-    } else {
-      plc <- paste(input$selected_places, collapse = ", ")
-    }
-    if (length(input$selected_operations) > 4) {
-      ops <- paste(length(input$selected_operations), " Operations")
-    } else {
-      ops <- paste(input$selected_operations, collapse = ", ")
-    }
 
-    tagList(
-      tags$p(paste("On project: ", db_selected_project(), sep = ""))#,
-      #tags$p(paste("Working with", ops, "from", plc))
+    on_project <- paste(db_selected_project())
+
+    info_msg <- paste0(
+      "<b>Places</b> (", length(input$selected_places), "): ",
+      paste(input$selected_places, collapse = ", "),
+      "<br>",
+      "<b>Operations</b> (", length(input$selected_operations), "): ",
+      paste(input$selected_operations, collapse = ", ")
+    )
+
+    tags$span(
+      popify(span(icon("info-circle", style = "padding-left: 5px; padding-right: 10px"),
+                  on_project,
+                  id = "project_i", style = "color: #b7b8bc"),
+             title = paste0("On project: <b>", on_project, "</b>"),
+             content = info_msg, placement = "right", trigger = "hover",
+             options = list(container = "body"))
     )
   })
+
+
 
   #
   # % -------------------------------------------------------------DB Selection
@@ -251,13 +257,6 @@ app_server <- function(input, output, session) {
                                "live-search-placeholder" = "Search here..."))
   })
 
-  output$on_project_info <- reactive({
-    tags$div(
-      tags$ul(
-        tags$li("On project: ", input$selected_project)
-      )
-    )
-  })
 
   # % ----------------------------------------------------------------On Exit
 

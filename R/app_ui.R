@@ -16,7 +16,7 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
     sidebarMenu(
       menuItem("Home", tabName = "tab_home", icon = icon("right-to-bracket")),
       tags$div(id = "tab_connect.success-div",
-               class = "success-text",
+               class = "success-text", style = "display:inline-block",
                htmlOutput("load.success_msg")),
       actionButton("refreshIndex", "Refresh Index", icon = icon("refresh")),
       menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
