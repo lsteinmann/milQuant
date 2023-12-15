@@ -246,10 +246,17 @@ app_server <- function(input, output, session) {
       need(react_index(), "No project selected."),
       need(input$selected_places, "No Places selected.")
     )
+
+    if (length(available_operations()) == 1) {
+      selected <- available_operations()
+    } else {
+      selected <- startup_settings$selected_operations
+    }
+
     pickerInput(inputId = "selected_operations",
                 label = "Operations (Trenches, Surveys)", # "Choose one or more Operations (Trenches, Surveys) to work with",
                 choices = available_operations(),
-                selected = startup_settings$selected_operations,
+                selected = selected,
                 multiple = TRUE,
                 options = list("actions-box" = TRUE,
                                "live-search" = TRUE,
@@ -286,6 +293,7 @@ app_server <- function(input, output, session) {
   # server code only for overview pages
   db_overview_server("db_overview")
   db_activity_server("db_activity")
+  mod_search_serv("search")
   mod_worflow_serv("workflow")
 
 
