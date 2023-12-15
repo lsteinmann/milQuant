@@ -22,17 +22,33 @@ mod_pottery_QA_ui <- function(id, tabname) {
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
         uiLayerSelector(ns("layers")),
-        prettyRadioButtons(inputId = ns("display_context"),
-                           label = "Display Options", icon = icon("check"),
-                           inline = FALSE, animation = "jelly",
-                           choices = list("Do not display Context" = "none",
-                                          "Context as color" = "fill",
-                                          "Context on x-Axis" = "x")),
-        prettyRadioButtons(inputId = ns("display_bars"),
-                           label = "Position of Bars", icon = icon("check"),
+        prettyRadioButtons(inputId = ns("plot_by"),
+                           label = "Plot the ...",
+                           choices = list("number of fragments" = "count",
+                                          "weight" = "weight"),
+                           selected = "count",
+                           icon = icon("check"),
+                           inline = TRUE, animation = "jelly"),
+        selectInput(inputId = ns("sec_var"),
+                    label = "Choose a variable:",
+                    choices = list(Context = "relation.liesWithinLayer",
+                                   Place = "Place",
+                                   Operation = "Operation"),
+                    selected = "Operation"),
+        prettyRadioButtons(inputId = ns("display_variable"),
+                           label = "Display the selected variable...", icon = icon("check"),
                            inline = TRUE, animation = "jelly",
-                           choices = list("Dodged Bars" = "dodge2",
-                                          "Stacked Bars" = "stack")),
+                           choices = list("omit" = "none",
+                                          "... as color" = "fill",
+                                          "... on x-axis" = "x"),
+                           selected = "none"),
+        prettyRadioButtons(inputId = ns("bar_display"),
+                           label = "Display the bars...",
+                           icon = icon("check"),
+                           inline = TRUE, animation = "jelly",
+                           choices = list("stacked" = "stack",
+                                          "dodging" = "group"),
+                           selected = "stack"),
         downloadPlotButtons(ns("download"))
       ),
       box(
@@ -68,6 +84,8 @@ mod_pottery_QA_serv <- function(id) {
         )
 
         potteryQA <- get_resources(resource_category = "Pottery_Quantification_A") %>%
+          inner_join(react_index()[,c("identifier", "Operation", "Place")],
+                     by = "identifier") %>%
           remove_na_cols()
         return(potteryQA)
       })
@@ -79,27 +97,45 @@ mod_pottery_QA_serv <- function(id) {
         validate(
           need(is.data.frame(potteryQA()), "Data not available.")
         )
-        existing_cols <- colnames(potteryQA())
-        keep <- existing_cols
-        keep <- keep[grepl("count", keep)]
-        #keep
-        # remove "countTotal" as well
-        keep <- keep[!grepl("countTotal", keep)]
-        # needed for melt id
-        keep <- c(keep, "relation.liesWithinLayer")
 
         plot_data <- potteryQA() %>%
           filter(relation.liesWithinLayer %in% input$selected_layers) %>%
+          mutate(relation.liesWithinLayer = droplevels(relation.liesWithinLayer))
+
+
+
+        # get columnnames associated with the values to plot
+        existing_cols <- colnames(plot_data)
+        valuecols <- existing_cols[grepl(input$plot_by, existing_cols)]
+        valuecols <- valuecols[!grepl(paste0(input$plot_by, "Total"),
+                                      valuecols)]
+        # and additionally the ones which should be selected for plot_data
+        keep <- valuecols
+        # artificial secondary variable so that code below works when display is none
+        if (input$display_variable != "none") {
+          tmp_sec_var <- input$sec_var
+        } else {
+          tmp_sec_var <- "none"
+          plot_data$none <- "Pottery"
+        }
+        keep <- c(keep, tmp_sec_var)
+
+        plot_data <- plot_data %>%
           select(all_of(keep)) %>%
-          melt(id = "relation.liesWithinLayer") %>%
-          mutate(value = ifelse(is.na(value), 0, value)) %>%
-          mutate(value = as.numeric(value)) %>%
-          mutate(variable = gsub("count", "", variable)) %>%
-          # so every object is a row, technically (makes ggplot easier)
-          uncount(value) %>%
-          # sorting factors by frequency here to make plotly tooltip nicer
-          mutate(variable = fct_infreq(variable),
-                 relation.liesWithinLayer = fct_infreq(relation.liesWithinLayer))
+          mutate_at(valuecols, as.numeric) %>%
+          mutate_at(valuecols, ~replace_na(., 0)) %>%
+          rename(variable = tmp_sec_var) %>%
+          pivot_longer(cols = !variable, names_to = "funGroup") %>%
+          mutate(funGroup = gsub("count|weight", "", funGroup)) %>%
+          mutate(funGroup = gsub("Rim|Base|Handle|Wall", "", funGroup)) %>%
+          mutate(funGroup = as.factor(funGroup)) %>%
+          group_by(across(c(-value))) %>%
+          summarise(value = sum(value))
+
+        if (input$plot_by == "weight") {
+          plot_data$value <- plot_data$value / 1000
+        }
+
         return(plot_data)
       })
 
@@ -108,44 +144,68 @@ mod_pottery_QA_serv <- function(id) {
       make_plot <- reactive({
 
 
-        if (input$display_context == "fill") {
-          p <- ggplot(plot_data(), aes(x = variable,
-                                       fill = relation.liesWithinLayer))
-          legend_title <- "Context"
+        if (input$display_variable == "fill") {
+          legend_title <- input$sec_var
           x_axis_title <- "functional category"
-        } else if (input$display_context == "x") {
-          p <- ggplot(plot_data(), aes(x = relation.liesWithinLayer,
-                                                fill = variable))
+
+          fig <- plot_ly(plot_data(),
+                         x = ~funGroup, color = ~variable,  y = ~value,
+                         type = "bar",
+                         hovertemplate = milQuant_count_hovertemplate())
+
+        } else if (input$display_variable == "x") {
           legend_title <- "functional category"
-          x_axis_title <- "Context"
+          x_axis_title <- input$sec_var
 
-        } else if (input$display_context == "none") {
+          fig <- plot_ly(plot_data(),
+                         x = ~variable, color = ~funGroup,  y = ~value,
+                         type = "bar",
+                         hovertemplate = milQuant_count_hovertemplate())
 
-          p <- ggplot(plot_data(), aes(x = variable))
+        } else if (input$display_variable == "none") {
           legend_title <- "none"
-          x_axis_title <- "Vessel Forms"
+          x_axis_title <- "functional category"
+
+          fig <- plot_ly(plot_data(),
+                         x = ~funGroup, y = ~value, name = "Pottery",
+                         type = "bar",
+                         hovertemplate = milQuant_count_hovertemplate())
         }
 
         if (input$title == "") {
-          plot_title <- paste("Vessel Forms from Context: ",
+          plot_title <- paste("Functional categories in Context: ",
                               paste(input$selected_layers, collapse = ", "),
                               sep = "")
         } else {
-          plot_title <- input$title
+          plot_title <- paste0('<b>', input$title, '</b><br>', input$subtitle)
         }
 
-        p <- p +
-          geom_bar(position = input$display_bars) +
-          scale_fill_discrete(name = legend_title, guide = "legend") +
-          labs(x = x_axis_title, y = "count",
-               title = plot_title,
-               subtitle = input$subtitle,
-               caption = paste("Total Number of Fragments:", nrow(plot_data())))
-        p
+        caption <- paste0("Total: ", sum(plot_data()$value))
+
+        y_title <- ifelse(input$plot_by == "count",
+                          "number of fragmentes",
+                          "weight in kg")
+
+        fig <- fig %>% layout(barmode = input$bar_display,
+                              title = list(text = plot_title),
+                              yaxis = list(title = y_title))
+
+        fig <- milquant_plotly_layout(fig, caption = caption)
+
+        #p <- p +
+        #  geom_bar(position = input$display_bars) +
+        #  scale_fill_discrete(name = legend_title, guide = "legend") +
+        #  labs(x = x_axis_title, y = "count",
+        #       title = plot_title,
+        #       subtitle = input$subtitle,
+        #       caption = paste("Total Number of Fragments:", nrow(plot_data())))
+        #p
+
+        return(fig)
       })
 
       output$display_plot <- renderPlotly({
-        convert_to_Plotly(make_plot())
+        make_plot()
       })
 
       makeDownloadPlotHandler("download", dlPlot = display_plot)
