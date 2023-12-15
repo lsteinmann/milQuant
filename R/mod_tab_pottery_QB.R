@@ -19,7 +19,7 @@ mod_pottery_QB_ui <- function(id, tabname) {
         title = ui_options_title(type = "plot"),
         width = 3, height = 750,
         uiLayerSelector(ns("layers")),
-        hr(),
+        hr(class = "layer-hr"),
         textInput(inputId = ns("title"), label = "Title",
                   value = "", placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",

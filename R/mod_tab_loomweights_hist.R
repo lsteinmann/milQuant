@@ -20,7 +20,7 @@ mod_loomweights_hist_ui <- function(id, tabname) {
         title = ui_options_title(type = "plot"),
         width = 3, height = 850,
         uiLayerSelector(ns("layers")),
-        hr(),
+        hr(class = "layer-hr"),
         textInput(inputId = ns("title"), label = "Title",
                   value = "Weight-Histogram for Loomweights"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",

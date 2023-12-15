@@ -21,7 +21,7 @@ mod_bricksQ_ui <- function(id, tabname) {
         title = ui_options_title(),
         width = 3, height = 700,
         uiLayerSelector(ns("layers")),
-        hr(),
+        hr(class = "layer-hr"),
         textInput(inputId = ns("title"), label = "Title",
                   value = "Quantification of Bricks, Tiles and Pipes"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
