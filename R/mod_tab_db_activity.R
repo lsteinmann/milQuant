@@ -12,11 +12,14 @@ db_activity_tab <- function(id, tabname) {
         title = ui_options_title(type = "plot"), solidHeader = TRUE,
         column(
           width = 4,
-          airDatepickerInput(
+          dateRangeInput(
             inputId = ns("daterange"),
+            weekstart = 1,
             label = "Select range of dates:",
-            range = TRUE,
-            value = c(as.Date("2021-01-01"), Sys.Date())
+            start = Sys.Date() - 7,
+            end = Sys.Date(),
+            min = "2021-01-01",
+            max = Sys.Date()
           )
         ),
         column(
@@ -91,18 +94,46 @@ db_activity_server <- function(id) {
 
       output$user_selection <- renderUI({
         validate(
-          need(is.data.frame(plot_data()), "Wating for data...")
+          need(nrow(plot_data()) > 0, "Wating for data...")
         )
+
+        users <- plot_data() %>%
+          filter(date >= input$daterange[1] & date <= input$daterange[2]) %>%
+          pull(user) %>%
+          unique()
 
         pickerInput(inputId = ns("user_display"),
                     label = "Select users to display",
-                    choices = sort(unique(plot_data()$user), decreasing = FALSE),
-                    selected = unique(plot_data()$user),
+                    choices = sort(users, decreasing = FALSE),
+                    selected = users,
                     multiple = TRUE,
                     options = list("actions-box" = TRUE,
                                    "live-search" = TRUE,
                                    "live-search-normalize" = TRUE,
                                    "live-search-placeholder" = "Search here..."))
+      })
+
+      date_binsize <- reactive({
+        #input$daterange <- c(Sys.Date() - 28, Sys.Date())
+        len_time <- length(seq(from = input$daterange[1],
+                            to = input$daterange[2],
+                            by = 1))
+
+        if (len_time / 7 < 8) {
+          # 1 days for under eight weeks
+          n <- ms_days(1)
+        } else if (len_time < (365 / 2)) {
+          # 1 week for under half a year
+          n <- ms_days(7)
+        } else if (len_time < (365 * 2)) {
+          # 1 month for under two years
+          n <- "M1"
+        } else {
+          # let plotly choose otherwise
+          n <- 0
+        }
+
+        return(n)
       })
 
       output$display_plot <- renderPlotly({
@@ -124,8 +155,10 @@ db_activity_server <- function(id) {
                                 levels = sort(unique(Place),
                                               decreasing = TRUE))) %>%
           plot_ly(x = ~date, color = ~Place,
-                       hovertemplate = milQuant_hovertemplate(),
-                  type = "histogram")
+                  source = "activity_plot",
+                  hovertemplate = milQuant_hovertemplate(),
+                  type = "histogram",
+                  xbins = list(size = date_binsize()))
 
         plot_title <- paste0("Activity in project ", input$selected_project)
 
@@ -137,7 +170,9 @@ db_activity_server <- function(id) {
         fig <- fig %>%
           layout(barmode = "stack",
                  title = plot_title,
-                 xaxis = list(title = x_label),
+                 xaxis = list(title = x_label,
+                              dtick = date_binsize(),
+                              tick0 = "2000-01-01"),
                  yaxis = list(title = y_label),
                  legend = list(title = list(text = color_label)))
 

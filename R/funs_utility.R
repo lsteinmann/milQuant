@@ -112,3 +112,15 @@ ui_options_title <- function(type = "plot"){
   return(title)
 }
 
+
+#' Days to Milliseconds for Plotly Histogram bins
+#'
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+ms_days <- function(x) {
+  x * 8.64e+7
+}
