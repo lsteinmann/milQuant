@@ -24,6 +24,7 @@ Depends:
     shiny,
     remotes,
     reshape2,
+    shinyBS,
     shinydashboard,
     shinycssloaders,
     shinyjs,
