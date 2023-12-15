@@ -240,12 +240,26 @@ idf_uid_query <- function(login_connection, uids) {
 # login_connection <- function () { conn }
 # fields <- c("period", "dating")
 # uids <- unique(index$UID)
-get_resources <- function(resource_category = "Pottery", fields = "all") {
+get_resources <- function(resource_category = "Pottery",
+                          fields = "all",
+                          liesWithinLayer = NULL,
+                          prep_for_shiny = TRUE) {
   message(milQ_message("Invalidating and querying DB now:"))
-  uids <- react_index() %>%
-    filter(isRecordedIn %in% db_selected_operations()) %>%
-    filter(category %in% resource_category) %>%
-    pull(UID)
+
+  if (!is.null(liesWithinLayer)) {
+    uids <- react_index() %>%
+      filter(isRecordedIn %in% db_selected_operations()) %>%
+      filter(liesWithinLayer %in% liesWithinLayer) %>%
+      filter(category %in% resource_category) %>%
+      pull(UID)
+  } else {
+    uids <- react_index() %>%
+      filter(isRecordedIn %in% db_selected_operations()) %>%
+      filter(category %in% resource_category) %>%
+      pull(UID)
+  }
+
+
 
   message(paste0("Getting ", length(uids), " resources of category: ",
                  paste(resource_category, collapse = ", "), "..."))
@@ -273,9 +287,14 @@ get_resources <- function(resource_category = "Pottery", fields = "all") {
   result <- selected %>%
     simplify_idaifield(uidlist = react_index(),
                        keep_geometry = FALSE,
+                       spread_fields = prep_for_shiny,
                        find_layers = TRUE,
-                       replace_uids = TRUE) %>%
+                       replace_uids = TRUE)
+
+  if (prep_for_shiny == TRUE) {
+    result <- result %>%
     prep_for_shiny(reorder_periods = reorder_periods)
+  }
 
   message(milQ_message("Done."))
   return(result)

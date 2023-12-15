@@ -20,13 +20,21 @@ mod_worflow_ui <- function(id, tabname = NULL) {
         title = tagList(icon("gears"), "Layer and category selection"),
         collapsible = TRUE, solidHeader = TRUE,
         column(
-          width = 6,
+          width = 4,
           uiLayerSelector(ns("layers"))
         ),
         column(
-          width = 6,
+          width = 4,
           uiCategorySelector(ns("categories"))
-        )
+        ),
+        column(
+          width = 2,
+          actionButton(inputId = ns("loadResources"),
+                       label = "Load Resources",
+                       style = "margin-top:25px") %>%
+            addLRPopover()
+        ),
+        column(width = 2, totalResourcesValueBox(ns("info"), width = 10))
       )
     ),
     fluidRow(
@@ -53,19 +61,38 @@ mod_worflow_serv <- function(id) {
 
       ns <- NS(id)
 
+      tmp <- reactive({
+        react_index() %>%
+          filter(Operation %in% db_selected_operations()) %>%
+          rename("relation.liesWithinLayer" = liesWithinLayer)
+      })
+
+      generateLayerSelector("layers", tmp, inputid = ns("selected_layers"))
+      generateCategorySelector("categories",
+                               parent = "Find",
+                               selected = "all",
+                               inputid = ns("selected_categories"))
+
+
+      observeEvent(input$selected_categories, {
+        totalResources_serv("info", sel_categories = isolate(input$selected_categories))
+      })
+
       wf_disp_cols <- reactive({
         wf_disp_cols <- c("identifier", "category", "shortDescription", "processor",
                           "date", "notes", "storagePlace", "relation.liesWithinLayer")
         wf_disp_cols
       })
 
-      workflow_data <- reactive({
+      workflow_data <- eventReactive(input$loadResources, {
         validate(
           need(is.data.frame(react_index()), "No Index available.")
         )
 
-        data("milQuant_cats")
-        base_data <- get_resources(resource_category = milQuant_cats$Find) %>%
+        db_selected_categories(input$selected_categories)
+
+        base_data <- get_resources(resource_category = input$selected_categories,
+                                   liesWithinLayer = input$selected_layers) %>%
           remove_na_cols() %>%
           select(any_of(wf_disp_cols()), contains("workflow")) %>%
           mutate_at(vars(contains("workflow")), ~ ifelse(is.na(.), FALSE, TRUE))
@@ -73,25 +100,15 @@ mod_worflow_serv <- function(id) {
         return(base_data)
       })
 
-      generateLayerSelector("layers", workflow_data, inputid = ns("selected_layers"))
-      generateCategorySelector("categories",
-                               parent = "Find",
-                               selected = "all",
-                               inputid = ns("selected_categories"))
+
 
       ## Workflow Tabbox
       output$workflow_tabs <- renderUI({
 
-        db_selected_categories(input$selected_categories)
+        workflow_cols <- grep("workflow", colnames(workflow_data()))
+        workflow_cols <- colnames(workflow_data())[workflow_cols]
 
-        tmp_workflow_data <- workflow_data() %>%
-          filter(relation.liesWithinLayer %in% input$selected_layers) %>%
-          filter(category %in% input$selected_categories)
-
-        workflow_cols <- grep("workflow", colnames(tmp_workflow_data))
-        workflow_cols <- colnames(tmp_workflow_data)[workflow_cols]
-
-        total <- nrow(tmp_workflow_data)
+        total <- nrow(workflow_data())
 
         do.call(
           tabBox,
@@ -102,7 +119,7 @@ mod_worflow_serv <- function(id) {
             lapply(
               workflow_cols,
               function(wfcol) {
-                n <- tmp_workflow_data %>%
+                n <- workflow_data() %>%
                   select(any_of(wfcol)) %>%
                   sum()
 
@@ -133,7 +150,7 @@ mod_worflow_serv <- function(id) {
                       width = 12,
                       h3("Objects in the plot where this box has been checked: "),
                       renderDT(
-                        tmp_workflow_data %>%
+                        workflow_data() %>%
                           filter(get(wfcol) == TRUE) %>%
                           select(any_of(wf_disp_cols()))
                       )
@@ -144,7 +161,7 @@ mod_worflow_serv <- function(id) {
                       width = 12,
                       h3("... and objects where it has not:"),
                       renderDT(
-                        tmp_workflow_data %>%
+                        workflow_data() %>%
                           filter(get(wfcol) == FALSE) %>%
                           select(any_of(wf_disp_cols()))
                       )
