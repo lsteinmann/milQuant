@@ -19,13 +19,12 @@ mod_barchart_finds_ui <- function(id, tabname) {
         solidHeader = TRUE, collapsible = TRUE,
         width = 12,
         column(width = 4, uiCategorySelector(ns("categories"))),
-        column(width = 2, actionButton(inputId = ns("loadResources"),
-                                       label = "Load Resources",
-                                       style = "margin-top:25px")),
-        column(width = 4, p('The "Load Resources" button will query the
-          database for all resources of the selected categories from the
-          selected Operations. Depending on the number of resources,
-          this may take a while.')),
+        column(width = 2,
+               actionButton(inputId = ns("loadResources"),
+                            label = "Load Resources",
+                            style = "margin-top:25px") %>%
+                 addLRPopover()),
+        column(width = 4),
         column(width = 2, totalResourcesValueBox(ns("info"), width = 10))
       )
     ),

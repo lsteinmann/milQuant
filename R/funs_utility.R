@@ -124,3 +124,27 @@ ui_options_title <- function(type = "plot"){
 ms_days <- function(x) {
   x * 8.64e+7
 }
+
+
+#' Title
+#'
+#' @param input
+#'
+#' @return
+#' @export
+#'
+#' @examples
+addLRPopover <- function(input) {
+
+  content <- paste0(
+    "The \"Load Resources\" button will query the ",
+    "database for all resources of the selected categories from the ",
+    "selected Operations. Depending on the number of resources, ",
+    "this may take a while."
+  )
+
+  input %>%
+    popify(title = "Load Resources", content = content, placement = "bottom")
+
+}
+
