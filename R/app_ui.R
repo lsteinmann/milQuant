@@ -28,8 +28,9 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
                menuSubItem("Aoristic Density Plots", tabName = "tab_aoristic_finds", icon = icon("chart-area"))),
       menuItem("Quantifications", tabName = "quants", icon = icon("chart-simple"),
                menuSubItem("Quantification (General)", tabName = "tab_finds_quant", icon = icon("chart-simple")),
-               menuSubItem("Brick/Tile/Pipe Quantification", tabName = "tab_bricksQ",
-                           icon = icon("shapes"))
+               menuSubItem("Bricks/Tiles/Pipes", tabName = "tab_bricksQ", icon = icon("shapes")),
+               menuSubItem("Mollusks", tabName = "tab_molluskQ", icon = icon("shrimp")),
+               menuSubItem("Plaster", tabName = "tab_plasterQ", icon = icon("brush"))
       ),
       menuItem("Pottery", tabName = "tab_pottery_all", icon = icon("trophy"),
                menuSubItem("Pottery (single)", tabName = "tab_pottery_single",
@@ -78,7 +79,9 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       mod_loomweights_hist_ui("loomweights_hist", tabname = "tab_loomweights_hist"),
 
       # quants
-      mod_bricksQ_ui("bricksQ", tabname = "tab_bricksQ")
+      mod_quants_ui("bricksQ", tabname = "tab_bricksQ"),
+      mod_quants_ui("molluskQ", tabname = "tab_molluskQ"),
+      mod_quants_ui("plasterQ", tabname = "tab_plasterQ")
     )
   )
 

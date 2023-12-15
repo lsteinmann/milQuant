@@ -309,7 +309,9 @@ app_server <- function(input, output, session) {
 
   mod_loomweights_hist_serv("loomweights_hist")
 
-  mod_bricksQ_serv("bricksQ")
+  mod_quants_serv("bricksQ", resource_category = "Brick_Quantification")
+  mod_quants_serv("molluskQ", resource_category = "QuantMollusks")
+  mod_quants_serv("plasterQ", resource_category = "PlasterQuantification")
 
 
 

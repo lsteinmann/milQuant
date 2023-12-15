@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-mod_bricksQ_ui <- function(id, tabname) {
+mod_quants_ui <- function(id, tabname) {
 
   ns <- NS(id)
 
@@ -23,7 +23,7 @@ mod_bricksQ_ui <- function(id, tabname) {
         uiLayerSelector(ns("layers")),
         hr(class = "layer-hr"),
         textInput(inputId = ns("title"), label = "Title",
-                  value = "Quantification of Bricks, Tiles and Pipes"),
+                  placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
         prettyRadioButtons(inputId = ns("plot_by"),
@@ -66,7 +66,7 @@ mod_bricksQ_ui <- function(id, tabname) {
 #' @export
 #'
 #' @examples
-mod_bricksQ_serv <- function(id) {
+mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
 
   moduleServer(
     id,
@@ -75,38 +75,40 @@ mod_bricksQ_serv <- function(id) {
       ns <- NS(id)
 
 
-      bricksQ <- reactive({
+      quant <- reactive({
         validate(
           need(is.data.frame(react_index()), "No Index available.")
         )
 
-        bricksQ <- get_resources(resource_category = "Brick_Quantification") %>%
+
+
+        quant <- get_resources(resource_category = resource_category) %>%
           remove_na_cols() %>%
           inner_join(react_index()[,c("identifier", "Operation", "Place")],
                      by = "identifier")
-        return(bricksQ)
+        return(quant)
       })
 
-      generateLayerSelector("layers", bricksQ, inputid = ns("selected_layers"))
+      generateLayerSelector("layers", quant, inputid = ns("selected_layers"))
 
       make_plot <- reactive({
 
         validate(
-          need(is.data.frame(bricksQ()), "Waiting for data...")
+          need(is.data.frame(quant()), "Waiting for data...")
         )
 
-        existing_cols <- colnames(bricksQ())
+        existing_cols <- colnames(quant())
         keep <- existing_cols
-        keep <- keep[grepl(input$plot_by, keep)]
+        keep <- keep[grepl(input$plot_by, keep, ignore.case = TRUE)]
         # remove "countTotal" as well
-        keep <- keep[!grepl(paste0(input$plot_by, "Total"), keep)]
+        keep <- keep[!grepl("total", keep, ignore.case = TRUE)]
         # needed for melt id
         keep <- c(keep, "relation.liesWithinLayer")
 
         custom_hovertemplate <- milQuant_hovertemplate(value = input$plot_by)
 
 
-        plot_data <- bricksQ() %>%
+        plot_data <- quant() %>%
           filter(relation.liesWithinLayer %in% input$selected_layers) %>%
           select(all_of(keep)) %>%
           droplevels() %>%
@@ -141,7 +143,12 @@ mod_bricksQ_serv <- function(id) {
 
         caption <- paste0("Total ", input$plot_by, ": ", sum(plot_data$value))
 
-        x_title <- "Type of Brick / Tile / Pipe"
+        switch(resource_category,
+               Brick_Quantification = x_title <- "Type of Brick / Tile / Pipe",
+               QuantMollusks = x_title <- "Type of Mollusk",
+               PlasterQuantification = x_title <- "Type of Mortar / Plaster")
+
+
         y_title <- ifelse(input$plot_by == "count",
                           "number of fragments",
                           "weight in kg")
