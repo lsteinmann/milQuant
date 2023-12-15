@@ -84,10 +84,31 @@ mq_spinner <- function(object) {
 #' @export
 #'
 #' @examples
-milQuant_count_hovertemplate <- function() {
+milQuant_hovertemplate <- function(value = "count") {
   paste0("<b>%{fullData.name}</b><br>",
          "%{x}<br>",
-         "count: <b>%{y}</b><br>",
+         value, ": <b>%{y}</b><br>",
          "<extra></extra>")
+}
+
+
+#' Title
+#'
+#' @param type
+#'
+#' @return
+#' @export
+#'
+#' @examples
+ui_options_title <- function(type = "plot"){
+  match.arg(type, choices = c("plot", "selection"))
+
+  if (type == "plot") {
+    title <- tagList(icon("wrench"), "Plot options")
+  } else if (type == "selection") {
+    title <- tagList(icon("filter"), "Selection options")
+  }
+
+  return(title)
 }
 

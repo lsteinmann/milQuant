@@ -21,11 +21,15 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       actionButton("refreshIndex", "Refresh Index", icon = icon("refresh")),
       menuItem("Activity", tabName = "db_activity_tab", icon = icon("people-arrows")),
       menuItem("Workflow", tabName = "tab_workflow", icon = icon("gears")),
-      menuItem("Find Overview", tabName = "tab_all_finds", icon = icon("magnifying-glass-chart"),
+      menuItem("Finds", tabName = "tab_all_finds", icon = icon("magnifying-glass-chart"),
                menuSubItem("Inventoried Finds", tabName = "tab_finds_overview", icon = icon("ranking-star")),
-               menuSubItem("Quantification (General)", tabName = "tab_finds_quant", icon = icon("chart-simple")),
                menuSubItem("Bar Charts for Find Groups", tabName = "tab_barchart_finds", icon = icon("chart-column")),
                menuSubItem("Aoristic Density Plots", tabName = "tab_aoristic_finds", icon = icon("chart-area"))),
+      menuItem("Quantifications", tabName = "quants", icon = icon("chart-simple"),
+               menuSubItem("Quantification (General)", tabName = "tab_finds_quant", icon = icon("chart-simple")),
+               menuSubItem("Brick/Tile/Pipe Quantification", tabName = "tab_bricksQ",
+                           icon = icon("shapes"))
+      ),
       menuItem("Pottery", tabName = "tab_pottery_all", icon = icon("trophy"),
                menuSubItem("Pottery (single)", tabName = "tab_pottery_single",
                            icon = icon("martini-glass-empty")),
@@ -35,10 +39,6 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
                            icon = icon("champagne-glasses"))
       ),
       menuItem("Loomweights", tabName = "tab_loomweights_hist", icon = icon("scale-unbalanced")),
-      menuItem("Quantifications", tabName = "quants", icon = icon("chart-simple"),
-               menuSubItem("Brick/Tile/Pipe Quantification", tabName = "tab_bricksQ",
-                           icon = icon("shapes"))
-      ),
       menuItem("Issues / Contact", icon = icon("file-contract"),
                href = "https://github.com/lsteinmann/milQuant")
     )

@@ -17,7 +17,7 @@ mod_worflow_ui <- function(id, tabname = NULL) {
     fluidRow(
       box(
         width = 12,
-        title = tagList(icon("geats"), "Layer and category selection"),
+        title = tagList(icon("gears"), "Layer and category selection"),
         collapsible = TRUE, solidHeader = TRUE,
         column(
           width = 6,

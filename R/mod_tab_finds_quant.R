@@ -16,12 +16,14 @@ mod_finds_quant_ui <- function(id, tabname) {
 
     fluidRow(
       box(
+        title = ui_options_title(type = "plot"),
         width = 3, height = 700,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
-        uiLayerSelector(ns("layers")),
         prettyRadioButtons(inputId = ns("plot_by"),
                            label = "Plot the ...",
                            choices = list("number of fragments" = "countTotal",
@@ -32,8 +34,8 @@ mod_finds_quant_ui <- function(id, tabname) {
         htmlOutput(ns("var_selector")),
         prettyRadioButtons(inputId = ns("var_display"),
                            label = "Display the selected variable...",
-                           choices = list("as X-Axis" = "var_is_x",
-                                          "as Colour" = "var_is_fill"),
+                           choices = list("as color" = "var_is_fill",
+                                          "on x-axis" = "var_is_x"),
                            selected = "var_is_fill",
                            icon = icon("check"),
                            inline = TRUE, animation = "jelly"),
@@ -161,7 +163,7 @@ mod_finds_quant_serv <- function(id) {
 
         x_title <- "Type of Find"
         y_title <- ifelse(input$plot_by == "countTotal",
-                          "number of fragmentes",
+                          "number of fragments",
                           "weight in kg")
 
         fig <- fig %>% layout(barmode = input$bar_display,# bargap = 0.1,

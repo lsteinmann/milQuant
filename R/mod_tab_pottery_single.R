@@ -15,12 +15,14 @@ mod_pottery_single_ui <- function(id, tabname) {
     tabName = tabname,
     fluidRow(
       box(
+        title = ui_options_title(type = "plot"),
         width = 3, height = 700,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
-        uiLayerSelector(ns("layers")),
         htmlOutput(ns("x_selector")),
         htmlOutput(ns("fill_selector")),
         prettyRadioButtons(inputId = ns("bar_display"),
@@ -149,7 +151,7 @@ mod_pottery_single_serv <- function(id) {
                        color = ~color, customdata = ~color,
                        type = "bar", source = ns("plot"),
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = milQuant_count_hovertemplate())
+                       hovertemplate = milQuant_hovertemplate())
 
         fig <- fig %>% event_register('plotly_click')
 

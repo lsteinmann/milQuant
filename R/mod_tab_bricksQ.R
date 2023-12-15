@@ -17,13 +17,15 @@ mod_bricksQ_ui <- function(id, tabname) {
 
     fluidRow(
       box(
-        h3("Quantification of Bricks, Tiles and Pipes"),
+        #h3("Quantification of Bricks, Tiles and Pipes"),
+        title = ui_options_title(),
         width = 3, height = 700,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   value = "Quantification of Bricks, Tiles and Pipes"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
-        uiLayerSelector(ns("layers")),
         prettyRadioButtons(inputId = ns("plot_by"),
                            label = "Plot the ...",
                            choices = list("number of fragments" = "count",
@@ -103,6 +105,9 @@ mod_bricksQ_serv <- function(id) {
         # needed for melt id
         keep <- c(keep, "relation.liesWithinLayer")
 
+        custom_hovertemplate <- milQuant_hovertemplate(value = input$plot_by)
+
+
         plot_data <- bricksQ() %>%
           filter(relation.liesWithinLayer %in% input$selected_layers) %>%
           select(all_of(keep)) %>%
@@ -121,17 +126,15 @@ mod_bricksQ_serv <- function(id) {
           fig <- plot_ly(plot_data, type = "bar",
                          x = ~variable, y = ~value, color = ~color,
                          colors = viridis(length(unique(plot_data$color))),
-                         hovertemplate = milQuant_count_hovertemplate())
+                         hovertemplate = custom_hovertemplate)
         } else {
           fig <- plot_data %>%
             select(variable, value) %>%
             group_by(variable) %>%
             summarise(value = sum(value)) %>%
-            plot_ly(type = "bar",
+            plot_ly(type = "bar", name = "Quantification",
                     x = ~variable, y = ~value,
-                    hovertemplate = paste0("<b>%{x}</b><br>",
-                                           "count: <b>%{y}</b><br>",
-                                           "<extra></extra>"))
+                    hovertemplate = custom_hovertemplate)
         }
 
 
@@ -142,7 +145,7 @@ mod_bricksQ_serv <- function(id) {
 
         x_title <- "Type of Brick / Tile / Pipe"
         y_title <- ifelse(input$plot_by == "count",
-                          "number of fragmentes",
+                          "number of fragments",
                           "weight in kg")
 
         fig <- fig %>% layout(barmode = input$bar_display,# bargap = 0.1,

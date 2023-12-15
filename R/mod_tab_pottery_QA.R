@@ -16,12 +16,14 @@ mod_pottery_QA_ui <- function(id, tabname) {
 
     fluidRow(
       box(
+        title = ui_options_title(type = "plot"),
         width = 3, height = 650,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   value = "", placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
-        uiLayerSelector(ns("layers")),
         prettyRadioButtons(inputId = ns("plot_by"),
                            label = "Plot the ...",
                            choices = list("number of fragments" = "count",
@@ -39,8 +41,8 @@ mod_pottery_QA_ui <- function(id, tabname) {
                            label = "Display the selected variable...", icon = icon("check"),
                            inline = TRUE, animation = "jelly",
                            choices = list("omit" = "none",
-                                          "... as color" = "fill",
-                                          "... on x-axis" = "x"),
+                                          "as color" = "fill",
+                                          "on x-axis" = "x"),
                            selected = "none"),
         prettyRadioButtons(inputId = ns("bar_display"),
                            label = "Display the bars...",
@@ -125,10 +127,10 @@ mod_pottery_QA_serv <- function(id) {
           mutate_at(valuecols, as.numeric) %>%
           mutate_at(valuecols, ~replace_na(., 0)) %>%
           rename(variable = tmp_sec_var) %>%
-          pivot_longer(cols = !variable, names_to = "funGroup") %>%
-          mutate(funGroup = gsub("count|weight", "", funGroup)) %>%
-          mutate(funGroup = gsub("Rim|Base|Handle|Wall", "", funGroup)) %>%
-          mutate(funGroup = as.factor(funGroup)) %>%
+          pivot_longer(cols = !variable, names_to = "funCat") %>%
+          mutate(funCat = gsub("count|weight", "", funCat)) %>%
+          mutate(funCat = gsub("Rim|Base|Handle|Wall", "", funCat)) %>%
+          mutate(funCat = as.factor(funCat)) %>%
           group_by(across(c(-value))) %>%
           summarise(value = sum(value))
 
@@ -143,33 +145,34 @@ mod_pottery_QA_serv <- function(id) {
 
       make_plot <- reactive({
 
+        custom_hovertemplate <- milQuant_hovertemplate(value = input$plot_by)
 
         if (input$display_variable == "fill") {
           legend_title <- input$sec_var
           x_axis_title <- "functional category"
 
           fig <- plot_ly(plot_data(),
-                         x = ~funGroup, color = ~variable,  y = ~value,
+                         x = ~funCat, color = ~variable,  y = ~value,
                          type = "bar",
-                         hovertemplate = milQuant_count_hovertemplate())
+                         hovertemplate = custom_hovertemplate)
 
         } else if (input$display_variable == "x") {
           legend_title <- "functional category"
-          x_axis_title <- input$sec_var
+          x_title <- input$sec_var
 
           fig <- plot_ly(plot_data(),
-                         x = ~variable, color = ~funGroup,  y = ~value,
+                         x = ~variable, color = ~funCat,  y = ~value,
                          type = "bar",
-                         hovertemplate = milQuant_count_hovertemplate())
+                         hovertemplate = custom_hovertemplate)
 
         } else if (input$display_variable == "none") {
           legend_title <- "none"
-          x_axis_title <- "functional category"
+          x_title <- "functional category"
 
           fig <- plot_ly(plot_data(),
-                         x = ~funGroup, y = ~value, name = "Pottery",
+                         x = ~funCat, y = ~value, name = "Pottery",
                          type = "bar",
-                         hovertemplate = milQuant_count_hovertemplate())
+                         hovertemplate = custom_hovertemplate)
         }
 
         if (input$title == "") {
@@ -183,23 +186,15 @@ mod_pottery_QA_serv <- function(id) {
         caption <- paste0("Total: ", sum(plot_data()$value))
 
         y_title <- ifelse(input$plot_by == "count",
-                          "number of fragmentes",
+                          "number of fragments",
                           "weight in kg")
 
         fig <- fig %>% layout(barmode = input$bar_display,
                               title = list(text = plot_title),
-                              yaxis = list(title = y_title))
+                              yaxis = list(title = y_title),
+                              xaxis = list(title = x_title))
 
         fig <- milquant_plotly_layout(fig, caption = caption)
-
-        #p <- p +
-        #  geom_bar(position = input$display_bars) +
-        #  scale_fill_discrete(name = legend_title, guide = "legend") +
-        #  labs(x = x_axis_title, y = "count",
-        #       title = plot_title,
-        #       subtitle = input$subtitle,
-        #       caption = paste("Total Number of Fragments:", nrow(plot_data())))
-        #p
 
         return(fig)
       })

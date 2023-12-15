@@ -17,12 +17,14 @@ mod_loomweights_hist_ui <- function(id, tabname) {
 
     fluidRow(
       box(
+        title = ui_options_title(type = "plot"),
         width = 3, height = 850,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   value = "Weight-Histogram for Loomweights"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
-        uiLayerSelector(ns("layers")),
         sliderInput(inputId = ns("n_bins"), label = "Number of bins (0 = auto):",
                     min = 0,
                     max = 100,
@@ -152,7 +154,7 @@ mod_loomweights_hist_serv <- function(id) {
                        #histnorm = input$lw_histnorm,
                        source = "loomweights_histogram",
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = milQuant_count_hovertemplate())
+                       hovertemplate = milQuant_hovertemplate())
 
         legend_title <- names(color_var_choices[which(color_var_choices == color_var())])
 

@@ -9,7 +9,7 @@ db_activity_tab <- function(id, tabname) {
       box(
         width = 9, collapsible = TRUE,
         style = "min-height:100px;",
-        title = "Plot options", solidHeader = TRUE,
+        title = ui_options_title(type = "plot"), solidHeader = TRUE,
         column(
           width = 4,
           airDatepickerInput(
@@ -120,7 +120,7 @@ db_activity_server <- function(id) {
                                 levels = sort(unique(Place),
                                               decreasing = TRUE))) %>%
           plot_ly(x = ~date, color = ~Place,
-                       hovertemplate = milQuant_count_hovertemplate(),
+                       hovertemplate = milQuant_hovertemplate(),
                   type = "histogram")
 
         plot_title <- paste0("Activity in project ", input$selected_project)

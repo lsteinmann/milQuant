@@ -17,8 +17,7 @@ milquant_plotly_layout <- function(plotly_fig, caption = FALSE) {
            xaxis = list(gridcolor = "grey60"),
            title = list(xanchor = "left", x = 0,
                         pad = list(b = 70),
-                        yref = "container", automargin = TRUE),
-           showlegend = TRUE)
+                        yref = "container", automargin = TRUE))
 
   if (is.character(caption)) {
     plotly_fig <- plotly_fig %>%

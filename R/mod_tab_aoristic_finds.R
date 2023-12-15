@@ -14,23 +14,27 @@ mod_aoristic_finds_ui <- function(id, tabname) {
   tabItem(
     tabName = tabname,
     fluidRow(
-      box(solidHeader = TRUE, collapsible = TRUE,
-          width = 12,
-          title = "Selection Options for Bar Charts",
-          column(width = 4, uiCategorySelector(ns("categories"))),
-          column(width = 2, actionButton(inputId = ns("loadResources"),
-                                         label = "Load Resources",
-                                         style = "margin-top:25px")),
-          column(width = 4, p('The "Load Resources" button will query the
+      box(
+        title = ui_options_title(type = "selection"),
+        solidHeader = TRUE, collapsible = TRUE,
+        width = 12,
+        column(width = 4, uiCategorySelector(ns("categories"))),
+        column(width = 2, actionButton(inputId = ns("loadResources"),
+                                       label = "Load Resources",
+                                       style = "margin-top:25px")),
+        column(width = 4, p('The "Load Resources" button will query the
           database for all resources of the selected categories from the
           selected Operations. Depending on the number of resources,
           this may take a while.')),
-          column(width = 2, tabValueBox_ui(ns("info"), width = 10))
+        column(width = 2, tabValueBox_ui(ns("info"), width = 10))
       )
     ),
     fluidRow(
       box(
+        title = ui_options_title(type = "plot"),
         width = 3, height = 700,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
@@ -50,9 +54,9 @@ mod_aoristic_finds_ui <- function(id, tabname) {
                                    Place = "Place"),
                     selected = "category"),
         prettyCheckboxGroup(inputId = ns("plot_color"),
-                           label = "Seperate graph by variable for...",
-                           choices = list("Dating probability density" = "dens",
-                                          "Histogram of maximum number of objects" = "hist"),
+                           label = "Separate graph by variable for...",
+                           choices = list("dating probability density" = "dens",
+                                          "histogram of maximum number of objects" = "hist"),
                            selected = "hist", status = "danger",
                            fill = TRUE, bigger = TRUE,
                            inline = FALSE, animation = "jelly"),

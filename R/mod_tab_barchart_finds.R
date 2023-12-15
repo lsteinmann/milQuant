@@ -14,32 +14,35 @@ mod_barchart_finds_ui <- function(id, tabname) {
   tabItem(
     tabName = tabname,
     fluidRow(
-      box(solidHeader = TRUE, collapsible = TRUE,
-          width = 12,
-          title = "Selection Options for Bar Charts",
-          column(width = 4, uiCategorySelector(ns("categories"))),
-          column(width = 2, actionButton(inputId = ns("loadResources"),
-                                         label = "Load Resources",
-                                         style = "margin-top:25px")),
-          column(width = 4, p('The "Load Resources" button will query the
+      box(
+        title = ui_options_title(type = "selection"),
+        solidHeader = TRUE, collapsible = TRUE,
+        width = 12,
+        column(width = 4, uiCategorySelector(ns("categories"))),
+        column(width = 2, actionButton(inputId = ns("loadResources"),
+                                       label = "Load Resources",
+                                       style = "margin-top:25px")),
+        column(width = 4, p('The "Load Resources" button will query the
           database for all resources of the selected categories from the
           selected Operations. Depending on the number of resources,
           this may take a while.')),
-          column(width = 2, tabValueBox_ui(ns("info"), width = 10))
-          )
+        column(width = 2, tabValueBox_ui(ns("info"), width = 10))
+      )
     ),
     fluidRow(
       box(
+        title = ui_options_title(type = "plot"),
         width = 3, height = 700,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
-        uiLayerSelector(ns("layers")),
         htmlOutput(ns("x_selector")),
         htmlOutput(ns("fill_selector")),
         prettyRadioButtons(inputId = ns("bar_display"),
-                           label = "Choose how to display the bars",
+                           label = "Display the bars...",
                            icon = icon("check"),
                            inline = TRUE, animation = "jelly",
                            choices = list("stacked" = "stack",
@@ -189,7 +192,7 @@ mod_barchart_finds_serv <- function(id) {
                        color = ~color, customdata = ~color,
                        type = "bar", source = ns("plot"),
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = milQuant_count_hovertemplate())
+                       hovertemplate = milQuant_hovertemplate())
 
         fig <- fig %>% event_register('plotly_click')
 

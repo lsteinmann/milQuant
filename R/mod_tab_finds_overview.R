@@ -15,17 +15,19 @@ mod_finds_overview_ui <- function(id, tabname) {
 
     fluidRow(
       box(
+        title = ui_options_title(type = "plot"),
         width = 3, height = 700,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   value = "Distribution of Find-Categories"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
                   placeholder = "Enter subtitle here"),
-        uiLayerSelector(ns("layers")),
         htmlOutput(ns("var_selector")),
         prettyRadioButtons(inputId = ns("var_display"),
                            label = "Display the selected variable...",
-                           choices = list("as X-Axis" = "var_is_x",
-                                          "as Colour" = "var_is_fill"),
+                           choices = list("as color" = "var_is_fill",
+                                          "on x-axis" = "var_is_x"),
                            selected = "var_is_x",
                            icon = icon("check"),
                            inline = TRUE, animation = "jelly"),
@@ -156,7 +158,7 @@ mod_finds_overview_serv <- function(id) {
                        type = "bar",
                        source = "allfinds_plot",
                        colors = viridis(length(unique(plot_data()$color))),
-                       hovertemplate = milQuant_count_hovertemplate())
+                       hovertemplate = milQuant_hovertemplate())
 
         legend_title <- ifelse(input$var_display == "var_is_fill",
                                input$secondary_var,

@@ -16,7 +16,10 @@ mod_pottery_QB_ui <- function(id, tabname) {
 
     fluidRow(
       box(
-        width = 3, height = 650,
+        title = ui_options_title(type = "plot"),
+        width = 3, height = 750,
+        uiLayerSelector(ns("layers")),
+        hr(),
         textInput(inputId = ns("title"), label = "Title",
                   value = "", placeholder = "Enter title here"),
         textInput(inputId = ns("subtitle"), label = "Subtitle",
@@ -35,13 +38,13 @@ mod_pottery_QB_ui <- function(id, tabname) {
                                           "no" = FALSE),
                            selected = FALSE),
         prettyRadioButtons(inputId = ns("display_xaxis"),
-                           label = "Display Options", icon = icon("check"),
+                           label = "Display x-axis as...", icon = icon("check"),
                            inline = TRUE, animation = "jelly",
-                           choices = list("Period on x-axis" = "period",
-                                          "Function on x-axis" = "function"),
+                           choices = list("Period" = "period",
+                                          "functional category" = "function"),
                            selected = "period"),
         prettyRadioButtons(inputId = ns("bar_display"),
-                           label = "Choose how to display the bars",
+                           label = "Display the bars...",
                            icon = icon("check"),
                            inline = TRUE, animation = "jelly",
                            choices = list("stacked" = "stack",
@@ -50,8 +53,8 @@ mod_pottery_QB_ui <- function(id, tabname) {
         downloadPlotButtons(ns("download"))
       ),
       box(
-        width = 9, height = 650,
-        plotlyOutput(ns("display_plot"), height = 620) %>% mq_spinner()
+        width = 9, height = 750,
+        plotlyOutput(ns("display_plot"), height = 720) %>% mq_spinner()
       )
     )
   )
@@ -135,21 +138,21 @@ mod_pottery_QB_serv <- function(id) {
         }
 
         plot_data <- plot_data %>%
-          pivot_longer(cols = !all_of(melt_by), names_to = "funGroup") %>%
-          mutate(funGroup = gsub("count", "", funGroup)) %>%
-          mutate(funGroup = gsub("Rim|Base|Handle|Wall", "", funGroup)) %>%
-          mutate(funGroup = as.factor(funGroup)) %>%
+          pivot_longer(cols = !all_of(melt_by), names_to = "funCat") %>%
+          mutate(funCat = gsub("count", "", funCat)) %>%
+          mutate(funCat = gsub("Rim|Base|Handle|Wall", "", funCat)) %>%
+          mutate(funCat = as.factor(funCat)) %>%
           group_by(across(c(-value))) %>%
           summarise(value = sum(value))
 
         if (input$display_xaxis == "function") {
           plot_data <- plot_data %>%
-            rename(x_axis = funGroup,
+            rename(x_axis = funCat,
                    color = period)
         } else if (input$display_xaxis == "period") {
           plot_data <- plot_data %>%
             rename(x_axis = period,
-                   color = funGroup)
+                   color = funCat)
         }
 
 
@@ -162,7 +165,7 @@ mod_pottery_QB_serv <- function(id) {
         )
 
         if (input$title == "") {
-          plot_title <- paste("Vessel Forms from Context: ",
+          plot_title <- paste("Functional categories by period from contexts:",
                               paste(input$selected_layers, collapse = ", "),
                               sep = "")
         } else {
@@ -173,15 +176,15 @@ mod_pottery_QB_serv <- function(id) {
 
         if (input$display_xaxis == "function") {
           legend_title <- "Period"
-          x_title <- "Functional Group"
+          x_title <- "functional category"
           custom_colors <- unlist(milQuant_periods$colors)
-          custom_hovertemplate <- milQuant_count_hovertemplate()
+          custom_hovertemplate <- milQuant_hovertemplate()
 
         } else if (input$display_xaxis == "period") {
-          legend_title <- "Functional Group"
+          legend_title <- "functional category"
           x_title <- "Period"
           custom_colors <- viridis(length(unique(plot_data()$color)))
-          custom_hovertemplate <- milQuant_count_hovertemplate()
+          custom_hovertemplate <- milQuant_hovertemplate()
         }
 
         if (input$display_context) {
