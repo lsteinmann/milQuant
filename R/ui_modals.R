@@ -36,6 +36,6 @@ make_busy_dialog <- function(project = "") {
                       image.height = 120,
                       proxy.height = "100px",
                       color.background = "#ffffff")),
-    footer = shinyjs::hidden(actionButton(inputId = "close_busy_dialog", "Close"))
+    footer = ""
   )
 }
