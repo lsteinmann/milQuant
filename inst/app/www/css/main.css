@@ -1,0 +1,113 @@
+/* main sidebar */
+.skin-blue .main-sidebar {
+
+}
+
+/* active selected tab in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu .active a {
+  background-color: #2E3F47;
+}
+
+
+/* other links in the sidebarmenu when hovered */
+.skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{
+background-color: #e2001a;
+}
+/* toggle button when hovered  */
+.skin-blue .main-header .navbar .sidebar-toggle:hover{
+background-color: #e2001a;
+}
+
+/* body */
+.content-wrapper, .right-side {
+  background-color: #f5f5f5;
+}
+
+
+.skin-blue .main-header .navbar {
+  background-color: #3b515b;
+}
+
+.skin-blue .main-header .logo {
+  background-color: #3b515b;
+}
+
+.skin-blue .main-header .logo:hover {
+  background-color: #e2001a;
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle:hover{
+  background-color: #e2001a;
+}
+
+.warn-text {
+  color: #e2001a;
+  font-style: bold;
+  margin: 10px;
+  padding: 10px;
+}
+
+.shiny-output-error-validation {
+  margin-left: 12px;
+  padding: 5px;
+}
+
+.success-text {
+  color: #b7b8bc;
+  margin-left: 12px;
+  padding: 5px;
+  width: 200px;
+}
+
+
+.output-text {
+  font-size: 1.5em;
+  margin: 10px;
+  padding: 10px;
+}
+
+.btn.btn-default {
+  color: #ffffff;
+  background-color: #e2001a;
+  border-color: #3b515b;
+}
+
+.btn.btn-disable {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn.dropdown-toggle {
+  color: #ffffff;
+  background-color: #627279;
+  border-color: #3b515b;
+}
+
+.login-text {
+  /*color: #e2001a;
+  font-weight: bold;*/
+  font-size: 1.2em;
+}
+
+.wip-show {
+  background-color: #76d2e4;
+}
+
+/* adjust the size of info boxes */
+.info-box {
+  min-height: 90px;
+}
+
+.info-box-icon {
+  height: 90px;
+  line-height: 90px;
+}
+
+.info-box-content {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.layer-hr {
+  border-top: 2px dashed #3b515b;
+}

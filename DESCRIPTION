@@ -1,0 +1,41 @@
+Package: milQuant
+Title: Basic Quantitative Visualizations of Data from Field Desktop for
+    Find Processing in Miletus
+Version: 2.0.0
+Authors@R: 
+    person("Lisa", "Steinmann", , "lisa.steinmann@rub.de", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-2215-1243"))
+Description: The milQuant-Shiny Dashboard provides quick quantitative
+    overviews of the data in a Field Desktop-project using the
+    milet-configuration. It connects to the database automatically and can
+    plot various graphs to provide quantitative visualizations focused on
+    find-resources.
+License: GPL (>= 3)
+Depends: 
+    crayon,
+    datplot,
+    dplyr,
+    DT,
+    forcats,
+    ggplot2,
+    glue,
+    idaifieldR,
+    plotly,
+    R (>= 3.3),
+    remotes,
+    reshape2,
+    shiny,
+    shinyBS,
+    shinycssloaders,
+    shinydashboard,
+    shinyjs,
+    shinyWidgets,
+    stringi,
+    tidyr,
+    viridis
+Remotes: 
+    lsteinmann/idaifieldR
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

@@ -45,4 +45,8 @@ README.html
 dist/*
 NEWS.html
 dataprep/*
-defaults/selection_settings.RDS
+inst/app/www/settings/selection_settings.RDS
+.RDataTmp
+inst/extdata/Categories.json
+inst/extdata/Config-Milet.json
+inst/extdata/Forms.json
