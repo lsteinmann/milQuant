@@ -21,18 +21,10 @@
 run_milQuant_app <- function() {
 
   if (interactive()) {
-
-    runApp(appDir = system.file("app",
-                                package = "milQuant"))
+    runApp(appDir = system.file("app", package = "milQuant"))
 
   } else {
-
-    shinyAppDir(appDir = system.file("app",
-                                     package = "milQuant"))
-
+    shinyAppDir(appDir = system.file("app", package = "milQuant"))
   }
 
 }
-
-#' @export
-l <- run_milQuant_app
