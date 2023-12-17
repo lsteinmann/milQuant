@@ -1,4 +1,4 @@
-# milQuant 2.0.0 _wip_
+# milQuant 2.0.0 _2023-12-17_
 * Restructure the app as a package.
 * Generic Bar Chart and Aoristic Density graphs are now included instead of split tabs linked in the sidebar. 
 * The new Search-tab lets users perform fulltext-searches on any text input field. 
