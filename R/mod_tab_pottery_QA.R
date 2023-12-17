@@ -148,7 +148,7 @@ mod_pottery_QA_serv <- function(id) {
 
         if (input$display_variable == "fill") {
           legend_title <- input$sec_var
-          x_axis_title <- "functional category"
+          x_title <- "functional category"
 
           fig <- plot_ly(plot_data(),
                          x = ~funCat, color = ~variable,  y = ~value,
