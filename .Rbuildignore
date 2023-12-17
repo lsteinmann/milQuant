@@ -1,4 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.notes/
 ^data-raw$
+^notes$
+^app\.R$
+^TODO\.md$

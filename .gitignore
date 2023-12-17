@@ -49,3 +49,4 @@ inst/app/www/settings/selection_settings.RDS
 inst/extdata/Categories.json
 inst/extdata/Config-Milet.json
 inst/extdata/Forms.json
+notes/*
