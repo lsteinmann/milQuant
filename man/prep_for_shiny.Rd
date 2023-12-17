@@ -7,7 +7,12 @@
 prep_for_shiny(data, reorder_periods = reorder_periods)
 }
 \arguments{
-\item{reorder_periods}{}
+\item{data}{data (list) from get_idaifield_docs}
+
+\item{reorder_periods}{should periods be an ordered factor? (only if is_milet)}
+}
+\value{
+a data.frame
 }
 \description{
 Prep for shiny

@@ -7,8 +7,11 @@
 derive_dating_from_periods(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{data.frame with the resources to be transformed}
+}
+\value{
+data.frame with absolute values for dating where they were empty previously
 }
 \description{
-derive_dating_from_periods
+#TODO use this from chrongler
 }

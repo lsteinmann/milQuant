@@ -1,11 +1,9 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return The tab with a simpler overview over all find groups and reduced variables to display / more curated.
 #' @export
-#'
-#' @examples
 mod_finds_overview_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -53,12 +51,10 @@ mod_finds_overview_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_finds_overview_serv <- function(id) {
 
   moduleServer(

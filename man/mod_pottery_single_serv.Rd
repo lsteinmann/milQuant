@@ -7,7 +7,10 @@
 mod_pottery_single_serv(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+server code
 }
 \description{
 Title

@@ -1,12 +1,10 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return Tab that display the workflow status selectable by layer and category
+#'
 #' @export
-#'
-#' @examples
 mod_worflow_ui <- function(id, tabname = NULL) {
 
   ns <- NS(id)
@@ -46,13 +44,10 @@ mod_worflow_ui <- function(id, tabname = NULL) {
 
 #' Title
 #'
-#' @param id
-#' @param resource_category
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_worflow_serv <- function(id) {
 
   moduleServer(

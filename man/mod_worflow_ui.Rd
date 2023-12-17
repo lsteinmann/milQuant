@@ -7,7 +7,12 @@
 mod_worflow_ui(id, tabname = NULL)
 }
 \arguments{
-\item{tabname}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+Tab that display the workflow status selectable by layer and category
 }
 \description{
 Title

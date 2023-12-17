@@ -7,8 +7,14 @@
 mod_finds_quant_ui(id, tabname)
 }
 \arguments{
-\item{tabname}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+A tab which displays the Total value from all Quantifications
 }
 \description{
-Title
+#TODO: add up all individual counts / weights in case total does not exist;
+but could also do that more reasonable by exporting and overwriting in the db itself.
 }

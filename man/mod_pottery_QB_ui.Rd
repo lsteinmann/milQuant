@@ -7,8 +7,17 @@
 mod_pottery_QB_ui(id, tabname)
 }
 \arguments{
-\item{tabname}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+Tab with evaluation of the pottery quant B forms by period
 }
 \description{
 Title
 }
+\section{TODO might want to make it possible to do this with absolute}{
+values replaced from the periods
+}
+

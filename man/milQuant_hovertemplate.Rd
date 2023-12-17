@@ -6,6 +6,12 @@
 \usage{
 milQuant_hovertemplate(value = "count")
 }
+\arguments{
+\item{value}{what should it say in the third row? (count / weight etc)}
+}
+\value{
+character vector with hovertemplare for plotly
+}
 \description{
 Title
 }

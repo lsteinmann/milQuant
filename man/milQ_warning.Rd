@@ -7,7 +7,10 @@
 milQ_warning(msg)
 }
 \arguments{
-\item{msg}{}
+\item{msg}{Message}
+}
+\value{
+colorful Message
 }
 \description{
 Make warnings more visible

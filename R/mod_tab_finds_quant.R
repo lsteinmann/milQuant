@@ -1,12 +1,13 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#'  #TODO: add up all individual counts / weights in case total does not exist;
+#'  but could also do that more reasonable by exporting and overwriting in the db itself.
 #'
-#' @return
+#' @inheritParams db_activity_tab
+#'
+#' @return A tab which displays the Total value from all Quantifications
+#'
 #' @export
-#'
-#' @examples
 mod_finds_quant_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -58,12 +59,10 @@ mod_finds_quant_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_finds_quant_serv <- function(id) {
 
   moduleServer(

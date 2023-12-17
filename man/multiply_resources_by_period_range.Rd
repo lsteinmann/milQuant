@@ -7,8 +7,11 @@
 multiply_resources_by_period_range(data, split = TRUE)
 }
 \arguments{
-\item{data}{}
+\item{data}{data.frame with the resources to be transformed}
+}
+\value{
+data.frame with duplicated rows and counts devided by nr of duplicates
 }
 \description{
-multiply_resources_by_period_range
+#TODO use this from chrongler
 }

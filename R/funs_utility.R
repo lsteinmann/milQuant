@@ -1,11 +1,9 @@
 #' Make warnings more visible
 #'
-#' @param msg
+#' @param msg Message
 #'
-#' @return
+#' @return colorful Message
 #' @export
-#'
-#' @examples
 milQ_warning <- function(msg) {
   msg <- paste(crayon::cyan("milQuant: "), crayon::red(crayon::bold("!  ")), msg)
   msg
@@ -13,12 +11,10 @@ milQ_warning <- function(msg) {
 
 #' Make messages more visible
 #'
-#' @param msg
+#' @param msg Message
 #'
-#' @return
+#' @return colorful Message
 #' @export
-#'
-#' @examples
 milQ_message <- function(msg) {
   msg <- paste(crayon::cyan("milQuant: "), crayon::white(crayon::bold("i  ")), msg)
   msg
@@ -26,12 +22,10 @@ milQ_message <- function(msg) {
 
 #' Helper to remove columns that are empty
 #'
-#' @param data
+#' @param data data.frame from which columns with all na-vals should be removed
 #'
-#' @return
+#' @return data.frame
 #' @export
-#'
-#' @examples
 remove_na_cols <- function(data) {
   na_cols <- apply(data, function(x) all(is.na(x)), MARGIN = 2)
   data <- data[, !na_cols]
@@ -64,12 +58,10 @@ read_milQuant_settings <- function() {
 
 #' mq_spinner
 #'
-#' @param object
+#' @param object ui objects that needs a spinner
 #'
-#' @return
+#' @return ui object witht spinner
 #' @export
-#'
-#' @examples
 mq_spinner <- function(object) {
   withSpinner(object,
               image = "img/quant-spinner-smooth.gif",
@@ -80,10 +72,10 @@ mq_spinner <- function(object) {
 
 #' Title
 #'
-#' @return
-#' @export
+#' @param value what should it say in the third row? (count / weight etc)
 #'
-#' @examples
+#' @return character vector with hovertemplare for plotly
+#' @export
 milQuant_hovertemplate <- function(value = "count") {
   paste0("<b>%{fullData.name}</b><br>",
          "%{x}<br>",
@@ -94,12 +86,10 @@ milQuant_hovertemplate <- function(value = "count") {
 
 #' Title
 #'
-#' @param type
+#' @param type plot or selection
 #'
-#' @return
+#' @return tagList with icon and title
 #' @export
-#'
-#' @examples
 ui_options_title <- function(type = "plot"){
   match.arg(type, choices = c("plot", "selection"))
 
@@ -115,12 +105,10 @@ ui_options_title <- function(type = "plot"){
 
 #' Days to Milliseconds for Plotly Histogram bins
 #'
-#' @param x
+#' @param x number of days
 #'
-#' @return
+#' @return x in milliseconds
 #' @export
-#'
-#' @examples
 ms_days <- function(x) {
   x * 8.64e+7
 }
@@ -128,12 +116,10 @@ ms_days <- function(x) {
 
 #' Title
 #'
-#' @param input
+#' @param input the ui object that the popover should be attached to
 #'
-#' @return
+#' @return same input with a tooltip/popover to inform of Load Resources button behaviour
 #' @export
-#'
-#' @examples
 addLRPopover <- function(input) {
 
   content <- paste0(

@@ -7,8 +7,13 @@
 mod_pottery_single_ui(id, tabname)
 }
 \arguments{
-\item{tabname}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+Tab with charts specifically for pottery
 }
 \description{
-Title
+#TODO make this less dynanic and more curated
 }

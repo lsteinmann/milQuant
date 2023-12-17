@@ -2,7 +2,7 @@
 % Please edit documentation in R/funs_get_data.R
 \name{get_resources}
 \alias{get_resources}
-\title{get_resources}
+\title{Title}
 \usage{
 get_resources(
   resource_category = "Pottery",
@@ -12,8 +12,28 @@ get_resources(
 )
 }
 \arguments{
-\item{resource_category}{}
+\item{resource_category}{see milQuant_cats}
+
+\item{fields}{fields to get from the db}
+
+\item{liesWithinLayer}{if a vector of layers, will be filtered by finds from those layers according to index}
+
+\item{prep_for_shiny}{should prep_for_shiny() be run?}
+}
+\value{
+depending on prep_for_shiny, either a list or a data.frame
 }
 \description{
-get_resources
+Title
+}
+\examples{
+conn <- connect_idaifield(project = "milet", pwd = "hallo")
+index <- get_field_index(conn)
+index <- index \%>\% left_join(alt_gather_trenches(index))
+react_index <- function() { index }
+db_selected_operations <- function() { unique(index$isRecordedIn) }
+db_selected_operations()
+login_connection <- function () { conn }
+fields <- c("period", "dating")
+uids <- unique(index$UID)
 }

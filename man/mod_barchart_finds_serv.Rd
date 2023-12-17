@@ -7,7 +7,10 @@
 mod_barchart_finds_serv(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+server code
 }
 \description{
 Title

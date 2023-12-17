@@ -7,7 +7,10 @@
 milQ_message(msg)
 }
 \arguments{
-\item{msg}{}
+\item{msg}{Message}
+}
+\value{
+colorful Message
 }
 \description{
 Make messages more visible

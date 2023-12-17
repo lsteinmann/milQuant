@@ -1,11 +1,9 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams uiLayerSelector
 #'
-#' @return
+#' @return htmlOutput of period selector
 #' @export
-#'
-#' @examples
 uiPeriodSelector <- function(id) {
 
   ns <- NS(id)
@@ -15,13 +13,10 @@ uiPeriodSelector <- function(id) {
 
 #' Title
 #'
-#' @param id
-#' @param inputid
+#' @inheritParams generateLayerSelector
 #'
-#' @return
+#' @return server code for period selector
 #' @export
-#'
-#' @examples
 generatePeriodSelector <- function(id, inputid) {
   moduleServer(
     id,

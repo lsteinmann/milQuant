@@ -2,8 +2,6 @@
 #'
 #' @return TRUE if there is no problem, FALSE if there is one
 #' @keywords internal
-#'
-#' @examples
 devel_idf_version <- function () {
   idfdevel <- grepl("90", getNamespaceVersion("idaifieldR"))
   check <- check_idaifieldr_version(getNamespaceVersion("idaifieldR"))

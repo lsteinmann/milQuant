@@ -1,12 +1,13 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#' If I make it only slightly customizable, this could actually be a better
+#' generalized version for all quant tabs
 #'
-#' @return
+#' @inheritParams db_activity_tab
+#'
+#' @return A tab which displays the Pottery Quantifications
+#'
 #' @export
-#'
-#' @examples
 mod_pottery_QA_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -66,12 +67,10 @@ mod_pottery_QA_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_pottery_QA_serv <- function(id) {
 
   moduleServer(

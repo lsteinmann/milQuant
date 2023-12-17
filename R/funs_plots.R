@@ -1,13 +1,13 @@
 
 #' milquant_plotly_layout
 #'
-#' @param plotly_fig
-#' @param caption
+#' general layout parameters for all plotly plots
 #'
-#' @return
+#' @param plotly_fig a plotly plot
+#' @param caption the caption that should be attached
+#'
+#' @return a plotly plot
 #' @export
-#'
-#' @examples
 milquant_plotly_layout <- function(plotly_fig, caption = FALSE) {
   plotly_fig <- plotly_fig %>%
     config(displaylogo = FALSE,
@@ -34,60 +34,16 @@ milquant_plotly_layout <- function(plotly_fig, caption = FALSE) {
 }
 
 
-#' convert_to_Plotly
-#'
-#' @param ggplot_p
-#' @param source
-#' @param tooltip
-#'
-#' @return
-#' @export
-#'
-#' @examples
-convert_to_Plotly <- function(ggplot_p,
-                              source = "ggplot_source",
-                              tooltip = c("y", "x", "fill")) {
-  # add theme
-  ggplot_p <- ggplot_p + Plot_Base_Theme
-
-  plot_ly <- ggplotly(ggplot_p, source = source, tooltip = tooltip) %>%
-    layout(title = list(text = paste0(ggplot_p$labels$title, "<br>",
-                                      "<sup>", ggplot_p$labels$subtitle, "</sup>")))
-  plot_ly <- milquant_plotly_layout(plot_ly, caption = ggplot_p$labels$caption)
-  return(plot_ly)
-}
-
-
-#' Title
-#' #TODO delete
-#'
-#' @param ncol
-#'
-#' @return
-#' @export
-#'
-#' @examples
-scale_fill_period <<- function(ncol = 9) {
-  scale_fill_manual(values = period_colors,
-                    breaks = periods,
-                    limits = periods,
-                    guide = guide_legend(name = "Period",
-                                         ncol = ncol,
-                                         byrow = TRUE))
-}
-
-
-
 #' Title
 #'
-#' @param resource_category
-#' @param colnames
-#' @param type
+#' get the plottable variables from the config to preselect for fields that may otherwise be impossible to plot
 #'
-#' @return
+#' @param resource_category category of resources to get vars for
+#' @param colnames colnames in the data
+#' @param type which sort of vars for plotting should be selected
+#'
+#' @return a vector of possible variables
 #' @export
-#'
-#' @examples
 get_plot_vars <- function(resource_category, colnames, type = "categorical") {
 
   match.arg(type, choices = c("categorical", "numeric", "textual"), several.ok = TRUE)

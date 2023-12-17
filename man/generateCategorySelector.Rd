@@ -7,7 +7,16 @@
 generateCategorySelector(id, inputid, parent = "Find", selected = "auto")
 }
 \arguments{
-\item{inputid}{}
+\item{id}{Session id}
+
+\item{inputid}{the inputid the selector should have}
+
+\item{parent}{parent-category of resources that should be selectable in the input}
+
+\item{selected}{"auto", "all", "none" or a vector of categories the should be preselected}
+}
+\value{
+server code for category selector
 }
 \description{
 Title

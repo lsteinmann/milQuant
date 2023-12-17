@@ -1,11 +1,9 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return a fluidRow with column selector, h2 and the datatable output
 #' @export
-#'
-#' @examples
 plotDataTable_ui <- function(id) {
 
   ns <- NS(id)
@@ -21,16 +19,15 @@ plotDataTable_ui <- function(id) {
 
 #' Title
 #'
-#' @param id
-#' @param resources
-#' @param click_data
-#' @param x
-#' @param customdata
+#' @inheritParams db_activity_tab
+#' @param resources data to be display in the table
+#' @param click_data the plotly click data
+#' @param x first variable to select for
+#' @param customdata second variable to select for
 #'
-#' @return
+#' @return server side for the datatable
+#'
 #' @export
-#'
-#' @examples
 plotDataTable_server <- function(id, resources, click_data, x, customdata) {
 
   moduleServer(

@@ -7,7 +7,10 @@
 addLRPopover(input)
 }
 \arguments{
-\item{input}{}
+\item{input}{the ui object that the popover should be attached to}
+}
+\value{
+same input with a tooltip/popover to inform of Load Resources button behaviour
 }
 \description{
 Title

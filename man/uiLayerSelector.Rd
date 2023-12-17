@@ -7,7 +7,10 @@
 uiLayerSelector(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+a htmloutput of the layerselector
 }
 \description{
 Title

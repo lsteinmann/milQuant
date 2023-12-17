@@ -7,7 +7,14 @@
 period_filter(find_df, is_milet = FALSE, selector = NULL)
 }
 \arguments{
-\item{selector}{}
+\item{find_df}{df of find resources to select for periods}
+
+\item{is_milet}{on project milet?}
+
+\item{selector}{the list from the associated input}
+}
+\value{
+the df, selected
 }
 \description{
 apply the period filter if the config is milet

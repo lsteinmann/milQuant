@@ -6,6 +6,9 @@
 \usage{
 make_busy_dialog(project = "")
 }
+\arguments{
+\item{project}{name of the project}
+}
 \value{
 UI-Element modalDialog()
 }

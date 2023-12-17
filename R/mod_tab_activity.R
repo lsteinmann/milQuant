@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param id Session id
+#' @param tabname Name of the tab used to link it
+#'
+#' @return A tab
+#'
+#' @export
 db_activity_tab <- function(id, tabname) {
 
   ns <- NS(id)
@@ -59,6 +67,12 @@ db_activity_tab <- function(id, tabname) {
   )
 }
 
+#' Title
+#'
+#' @inheritParams db_activity_tab
+#'
+#' @return server code
+#' @export
 db_activity_server <- function(id) {
 
   moduleServer(

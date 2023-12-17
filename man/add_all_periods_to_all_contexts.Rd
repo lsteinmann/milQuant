@@ -7,7 +7,10 @@
 add_all_periods_to_all_contexts(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{data.frame with the resources to be transformed}
+}
+\value{
+data.frame where each context has an empty row for earch period (to make it possible to use the same legend in plotly)
 }
 \description{
 add_all_periods_to_all_contexts

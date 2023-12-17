@@ -7,7 +7,12 @@
 makeDownloadPlotHandler(id, dlPlot)
 }
 \arguments{
-\item{dlPlot}{}
+\item{id}{Session id}
+
+\item{dlPlot}{the plot to be downloaded}
+}
+\value{
+server code for download button
 }
 \description{
 Title

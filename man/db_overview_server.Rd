@@ -4,10 +4,13 @@
 \alias{db_overview_server}
 \title{Title}
 \usage{
-db_overview_server(id, project = "")
+db_overview_server(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+server code for db_overview_tab
 }
 \description{
 Title

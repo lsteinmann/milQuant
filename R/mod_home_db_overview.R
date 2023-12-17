@@ -1,12 +1,9 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return tabPanel with overview of the project db
 #' @export
-#'
-#' @examples
 db_overview_tab <- function(id, tabname) {
 
   ns <- NS(id)
@@ -77,13 +74,11 @@ db_overview_tab <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_overview_tab
 #'
-#' @return
+#' @return server code for db_overview_tab
 #' @export
-#'
-#' @examples
-db_overview_server <- function(id, project = "") {
+db_overview_server <- function(id) {
 
   moduleServer(
     id,

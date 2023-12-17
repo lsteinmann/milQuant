@@ -1,14 +1,15 @@
 
 #' apply the period filter if the config is milet
 #'
-#' @param find_df
-#' @param is_milet
-#' @param selector
 #'
-#' @return
+#'
+#' @param find_df df of find resources to select for periods
+#' @param is_milet on project milet?
+#' @param selector the list from the associated input
+#'
+#' @return the df, selected
+#'
 #' @export
-#'
-#' @examples
 period_filter <- function(find_df, is_milet = FALSE, selector = NULL) {
   if (is_milet) {
     find_df <- find_df %>%
@@ -21,12 +22,12 @@ period_filter <- function(find_df, is_milet = FALSE, selector = NULL) {
 
 #' derive_dating_from_periods
 #'
-#' @param data
+#' #TODO use this from chrongler
 #'
-#' @return
+#' @param data data.frame with the resources to be transformed
+#'
+#' @return data.frame with absolute values for dating where they were empty previously
 #' @export
-#'
-#' @examples
 derive_dating_from_periods <- function(data) {
   data("milQuant_periods")
 
@@ -73,12 +74,13 @@ derive_dating_from_periods <- function(data) {
 
 #' multiply_resources_by_period_range
 #'
-#' @param data
+#' #TODO use this from chrongler
 #'
-#' @return
+#' @param data data.frame with the resources to be transformed
+#'
+#' @return data.frame with duplicated rows and counts devided by nr of duplicates
+#'
 #' @export
-#'
-#' @examples
 multiply_resources_by_period_range <- function(data, split = TRUE) {
 
   if (split == FALSE) {
@@ -134,17 +136,15 @@ multiply_resources_by_period_range <- function(data, split = TRUE) {
 
 #' add_all_periods_to_all_contexts
 #'
-#' @param data
+#' @param data data.frame with the resources to be transformed
 #'
-#' @return
+#' @return data.frame where each context has an empty row for earch period (to make it possible to use the same legend in plotly)
 #' @export
-#'
-#' @examples
 add_all_periods_to_all_contexts <- function(data) {
   needed_cols <- c("relation.liesWithinLayer", "period")
 
   if (!all(needed_cols %in% colnames(data))) {
-    warning(milQ_warning("Cannot derive dating from periods because columns are missing!"))
+    warning(milQ_warning("Cannot add periods because columns are missing!"))
     return(data)
   } else if (is_milet == FALSE) {
     warning(milQ_warning("Adding periods only works with the milet-config!"))

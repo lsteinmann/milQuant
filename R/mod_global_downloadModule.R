@@ -1,11 +1,9 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return UI download plot button
 #' @export
-#'
-#' @examples
 downloadPlotButtons <- function(id) {
 
   ns <- NS(id)
@@ -19,13 +17,12 @@ downloadPlotButtons <- function(id) {
 
 #' Title
 #'
-#' @param id
-#' @param dlPlot
+#' @inheritParams db_activity_tab
+#' @param dlPlot the plot to be downloaded
 #'
-#' @return
+#' @return server code for download button
+#'
 #' @export
-#'
-#' @examples
 makeDownloadPlotHandler <- function(id, dlPlot) {
 
   moduleServer(

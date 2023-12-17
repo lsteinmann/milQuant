@@ -7,7 +7,7 @@
 make_home_tab(tabname = "tab_home")
 }
 \arguments{
-\item{tabname}{reference of the tab for the sidebar}
+\item{tabname}{Name of the tab used to link it}
 }
 \value{
 a tabitem()

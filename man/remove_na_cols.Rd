@@ -7,7 +7,10 @@
 remove_na_cols(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{data.frame from which columns with all na-vals should be removed}
+}
+\value{
+data.frame
 }
 \description{
 Helper to remove columns that are empty

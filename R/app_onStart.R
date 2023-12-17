@@ -1,3 +1,10 @@
+#' Title
+#'
+#'  #TODO do you really need to do it like this...
+#'
+#' @return writes values to global variables needed for the app
+#'
+#' @export
 app_onstart <- function() {
   # Set variables which are available at the beginning of all sessions
 

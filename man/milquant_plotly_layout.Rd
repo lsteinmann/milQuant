@@ -7,8 +7,13 @@
 milquant_plotly_layout(plotly_fig, caption = FALSE)
 }
 \arguments{
-\item{caption}{}
+\item{plotly_fig}{a plotly plot}
+
+\item{caption}{the caption that should be attached}
+}
+\value{
+a plotly plot
 }
 \description{
-milquant_plotly_layout
+general layout parameters for all plotly plots
 }

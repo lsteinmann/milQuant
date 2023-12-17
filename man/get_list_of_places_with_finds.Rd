@@ -7,7 +7,7 @@
 get_list_of_places_with_finds(index)
 }
 \arguments{
-\item{index}{}
+\item{index}{index of the db}
 }
 \value{
 a vector of Place identifiers

@@ -7,7 +7,12 @@
 mod_barchart_finds_ui(id, tabname)
 }
 \arguments{
-\item{tabname}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+The tab with generalized bar charts where categories can be selected
 }
 \description{
 Title

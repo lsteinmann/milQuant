@@ -7,7 +7,10 @@
 mod_loomweights_hist_serv(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+server code
 }
 \description{
 Title

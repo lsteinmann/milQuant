@@ -7,7 +7,12 @@
 mod_quants_serv(id, resource_category = "Brick_Quantification")
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+
+\item{resource_category}{the category of resources to display in this tab}
+}
+\value{
+server code
 }
 \description{
 Title

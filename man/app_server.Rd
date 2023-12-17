@@ -6,6 +6,16 @@
 \usage{
 app_server(input, output, session)
 }
+\arguments{
+\item{input}{input}
+
+\item{output}{output}
+
+\item{session}{session}
+}
+\value{
+the server function
+}
 \description{
 Server function for the milQuant app
 }

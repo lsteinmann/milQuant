@@ -7,7 +7,12 @@
 mod_search_ui(id, tabname = NULL)
 }
 \arguments{
-\item{tabname}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+Tab with a table that enables full text search of text inputs
 }
 \description{
 Title

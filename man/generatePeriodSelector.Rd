@@ -7,7 +7,12 @@
 generatePeriodSelector(id, inputid)
 }
 \arguments{
-\item{inputid}{}
+\item{id}{Session id}
+
+\item{inputid}{the inputid the selector should have}
+}
+\value{
+server code for period selector
 }
 \description{
 Title

@@ -1,12 +1,12 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#' #TODO make this less dynanic and more curated
 #'
-#' @return
+#' @inheritParams db_activity_tab
+#'
+#' @return Tab with charts specifically for pottery
+#'
 #' @export
-#'
-#' @examples
 mod_pottery_single_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -46,12 +46,10 @@ mod_pottery_single_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_pottery_single_serv <- function(id) {
 
   moduleServer(

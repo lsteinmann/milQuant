@@ -7,7 +7,18 @@
 plotDataTable_server(id, resources, click_data, x, customdata)
 }
 \arguments{
-\item{customdata}{}
+\item{id}{Session id}
+
+\item{resources}{data to be display in the table}
+
+\item{click_data}{the plotly click data}
+
+\item{x}{first variable to select for}
+
+\item{customdata}{second variable to select for}
+}
+\value{
+server side for the datatable
 }
 \description{
 Title

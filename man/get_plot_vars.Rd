@@ -7,8 +7,15 @@
 get_plot_vars(resource_category, colnames, type = "categorical")
 }
 \arguments{
-\item{type}{}
+\item{resource_category}{category of resources to get vars for}
+
+\item{colnames}{colnames in the data}
+
+\item{type}{which sort of vars for plotting should be selected}
+}
+\value{
+a vector of possible variables
 }
 \description{
-Title
+get the plottable variables from the config to preselect for fields that may otherwise be impossible to plot
 }

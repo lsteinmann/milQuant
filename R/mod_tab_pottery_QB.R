@@ -1,12 +1,13 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#'  # TODO might want to make it possible to do this with absolute
+#'  values replaced from the periods
 #'
-#' @return
+#' @inheritParams db_activity_tab
+#'
+#' @return Tab with evaluation of the pottery quant B forms by period
+#'
 #' @export
-#'
-#' @examples
 mod_pottery_QB_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -76,12 +77,10 @@ mod_pottery_QB_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_pottery_QB_serv <- function(id) {
 
   moduleServer(

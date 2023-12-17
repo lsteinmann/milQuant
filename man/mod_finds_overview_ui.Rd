@@ -7,7 +7,12 @@
 mod_finds_overview_ui(id, tabname)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+The tab with a simpler overview over all find groups and reduced variables to display / more curated.
 }
 \description{
 Title

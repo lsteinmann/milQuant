@@ -1,11 +1,9 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return a htmloutput of the layerselector
 #' @export
-#'
-#' @examples
 uiLayerSelector <- function(id) {
 
   ns <- NS(id)
@@ -15,14 +13,12 @@ uiLayerSelector <- function(id) {
 
 #' Title
 #'
-#' @param id
-#' @param data
-#' @param inputid
+#' @inheritParams db_activity_tab
+#' @inheritParams generateCategorySelector
+#' @param data all the data (this is excessive...)
 #'
-#' @return
+#' @return server code for layer selector
 #' @export
-#'
-#' @examples
 generateLayerSelector <- function(id, data, inputid) {
   moduleServer(
     id,

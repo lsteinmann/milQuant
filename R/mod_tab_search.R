@@ -1,12 +1,10 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return Tab with a table that enables full text search of text inputs
+#'
 #' @export
-#'
-#' @examples
 mod_search_ui <- function(id, tabname = NULL) {
 
   ns <- NS(id)
@@ -43,12 +41,10 @@ mod_search_ui <- function(id, tabname = NULL) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_search_serv <- function(id) {
 
   moduleServer(

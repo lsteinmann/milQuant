@@ -6,6 +6,12 @@
 \usage{
 app_ui(app_version = packageVersion("milQuant"))
 }
+\arguments{
+\item{app_version}{Version of the Package to be display in UI}
+}
+\value{
+the UI
+}
 \description{
 UI for the milQuant app
 }

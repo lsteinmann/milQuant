@@ -1,11 +1,10 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams totalResources_serv
 #'
-#' @return
+#' @return valueBox with number of resources that will be downloaded
+#'
 #' @export
-#'
-#' @examples
 totalResourcesValueBox <- function(id, width = 2) {
   ns <- NS(id)
 
@@ -19,13 +18,11 @@ totalResourcesValueBox <- function(id, width = 2) {
 
 #' Title
 #'
-#' @param id
-#' @param tab_data
+#' @inheritParams generateLayerSelector
+#' @param sel_categories vector of selected categories
 #'
-#' @return
+#' @return number of resources used in UI
 #' @export
-#'
-#' @examples
 totalResources_serv <- function(id, sel_categories) {
   moduleServer(
     id,

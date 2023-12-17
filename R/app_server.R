@@ -1,8 +1,10 @@
 #' Server function for the milQuant app
 #'
-#' @param input
-#' @param output
-#' @param session
+#' @param input input
+#' @param output output
+#' @param session session
+#'
+#' @return the server function
 app_server <- function(input, output, session) {
 
   # % -------------------------------------------------------------Connection

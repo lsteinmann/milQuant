@@ -1,11 +1,10 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return A tab which displays histogram of weights for loomweights, curated
+#'
 #' @export
-#'
-#' @examples
 mod_loomweights_hist_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -56,12 +55,10 @@ mod_loomweights_hist_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_loomweights_hist_serv <- function(id) {
 
   moduleServer(

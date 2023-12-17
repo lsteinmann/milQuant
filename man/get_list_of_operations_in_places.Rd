@@ -7,7 +7,9 @@
 get_list_of_operations_in_places(index, selected_places)
 }
 \arguments{
-\item{selected_operations}{}
+\item{index}{the index of the db}
+
+\item{selected_places}{the places selected in the input}
 }
 \value{
 a vector of operation identifiers

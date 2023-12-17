@@ -7,7 +7,10 @@
 plotDataTable_ui(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+a fluidRow with column selector, h2 and the datatable output
 }
 \description{
 Title

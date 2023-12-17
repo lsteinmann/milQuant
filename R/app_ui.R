@@ -1,6 +1,10 @@
 #' UI for the milQuant app
 #'
-#' @param app_version
+#' @param app_version Version of the Package to be display in UI
+#'
+#' @return the UI
+#'
+#' @export
 app_ui <- function(app_version = packageVersion("milQuant")) {
   #  header
 

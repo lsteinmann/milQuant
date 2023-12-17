@@ -7,7 +7,10 @@
 mq_spinner(object)
 }
 \arguments{
-\item{object}{}
+\item{object}{ui objects that needs a spinner}
+}
+\value{
+ui object witht spinner
 }
 \description{
 mq_spinner

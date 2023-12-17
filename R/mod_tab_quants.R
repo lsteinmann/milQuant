@@ -1,11 +1,10 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return Generalized tab for Quantification forms, should work for all of them
+#'
 #' @export
-#'
-#' @examples
 mod_quants_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -60,12 +59,11 @@ mod_quants_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
+#' @param resource_category the category of resources to display in this tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
 
   moduleServer(

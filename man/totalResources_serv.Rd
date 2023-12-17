@@ -7,7 +7,12 @@
 totalResources_serv(id, sel_categories)
 }
 \arguments{
-\item{tab_data}{}
+\item{id}{Session id}
+
+\item{sel_categories}{vector of selected categories}
+}
+\value{
+number of resources used in UI
 }
 \description{
 Title

@@ -7,7 +7,12 @@
 idf_uid_query(login_connection, uids)
 }
 \arguments{
-\item{uids}{}
+\item{login_connection}{connect_idaifield()-object}
+
+\item{uids}{vector of UUIDs that should be downloaded}
+}
+\value{
+a docs list with the resources of said UUIDs
 }
 \description{
 idf_uid_query

@@ -7,7 +7,12 @@
 mod_quants_ui(id, tabname)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+Generalized tab for Quantification forms, should work for all of them
 }
 \description{
 Title

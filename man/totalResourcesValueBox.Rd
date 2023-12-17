@@ -7,7 +7,10 @@
 totalResourcesValueBox(id, width = 2)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+valueBox with number of resources that will be downloaded
 }
 \description{
 Title

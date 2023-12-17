@@ -7,7 +7,10 @@
 uiPeriodSelector(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+htmlOutput of period selector
 }
 \description{
 Title

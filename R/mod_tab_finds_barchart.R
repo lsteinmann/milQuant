@@ -1,12 +1,9 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return The tab with generalized bar charts where categories can be selected
 #' @export
-#'
-#' @examples
 mod_barchart_finds_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -61,12 +58,10 @@ mod_barchart_finds_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_barchart_finds_serv <- function(id) {
 
   moduleServer(

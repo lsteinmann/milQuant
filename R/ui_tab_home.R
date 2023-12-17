@@ -1,6 +1,6 @@
 #' Make the UI for the landing page ("home")
 #'
-#' @param tabname reference of the tab for the sidebar
+#' @inheritParams db_activity_tab
 #'
 #' @return a tabitem()
 #' @export

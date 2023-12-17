@@ -7,7 +7,10 @@
 downloadPlotButtons(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+UI download plot button
 }
 \description{
 Title

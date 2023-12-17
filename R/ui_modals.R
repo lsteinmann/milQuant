@@ -23,6 +23,8 @@ make_login_dialog <- function() {
 #' IP-Adress and Password (as well as username,
 #' but that is currently optional.)
 #'
+#' @param project name of the project
+#'
 #' @return UI-Element modalDialog()
 #' @export
 make_busy_dialog <- function(project = "") {

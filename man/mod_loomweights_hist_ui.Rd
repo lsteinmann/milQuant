@@ -7,7 +7,12 @@
 mod_loomweights_hist_ui(id, tabname)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+A tab which displays histogram of weights for loomweights, curated
 }
 \description{
 Title

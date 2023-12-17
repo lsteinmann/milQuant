@@ -7,7 +7,10 @@
 uiCategorySelector(id)
 }
 \arguments{
-\item{id}{}
+\item{id}{Session id}
+}
+\value{
+the ui category selector
 }
 \description{
 Title

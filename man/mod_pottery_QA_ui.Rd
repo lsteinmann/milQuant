@@ -7,8 +7,14 @@
 mod_pottery_QA_ui(id, tabname)
 }
 \arguments{
-\item{tabname}{}
+\item{id}{Session id}
+
+\item{tabname}{Name of the tab used to link it}
+}
+\value{
+A tab which displays the Pottery Quantifications
 }
 \description{
-Title
+If I make it only slightly customizable, this could actually be a better
+generalized version for all quant tabs
 }

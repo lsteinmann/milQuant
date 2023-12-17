@@ -7,7 +7,14 @@
 generateLayerSelector(id, data, inputid)
 }
 \arguments{
-\item{inputid}{}
+\item{id}{Session id}
+
+\item{data}{all the data (this is excessive...)}
+
+\item{inputid}{the inputid the selector should have}
+}
+\value{
+server code for layer selector
 }
 \description{
 Title

@@ -7,7 +7,10 @@
 ui_options_title(type = "plot")
 }
 \arguments{
-\item{type}{}
+\item{type}{plot or selection}
+}
+\value{
+tagList with icon and title
 }
 \description{
 Title

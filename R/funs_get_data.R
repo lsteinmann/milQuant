@@ -1,12 +1,10 @@
 #' Prep for shiny
 #'
-#' @param data
-#' @param reorder_periods
+#' @param data data (list) from get_idaifield_docs
+#' @param reorder_periods should periods be an ordered factor? (only if is_milet)
 #'
-#' @return
+#' @return a data.frame
 #' @export
-#'
-#' @examples
 prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
   data <- data %>%
     idaifield_as_matrix() %>%
@@ -86,16 +84,14 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
 
 #' Alternative to gather trenches for milQuant
 #'
+#' @param uidlist index of the project db
 #'
-#'
-#' @param uidlist
-#'
-#' @return
+#' @return the index with Places
 #' @export
 #'
 #' @examples
-# connection <- connect_idaifield(project = "milet", pwd = "hallo")
-# uidlist <- get_field_index(connection)
+#' connection <- connect_idaifield(project = "milet", pwd = "hallo")
+#' uidlist <- get_field_index(connection)
 alt_gather_trenches <- function(uidlist) {
   gather_mat <- as.data.frame(matrix(ncol = 1, nrow = nrow(uidlist)))
   colnames(gather_mat) <- c("identifier")
@@ -179,13 +175,11 @@ get_index <- function(connection) {
 
 #' idf_uid_query
 #'
-#' @param login_connection
-#' @param uids
+#' @param login_connection connect_idaifield()-object
+#' @param uids vector of UUIDs that should be downloaded
 #'
-#' @return
+#' @return a docs list with the resources of said UUIDs
 #' @export
-#'
-#' @examples
 idf_uid_query <- function(login_connection, uids) {
   message(milQ_message("Started the query..."))
   query <- paste('{ "selector": { "_id": { "$in": [',
@@ -223,23 +217,27 @@ idf_uid_query <- function(login_connection, uids) {
 }
 
 
-#' get_resources
+
+#' Title
 #'
-#' @param resource_category
+#' @param resource_category see milQuant_cats
+#' @param fields fields to get from the db
+#' @param liesWithinLayer if a vector of layers, will be filtered by finds from those layers according to index
+#' @param prep_for_shiny should prep_for_shiny() be run?
 #'
-#' @return
+#' @return depending on prep_for_shiny, either a list or a data.frame
 #' @export
 #'
 #' @examples
-# conn <- connect_idaifield(project = "milet", pwd = "hallo")
-# index <- get_field_index(conn)
-# index <- index %>% left_join(alt_gather_trenches(index))
-# react_index <- function() { index }
-# db_selected_operations <- function() { unique(index$isRecordedIn) }
-# db_selected_operations()
-# login_connection <- function () { conn }
-# fields <- c("period", "dating")
-# uids <- unique(index$UID)
+#' conn <- connect_idaifield(project = "milet", pwd = "hallo")
+#' index <- get_field_index(conn)
+#' index <- index %>% left_join(alt_gather_trenches(index))
+#' react_index <- function() { index }
+#' db_selected_operations <- function() { unique(index$isRecordedIn) }
+#' db_selected_operations()
+#' login_connection <- function () { conn }
+#' fields <- c("period", "dating")
+#' uids <- unique(index$UID)
 get_resources <- function(resource_category = "Pottery",
                           fields = "all",
                           liesWithinLayer = NULL,
@@ -307,7 +305,7 @@ get_resources <- function(resource_category = "Pottery",
 #' contain any finds are not listed in the UI-element. milQuant obviously
 #' needs find- and quantification-resources to work.
 #'
-#' @param index
+#' @param index index of the db
 #'
 #' @return a vector of Place identifiers
 #' @export
@@ -329,8 +327,8 @@ get_list_of_places_with_finds <- function(index) {
 #' Uses the index to build said vector. Filters for Operations that are
 #' children of the selected places.
 
-#' @param index
-#' @param selected_operations
+#' @param index the index of the db
+#' @param selected_places the places selected in the input
 #'
 #' @return a vector of operation identifiers
 #' @export

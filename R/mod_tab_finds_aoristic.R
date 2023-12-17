@@ -1,12 +1,9 @@
 #' Title
 #'
-#' @param id
-#' @param tabname
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return The Tab with Aoristic evaluation of Chronology for find groups
 #' @export
-#'
-#' @examples
 mod_aoristic_finds_ui <- function(id, tabname) {
 
   ns <- NS(id)
@@ -94,12 +91,10 @@ mod_aoristic_finds_ui <- function(id, tabname) {
 
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return server code
 #' @export
-#'
-#' @examples
 mod_aoristic_finds_serv <- function(id) {
 
   moduleServer(

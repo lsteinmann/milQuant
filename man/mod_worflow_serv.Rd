@@ -7,7 +7,10 @@
 mod_worflow_serv(id)
 }
 \arguments{
-\item{resource_category}{}
+\item{id}{Session id}
+}
+\value{
+server code
 }
 \description{
 Title

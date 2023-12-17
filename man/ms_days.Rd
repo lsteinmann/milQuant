@@ -7,7 +7,10 @@
 ms_days(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{number of days}
+}
+\value{
+x in milliseconds
 }
 \description{
 Days to Milliseconds for Plotly Histogram bins

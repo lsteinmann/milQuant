@@ -1,11 +1,9 @@
 #' Title
 #'
-#' @param id
+#' @inheritParams db_activity_tab
 #'
-#' @return
+#' @return the ui category selector
 #' @export
-#'
-#' @examples
 uiCategorySelector <- function(id) {
 
   ns <- NS(id)
@@ -15,14 +13,13 @@ uiCategorySelector <- function(id) {
 
 #' Title
 #'
-#' @param id
-#' @param data
-#' @param inputid
+#' @inheritParams db_activity_tab
+#' @param inputid the inputid the selector should have
+#' @param parent parent-category of resources that should be selectable in the input
+#' @param selected "auto", "all", "none" or a vector of categories the should be preselected
 #'
-#' @return
+#' @return server code for category selector
 #' @export
-#'
-#' @examples
 generateCategorySelector <- function(id, inputid, parent = "Find", selected = "auto") {
   moduleServer(
     id,

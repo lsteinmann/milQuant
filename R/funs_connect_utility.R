@@ -1,7 +1,6 @@
 #' Try to get some data from the selected project
 #'
 #'
-#'
 #' @param connection an object as returned by `idaifieldR::connect_idaifield()`
 #' @param project the project name
 #'
