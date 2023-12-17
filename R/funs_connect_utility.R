@@ -8,9 +8,9 @@
 #' @export
 try_project_connection <- function(connection, project) {
   result <- tryCatch({
+    connection$project <- project
     client <- idaifieldR:::proj_idf_client(connection,
-                                           include = "query",
-                                           project = project)
+                                           include = "query")
     query <- paste0(
       '{
       "selector": { "resource.id": "project" },
