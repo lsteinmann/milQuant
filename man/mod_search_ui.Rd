@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_tab_search.R
 \name{mod_search_ui}
 \alias{mod_search_ui}
-\title{Title}
+\title{Tab-Module for Fulltext Search (UI)}
 \usage{
 mod_search_ui(id, tabname = NULL)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-Tab with a table that enables full text search of text inputs
+UI for the Module
 }
 \description{
-Title
+Tab-Module for Fulltext Search (UI)
 }

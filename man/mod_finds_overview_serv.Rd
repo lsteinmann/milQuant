@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_tab_finds_overview.R
 \name{mod_finds_overview_serv}
 \alias{mod_finds_overview_serv}
-\title{Title}
+\title{Tab-Module for Overview of Inventoried Finds (Server Code)}
 \usage{
 mod_finds_overview_serv(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-server code
+Server Code for the Module
 }
 \description{
-Title
+Tab-Module for Overview of Inventoried Finds (Server Code)
 }

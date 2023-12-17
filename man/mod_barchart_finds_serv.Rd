@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_tab_finds_barchart.R
 \name{mod_barchart_finds_serv}
 \alias{mod_barchart_finds_serv}
-\title{Title}
+\title{Tab-Module for \emph{Find}-Bar Charts (Server Code)}
 \usage{
 mod_barchart_finds_serv(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-server code
+Server Code for the Module
 }
 \description{
-Title
+Tab-Module for \emph{Find}-Bar Charts (Server Code)
 }

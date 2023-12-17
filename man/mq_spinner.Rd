@@ -10,7 +10,7 @@ mq_spinner(object)
 \item{object}{ui objects that needs a spinner}
 }
 \value{
-ui object witht spinner
+ui object with spinner
 }
 \description{
 mq_spinner

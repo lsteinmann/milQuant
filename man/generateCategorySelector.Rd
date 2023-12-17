@@ -2,22 +2,23 @@
 % Please edit documentation in R/mod_global_categorySelection.R
 \name{generateCategorySelector}
 \alias{generateCategorySelector}
-\title{Title}
+\title{Global Module: categorySelector (Server Code)}
 \usage{
 generateCategorySelector(id, inputid, parent = "Find", selected = "auto")
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{inputid}{the inputid the selector should have}
+\item{inputid}{The \code{inputId} that should be used for the UI-Element.
+Specified here to avoid \code{ns()}-problems and keep track of the value easier.}
 
-\item{parent}{parent-category of resources that should be selectable in the input}
+\item{parent}{\emph{parent}-category of the resources that should be selectable in the input.}
 
 \item{selected}{"auto", "all", "none" or a vector of categories the should be preselected}
 }
 \value{
-server code for category selector
+Server Code for the Module
 }
 \description{
-Title
+Global Module: categorySelector (Server Code)
 }

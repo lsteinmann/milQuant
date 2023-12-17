@@ -1,8 +1,8 @@
-#' Title
+#' Global Module: layerSelector (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return a htmloutput of the layerselector
+#' @return `htmlOutput()` of the layer selector.
 #' @export
 uiLayerSelector <- function(id) {
 
@@ -11,13 +11,13 @@ uiLayerSelector <- function(id) {
   htmlOutput(ns("ui_layer_selector"))
 }
 
-#' Title
+#' Global Module: layerSelector (Server Code)
 #'
-#' @inheritParams db_activity_tab
-#' @inheritParams generateCategorySelector
-#' @param data all the data (this is excessive...)
+#' @inherit mod_serv_doc
+#' @param data All the data (this is excessive...)
 #'
-#' @return server code for layer selector
+#' @importFrom shinyWidgets pickerInput
+#'
 #' @export
 generateLayerSelector <- function(id, data, inputid) {
   moduleServer(

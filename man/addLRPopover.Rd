@@ -2,16 +2,16 @@
 % Please edit documentation in R/funs_utility.R
 \name{addLRPopover}
 \alias{addLRPopover}
-\title{Title}
+\title{Add the \emph{Load Resources}-Popover to UI-Element}
 \usage{
 addLRPopover(input)
 }
 \arguments{
-\item{input}{the ui object that the popover should be attached to}
+\item{input}{The UI-object that the popover should be attached to}
 }
 \value{
-same input with a tooltip/popover to inform of Load Resources button behaviour
+Same input with a tooltip/popover to inform of \emph{Load Resources}-button behaviour
 }
 \description{
-Title
+Add the \emph{Load Resources}-Popover to UI-Element
 }

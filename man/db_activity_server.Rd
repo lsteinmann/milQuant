@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_tab_activity.R
 \name{db_activity_server}
 \alias{db_activity_server}
-\title{Title}
+\title{Tab-Module for Activity (Server Code)}
 \usage{
 db_activity_server(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-server code
+Server Code for the Module
 }
 \description{
-Title
+Tab-Module for Activity (Server Code)
 }

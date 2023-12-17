@@ -1,8 +1,8 @@
-#' Title
+#' Global Module: categorySelector (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return the ui category selector
+#' @return `htmlOutput()`-Element of the category selector.
 #' @export
 uiCategorySelector <- function(id) {
 
@@ -11,14 +11,12 @@ uiCategorySelector <- function(id) {
   htmlOutput(ns("ui_category_selector"))
 }
 
-#' Title
+#' Global Module: categorySelector (Server Code)
 #'
-#' @inheritParams db_activity_tab
-#' @param inputid the inputid the selector should have
-#' @param parent parent-category of resources that should be selectable in the input
+#' @inherit mod_serv_doc
+#' @param parent *parent*-category of the resources that should be selectable in the input.
 #' @param selected "auto", "all", "none" or a vector of categories the should be preselected
 #'
-#' @return server code for category selector
 #' @export
 generateCategorySelector <- function(id, inputid, parent = "Find", selected = "auto") {
   moduleServer(

@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_tab_pottery_single.R
 \name{mod_pottery_single_serv}
 \alias{mod_pottery_single_serv}
-\title{Title}
+\title{Tab-Module for Single Pottery Resources (Server Code)}
 \usage{
 mod_pottery_single_serv(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-server code
+Server Code for the Module
 }
 \description{
-Title
+Tab-Module for Single Pottery Resources (Server Code)
 }

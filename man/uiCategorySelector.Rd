@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_global_categorySelection.R
 \name{uiCategorySelector}
 \alias{uiCategorySelector}
-\title{Title}
+\title{Global Module: categorySelector (UI)}
 \usage{
 uiCategorySelector(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-the ui category selector
+\code{htmlOutput()}-Element of the category selector.
 }
 \description{
-Title
+Global Module: categorySelector (UI)
 }

@@ -77,6 +77,7 @@ derive_dating_from_periods <- function(data) {
 #' #TODO use this from chrongler
 #'
 #' @param data data.frame with the resources to be transformed
+#' @param split TRUE/FALSE. A way out to not multiply while still calling the function
 #'
 #' @return data.frame with duplicated rows and counts devided by nr of duplicates
 #'

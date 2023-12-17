@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_home_db_overview.R
 \name{db_overview_tab}
 \alias{db_overview_tab}
-\title{Title}
+\title{TabPanel-Module for Project Overview (UI)}
 \usage{
 db_overview_tab(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-tabPanel with overview of the project db
+UI for the Module
 }
 \description{
-Title
+TabPanel-Module for Project Overview (UI)
 }

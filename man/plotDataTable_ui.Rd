@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_global_displayPlotDataTable.R
 \name{plotDataTable_ui}
 \alias{plotDataTable_ui}
-\title{Title}
+\title{Global Module: clickDataTable (UI)}
 \usage{
 plotDataTable_ui(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-a fluidRow with column selector, h2 and the datatable output
+A \code{fluidRow()} with: h2, column selector input, and datatable output.
 }
 \description{
-Title
+Global Module: clickDataTable (UI)
 }

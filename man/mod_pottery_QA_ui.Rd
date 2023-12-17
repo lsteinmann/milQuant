@@ -2,17 +2,17 @@
 % Please edit documentation in R/mod_tab_pottery_QA.R
 \name{mod_pottery_QA_ui}
 \alias{mod_pottery_QA_ui}
-\title{Title}
+\title{Tab-Module for Pottery Quantification A (UI)}
 \usage{
 mod_pottery_QA_ui(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-A tab which displays the Pottery Quantifications
+UI for the Module
 }
 \description{
 If I make it only slightly customizable, this could actually be a better

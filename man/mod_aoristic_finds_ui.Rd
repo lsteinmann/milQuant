@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_tab_finds_aoristic.R
 \name{mod_aoristic_finds_ui}
 \alias{mod_aoristic_finds_ui}
-\title{Title}
+\title{Tab-Module for Aoristic Plots (UI)}
 \usage{
 mod_aoristic_finds_ui(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-The Tab with Aoristic evaluation of Chronology for find groups
+UI for the Module
 }
 \description{
-Title
+Tab-Module for Aoristic Plots (UI)
 }

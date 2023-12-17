@@ -1,8 +1,8 @@
-#' Title
+#' Tab-Module for Single Quantification Forms (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return Generalized tab for Quantification forms, should work for all of them
+#' @importFrom shinyWidgets prettyRadioButtons
 #'
 #' @export
 mod_quants_ui <- function(id, tabname) {
@@ -57,12 +57,13 @@ mod_quants_ui <- function(id, tabname) {
 
 }
 
-#' Title
+#' Tab-Module for Single Quantification Forms (Server Code)
 #'
-#' @inheritParams db_activity_tab
-#' @param resource_category the category of resources to display in this tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom tidyr pivot_longer
+#' @importFrom viridis viridis
+#'
 #' @export
 mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
 
@@ -111,7 +112,7 @@ mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
           select(all_of(keep)) %>%
           droplevels() %>%
           rename(color = relation.liesWithinLayer) %>%
-          melt(id = "color") %>%
+          pivot_longer(cols = !color, names_to = "variable") %>%
           mutate(value = ifelse(is.na(value), 0, value)) %>%
           mutate(value = as.numeric(value)) %>%
           mutate(variable = gsub(input$plot_by, "", variable))

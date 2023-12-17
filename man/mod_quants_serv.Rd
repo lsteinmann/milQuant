@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_tab_quants.R
 \name{mod_quants_serv}
 \alias{mod_quants_serv}
-\title{Title}
+\title{Tab-Module for Single Quantification Forms (Server Code)}
 \usage{
 mod_quants_serv(id, resource_category = "Brick_Quantification")
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{resource_category}{the category of resources to display in this tab}
+\item{resource_category}{The category of \emph{resource}s to be used in this module.}
 }
 \value{
-server code
+Server Code for the Module
 }
 \description{
-Title
+Tab-Module for Single Quantification Forms (Server Code)
 }

@@ -4,13 +4,13 @@
 \alias{ms_days}
 \title{Days to Milliseconds for Plotly Histogram bins}
 \usage{
-ms_days(x)
+ms_days(days)
 }
 \arguments{
-\item{x}{number of days}
+\item{days}{number of days}
 }
 \value{
-x in milliseconds
+\code{days} in milliseconds
 }
 \description{
 Days to Milliseconds for Plotly Histogram bins

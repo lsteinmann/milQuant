@@ -1,11 +1,12 @@
-#' Title
+#' Tab-Module for Pottery Quantification A (UI)
 #'
 #' If I make it only slightly customizable, this could actually be a better
 #' generalized version for all quant tabs
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return A tab which displays the Pottery Quantifications
+#' @importFrom shinyWidgets prettyRadioButtons
+#'
 #'
 #' @export
 mod_pottery_QA_ui <- function(id, tabname) {
@@ -65,11 +66,12 @@ mod_pottery_QA_ui <- function(id, tabname) {
 
 }
 
-#' Title
+#' Tab-Module for Pottery Quantification A (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom tidyr pivot_longer replace_na
+#'
 #' @export
 mod_pottery_QA_serv <- function(id) {
 

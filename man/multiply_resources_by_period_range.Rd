@@ -8,6 +8,8 @@ multiply_resources_by_period_range(data, split = TRUE)
 }
 \arguments{
 \item{data}{data.frame with the resources to be transformed}
+
+\item{split}{TRUE/FALSE. A way out to not multiply while still calling the function}
 }
 \value{
 data.frame with duplicated rows and counts devided by nr of duplicates

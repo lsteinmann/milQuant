@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_home_db_overview.R
 \name{db_overview_server}
 \alias{db_overview_server}
-\title{Title}
+\title{TabPanel-Module for Project Overview (Server Code)}
 \usage{
 db_overview_server(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-server code for db_overview_tab
+Server Code for the Module
 }
 \description{
-Title
+TabPanel-Module for Project Overview (Server Code)
 }

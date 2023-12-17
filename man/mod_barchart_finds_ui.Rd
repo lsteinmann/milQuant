@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_tab_finds_barchart.R
 \name{mod_barchart_finds_ui}
 \alias{mod_barchart_finds_ui}
-\title{Title}
+\title{Tab-Module for \emph{Find}-Bar Charts (UI)}
 \usage{
 mod_barchart_finds_ui(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-The tab with generalized bar charts where categories can be selected
+UI for the Module
 }
 \description{
-Title
+Tab-Module for \emph{Find}-Bar Charts (UI)
 }

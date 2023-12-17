@@ -1,8 +1,9 @@
-#' Title
+#' Global Module: totalResourcesValueBox (UI)
 #'
-#' @inheritParams totalResources_serv
+#' @inherit mod_ui_doc
+#' @param width Width of the `valueBox()`
 #'
-#' @return valueBox with number of resources that will be downloaded
+#' @return `valueBox()` with number of resources selected as gathered from Index.
 #'
 #' @export
 totalResourcesValueBox <- function(id, width = 2) {
@@ -16,12 +17,11 @@ totalResourcesValueBox <- function(id, width = 2) {
     width = width)
 }
 
-#' Title
+#' Global Module: totalResourcesValueBox (Server Code)
 #'
-#' @inheritParams generateLayerSelector
-#' @param sel_categories vector of selected categories
+#' @inherit mod_serv_doc
+#' @param sel_categories Vector of selected categories.
 #'
-#' @return number of resources used in UI
 #' @export
 totalResources_serv <- function(id, sel_categories) {
   moduleServer(

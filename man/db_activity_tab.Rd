@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_tab_activity.R
 \name{db_activity_tab}
 \alias{db_activity_tab}
-\title{Title}
+\title{Tab-Module for Activity (UI)}
 \usage{
 db_activity_tab(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-A tab
+UI for the Module
 }
 \description{
-Title
+Tab-Module for Activity (UI)
 }

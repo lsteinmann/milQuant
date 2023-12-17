@@ -1,8 +1,10 @@
-#' Title
+#' Tab-Module for Aoristic Plots (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return The Tab with Aoristic evaluation of Chronology for find groups
+#' @importFrom shinyWidgets actionBttn switchInput prettyCheckboxGroup
+#' @importFrom shinyBS bsPopover
+#'
 #' @export
 mod_aoristic_finds_ui <- function(id, tabname) {
 
@@ -89,11 +91,13 @@ mod_aoristic_finds_ui <- function(id, tabname) {
 
 }
 
-#' Title
+#' Tab-Module for Aoristic Plots (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom datplot datsteps scaleweight
+#' @importFrom stats density
+#'
 #' @export
 mod_aoristic_finds_serv <- function(id) {
 

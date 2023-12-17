@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_global_downloadModule.R
 \name{downloadPlotButtons}
 \alias{downloadPlotButtons}
-\title{Title}
+\title{Global Module: downloadPlotButtons (UI)}
 \usage{
 downloadPlotButtons(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-UI download plot button
+A \code{div()} with a \code{downloadButton()}
 }
 \description{
-Title
+Global Module: downloadPlotButtons (UI)
 }

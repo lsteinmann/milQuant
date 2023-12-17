@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_tab_loomweights_hist.R
 \name{mod_loomweights_hist_ui}
 \alias{mod_loomweights_hist_ui}
-\title{Title}
+\title{Tab-Module for Loomweight-Historgram (UI)}
 \usage{
 mod_loomweights_hist_ui(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-A tab which displays histogram of weights for loomweights, curated
+UI for the Module
 }
 \description{
-Title
+Tab-Module for Loomweight-Historgram (UI)
 }

@@ -2,24 +2,24 @@
 % Please edit documentation in R/mod_global_displayPlotDataTable.R
 \name{plotDataTable_server}
 \alias{plotDataTable_server}
-\title{Title}
+\title{Global Module: clickDataTable (Server Code)}
 \usage{
 plotDataTable_server(id, resources, click_data, x, customdata)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{resources}{data to be display in the table}
+\item{resources}{Reactive data of all \emph{resources} to be displayed in the table.}
 
-\item{click_data}{the plotly click data}
+\item{click_data}{The reactive object returned by plotly click data.}
 
-\item{x}{first variable to select for}
+\item{x}{First variable to select for.}
 
-\item{customdata}{second variable to select for}
+\item{customdata}{Second variable to select for.}
 }
 \value{
-server side for the datatable
+Server Code for the Module
 }
 \description{
-Title
+Global Module: clickDataTable (Server Code)
 }

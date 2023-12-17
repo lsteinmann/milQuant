@@ -1,8 +1,9 @@
-#' Title
+#' TabPanel-Module for Project Overview (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return tabPanel with overview of the project db
+#' @importFrom shinyWidgets prettyRadioButtons
+#'
 #' @export
 db_overview_tab <- function(id, tabname) {
 
@@ -72,11 +73,12 @@ db_overview_tab <- function(id, tabname) {
 
 }
 
-#' Title
+#' TabPanel-Module for Project Overview (Server Code)
 #'
-#' @inheritParams db_overview_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code for db_overview_tab
+#' @importFrom viridis viridis
+#'
 #' @export
 db_overview_server <- function(id) {
 

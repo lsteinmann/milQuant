@@ -1,8 +1,9 @@
-#' Title
+#' Tab-Module for Overview of Inventoried Finds (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return The tab with a simpler overview over all find groups and reduced variables to display / more curated.
+#' @importFrom shinyWidgets prettyRadioButtons
+#'
 #' @export
 mod_finds_overview_ui <- function(id, tabname) {
 
@@ -49,11 +50,13 @@ mod_finds_overview_ui <- function(id, tabname) {
 
 }
 
-#' Title
+#' Tab-Module for Overview of Inventoried Finds (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom viridis viridis
+#' @importFrom forcats fct_na_value_to_level
+#'
 #' @export
 mod_finds_overview_serv <- function(id) {
 

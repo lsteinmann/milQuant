@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_tab_loomweights_hist.R
 \name{mod_loomweights_hist_serv}
 \alias{mod_loomweights_hist_serv}
-\title{Title}
+\title{Tab-Module for Loomweight-Historgram (Server Code)}
 \usage{
 mod_loomweights_hist_serv(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-server code
+Server Code for the Module
 }
 \description{
-Title
+Tab-Module for Loomweight-Historgram (Server Code)
 }

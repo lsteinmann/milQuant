@@ -3,6 +3,8 @@
 #' @param data data (list) from get_idaifield_docs
 #' @param reorder_periods should periods be an ordered factor? (only if is_milet)
 #'
+#' @importFrom utils type.convert
+#'
 #' @return a data.frame
 #' @export
 prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
@@ -87,11 +89,8 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
 #' @param uidlist index of the project db
 #'
 #' @return the index with Places
-#' @export
 #'
-#' @examples
-#' connection <- connect_idaifield(project = "milet", pwd = "hallo")
-#' uidlist <- get_field_index(connection)
+#' @export
 alt_gather_trenches <- function(uidlist) {
   gather_mat <- as.data.frame(matrix(ncol = 1, nrow = nrow(uidlist)))
   colnames(gather_mat) <- c("identifier")
@@ -227,17 +226,6 @@ idf_uid_query <- function(login_connection, uids) {
 #'
 #' @return depending on prep_for_shiny, either a list or a data.frame
 #' @export
-#'
-#' @examples
-#' conn <- connect_idaifield(project = "milet", pwd = "hallo")
-#' index <- get_field_index(conn)
-#' index <- index %>% left_join(alt_gather_trenches(index))
-#' react_index <- function() { index }
-#' db_selected_operations <- function() { unique(index$isRecordedIn) }
-#' db_selected_operations()
-#' login_connection <- function () { conn }
-#' fields <- c("period", "dating")
-#' uids <- unique(index$UID)
 get_resources <- function(resource_category = "Pottery",
                           fields = "all",
                           liesWithinLayer = NULL,

@@ -1,8 +1,9 @@
-#' Title
+#' Tab-Module for *Find*-Bar Charts (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return The tab with generalized bar charts where categories can be selected
+#' @importFrom shinyWidgets prettyRadioButtons
+#'
 #' @export
 mod_barchart_finds_ui <- function(id, tabname) {
 
@@ -56,11 +57,13 @@ mod_barchart_finds_ui <- function(id, tabname) {
 
 }
 
-#' Title
+#' Tab-Module for *Find*-Bar Charts (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom viridis viridis
+#' @importFrom forcats fct_na_value_to_level
+#'
 #' @export
 mod_barchart_finds_serv <- function(id) {
 

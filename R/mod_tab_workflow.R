@@ -1,8 +1,7 @@
-#' Title
+#' Tab-Module for Workflow Overview (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return Tab that display the workflow status selectable by layer and category
 #'
 #' @export
 mod_worflow_ui <- function(id, tabname = NULL) {
@@ -42,11 +41,12 @@ mod_worflow_ui <- function(id, tabname = NULL) {
 
 }
 
-#' Title
+#' Tab-Module for Workflow Overview (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom tidyr pivot_longer
+#'
 #' @export
 mod_worflow_serv <- function(id) {
 

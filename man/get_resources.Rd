@@ -26,14 +26,3 @@ depending on prep_for_shiny, either a list or a data.frame
 \description{
 Title
 }
-\examples{
-conn <- connect_idaifield(project = "milet", pwd = "hallo")
-index <- get_field_index(conn)
-index <- index \%>\% left_join(alt_gather_trenches(index))
-react_index <- function() { index }
-db_selected_operations <- function() { unique(index$isRecordedIn) }
-db_selected_operations()
-login_connection <- function () { conn }
-fields <- c("period", "dating")
-uids <- unique(index$UID)
-}

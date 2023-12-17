@@ -1,8 +1,10 @@
-#' Title
+#' Global Module: clickDataTable (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return a fluidRow with column selector, h2 and the datatable output
+#' @importFrom DT DTOutput
+#'
+#' @return A `fluidRow()` with: h2, column selector input, and datatable output.
 #' @export
 plotDataTable_ui <- function(id) {
 
@@ -17,15 +19,15 @@ plotDataTable_ui <- function(id) {
   )
 }
 
-#' Title
+#' Global Module: clickDataTable (Server Code)
 #'
-#' @inheritParams db_activity_tab
-#' @param resources data to be display in the table
-#' @param click_data the plotly click data
-#' @param x first variable to select for
-#' @param customdata second variable to select for
+#' @inherit mod_serv_doc
+#' @param resources Reactive data of all *resources* to be displayed in the table.
+#' @param click_data The reactive object returned by plotly click data.
+#' @param x First variable to select for.
+#' @param customdata Second variable to select for.
 #'
-#' @return server side for the datatable
+#' @importFrom DT renderDT datatable formatStyle
 #'
 #' @export
 plotDataTable_server <- function(id, resources, click_data, x, customdata) {

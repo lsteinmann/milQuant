@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_tab_finds_quant.R
 \name{mod_finds_quant_serv}
 \alias{mod_finds_quant_serv}
-\title{Title}
+\title{Tab-Module for all Quantification Forms (Server Code)}
 \usage{
 mod_finds_quant_serv(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-server code
+Server Code for the Module
 }
 \description{
-Title
+Tab-Module for all Quantification Forms (Server Code)
 }

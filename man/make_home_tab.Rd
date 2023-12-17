@@ -2,16 +2,16 @@
 % Please edit documentation in R/ui_tab_home.R
 \name{make_home_tab}
 \alias{make_home_tab}
-\title{Make the UI for the landing page ("home")}
+\title{Home-Tab / Landing Page tabitem (UI, not a module)}
 \usage{
 make_home_tab(tabname = "tab_home")
 }
 \arguments{
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-a tabitem()
+UI for the Module
 }
 \description{
-Make the UI for the landing page ("home")
+Home-Tab / Landing Page tabitem (UI, not a module)
 }

@@ -1,10 +1,10 @@
-#' Title
+#' Tab-Module for Single Pottery Resources (UI)
 #'
 #' #TODO make this less dynanic and more curated
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return Tab with charts specifically for pottery
+#' @importFrom shinyWidgets prettyRadioButtons
 #'
 #' @export
 mod_pottery_single_ui <- function(id, tabname) {
@@ -44,11 +44,15 @@ mod_pottery_single_ui <- function(id, tabname) {
 
 }
 
-#' Title
+
+#' Tab-Module for Single Pottery Resources (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom viridis viridis
+#' @importFrom forcats fct_na_value_to_level
+#'
+#'
 #' @export
 mod_pottery_single_serv <- function(id) {
 

@@ -25,6 +25,8 @@ make_login_dialog <- function() {
 #'
 #' @param project name of the project
 #'
+#' @importFrom shinycssloaders withSpinner
+#'
 #' @return UI-Element modalDialog()
 #' @export
 make_busy_dialog <- function(project = "") {

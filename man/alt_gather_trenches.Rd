@@ -15,7 +15,3 @@ the index with Places
 \description{
 Alternative to gather trenches for milQuant
 }
-\examples{
-connection <- connect_idaifield(project = "milet", pwd = "hallo")
-uidlist <- get_field_index(connection)
-}

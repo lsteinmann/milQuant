@@ -1,8 +1,9 @@
-#' Title
+#' Global Module: periodSelector (UI)
 #'
-#' @inheritParams uiLayerSelector
+#' @inherit mod_ui_doc
 #'
-#' @return htmlOutput of period selector
+#' @return `htmlOutput()` of period selector
+#'
 #' @export
 uiPeriodSelector <- function(id) {
 
@@ -11,11 +12,12 @@ uiPeriodSelector <- function(id) {
   htmlOutput(ns("period_selector"))
 }
 
-#' Title
+#' Global Module: periodSelector (Server Code)
 #'
-#' @inheritParams generateLayerSelector
+#' @inherit mod_serv_doc
 #'
-#' @return server code for period selector
+#' @importFrom shinyWidgets sliderTextInput
+#'
 #' @export
 generatePeriodSelector <- function(id, inputid) {
   moduleServer(

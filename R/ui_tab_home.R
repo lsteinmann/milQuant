@@ -1,8 +1,7 @@
-#' Make the UI for the landing page ("home")
+#' Home-Tab / Landing Page tabitem (UI, not a module)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return a tabitem()
 #' @export
 make_home_tab <- function(tabname = "tab_home") {
   tabItem(
@@ -23,7 +22,7 @@ make_home_tab <- function(tabname = "tab_home") {
           )
       ),
       infoBox(width = 2, title = "Version",
-              subtitle = "date: 24.11.2023",
+              subtitle = "date: 17.12.2023",
               icon = icon("code-branch"),
               value = getNamespaceVersion("milQuant"),
               color = "black",

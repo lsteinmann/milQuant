@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_global_periodSelection.R
 \name{uiPeriodSelector}
 \alias{uiPeriodSelector}
-\title{Title}
+\title{Global Module: periodSelector (UI)}
 \usage{
 uiPeriodSelector(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-htmlOutput of period selector
+\code{htmlOutput()} of period selector
 }
 \description{
-Title
+Global Module: periodSelector (UI)
 }

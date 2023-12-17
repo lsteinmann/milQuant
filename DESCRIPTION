@@ -12,22 +12,21 @@ Description: The milQuant-Shiny Dashboard provides quick quantitative
     find-resources.
 License: GPL (>= 3)
 Depends: 
+    idaifieldR,
+    R (>= 3.5),
+    shiny,
+    shinydashboard,
+    plotly,
+    dplyr
+Imports: 
     crayon,
     datplot,
-    dplyr,
     DT,
     forcats,
-    ggplot2,
-    glue,
-    idaifieldR,
-    plotly,
-    R (>= 3.3),
-    remotes,
-    reshape2,
-    shiny,
+    htmlwidgets,
+    magrittr,
     shinyBS,
     shinycssloaders,
-    shinydashboard,
     shinyjs,
     shinyWidgets,
     stringi,

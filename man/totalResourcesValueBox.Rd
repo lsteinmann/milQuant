@@ -2,16 +2,18 @@
 % Please edit documentation in R/mod_global_totalResourcesValueBox.R
 \name{totalResourcesValueBox}
 \alias{totalResourcesValueBox}
-\title{Title}
+\title{Global Module: totalResourcesValueBox (UI)}
 \usage{
 totalResourcesValueBox(id, width = 2)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
+
+\item{width}{Width of the \code{valueBox()}}
 }
 \value{
-valueBox with number of resources that will be downloaded
+\code{valueBox()} with number of resources selected as gathered from Index.
 }
 \description{
-Title
+Global Module: totalResourcesValueBox (UI)
 }

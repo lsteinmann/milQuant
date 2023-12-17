@@ -2,17 +2,17 @@
 % Please edit documentation in R/mod_tab_pottery_single.R
 \name{mod_pottery_single_ui}
 \alias{mod_pottery_single_ui}
-\title{Title}
+\title{Tab-Module for Single Pottery Resources (UI)}
 \usage{
 mod_pottery_single_ui(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-Tab with charts specifically for pottery
+UI for the Module
 }
 \description{
 #TODO make this less dynanic and more curated

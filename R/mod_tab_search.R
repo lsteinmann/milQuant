@@ -1,8 +1,9 @@
-#' Title
+#' Tab-Module for Fulltext Search (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return Tab with a table that enables full text search of text inputs
+#'
+#' @importFrom DT DTOutput
 #'
 #' @export
 mod_search_ui <- function(id, tabname = NULL) {
@@ -39,11 +40,12 @@ mod_search_ui <- function(id, tabname = NULL) {
 
 }
 
-#' Title
+#' Tab-Module for Fulltext Search (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom DT renderDT datatable formatStyle
+#'
 #' @export
 mod_search_serv <- function(id) {
 

@@ -1,11 +1,11 @@
-#' Title
+#' Tab-Module for all Quantification Forms (UI)
 #'
 #'  #TODO: add up all individual counts / weights in case total does not exist;
 #'  but could also do that more reasonable by exporting and overwriting in the db itself.
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return A tab which displays the Total value from all Quantifications
+#' @importFrom shinyWidgets prettyRadioButtons
 #'
 #' @export
 mod_finds_quant_ui <- function(id, tabname) {
@@ -57,11 +57,12 @@ mod_finds_quant_ui <- function(id, tabname) {
 
 }
 
-#' Title
+#' Tab-Module for all Quantification Forms (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom viridis viridis
+#'
 #' @export
 mod_finds_quant_serv <- function(id) {
 

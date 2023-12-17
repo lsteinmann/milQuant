@@ -1,11 +1,12 @@
-#' Title
+#' Tab-Module for Pottery Quantification B (UI)
 #'
 #'  # TODO might want to make it possible to do this with absolute
 #'  values replaced from the periods
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return Tab with evaluation of the pottery quant B forms by period
+#' @importFrom shinyWidgets prettyRadioButtons switchInput
+#' @importFrom shinyBS bsPopover
 #'
 #' @export
 mod_pottery_QB_ui <- function(id, tabname) {
@@ -75,11 +76,13 @@ mod_pottery_QB_ui <- function(id, tabname) {
 
 }
 
-#' Title
+#' Tab-Module for Pottery Quantification B (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom tidyr pivot_longer replace_na
+#' @importFrom viridis viridis
+#'
 #' @export
 mod_pottery_QB_serv <- function(id) {
 

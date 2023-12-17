@@ -60,7 +60,9 @@ read_milQuant_settings <- function() {
 #'
 #' @param object ui objects that needs a spinner
 #'
-#' @return ui object witht spinner
+#' @importFrom shinycssloaders withSpinner
+#'
+#' @return ui object with spinner
 #' @export
 mq_spinner <- function(object) {
   withSpinner(object,
@@ -83,12 +85,13 @@ milQuant_hovertemplate <- function(value = "count") {
          "<extra></extra>")
 }
 
-
-#' Title
+#' tagList for the Title of Selection- and Plot-Options
 #'
-#' @param type plot or selection
+#' @param type chr. "plot" or "selection"
 #'
-#' @return tagList with icon and title
+#' @return `tagList()` with Icon and Title
+#'
+#'
 #' @export
 ui_options_title <- function(type = "plot"){
   match.arg(type, choices = c("plot", "selection"))
@@ -105,20 +108,23 @@ ui_options_title <- function(type = "plot"){
 
 #' Days to Milliseconds for Plotly Histogram bins
 #'
-#' @param x number of days
+#' @param days number of days
 #'
-#' @return x in milliseconds
+#' @return `days` in milliseconds
 #' @export
-ms_days <- function(x) {
-  x * 8.64e+7
+ms_days <- function(days) {
+  days * 8.64e+7
 }
 
 
-#' Title
+#' Add the *Load Resources*-Popover to UI-Element
 #'
-#' @param input the ui object that the popover should be attached to
+#' @param input The UI-object that the popover should be attached to
 #'
-#' @return same input with a tooltip/popover to inform of Load Resources button behaviour
+#' @return Same input with a tooltip/popover to inform of *Load Resources*-button behaviour
+#'
+#' @importFrom shinyBS popify
+#'
 #' @export
 addLRPopover <- function(input) {
 
@@ -129,8 +135,9 @@ addLRPopover <- function(input) {
     "this may take a while."
   )
 
-  input %>%
-    popify(title = "Load Resources", content = content, placement = "bottom")
-
+  popify(input,
+         title = "Load Resources",
+         content = content,
+         placement = "bottom")
 }
 

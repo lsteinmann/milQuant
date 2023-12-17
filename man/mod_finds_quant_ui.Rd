@@ -2,17 +2,17 @@
 % Please edit documentation in R/mod_tab_finds_quant.R
 \name{mod_finds_quant_ui}
 \alias{mod_finds_quant_ui}
-\title{Title}
+\title{Tab-Module for all Quantification Forms (UI)}
 \usage{
 mod_finds_quant_ui(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-A tab which displays the Total value from all Quantifications
+UI for the Module
 }
 \description{
 #TODO: add up all individual counts / weights in case total does not exist;

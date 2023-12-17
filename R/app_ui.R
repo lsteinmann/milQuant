@@ -1,13 +1,13 @@
-#' UI for the milQuant app
+#' Complete UI for the milQuant-App
 #'
-#' @param app_version Version of the Package to be display in UI
 #'
-#' @return the UI
+#' @return The UI of the milQuant-App Dashboard.
 #'
 #' @export
-app_ui <- function(app_version = packageVersion("milQuant")) {
-  #  header
+app_ui <- function() {
+  app_version <- getNamespaceVersion("milQuant")
 
+  #  header
   header <- dashboardHeader(
     title = "milQuant",
     tags$li(class = "dropdown",

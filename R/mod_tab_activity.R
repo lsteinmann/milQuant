@@ -1,9 +1,8 @@
-#' Title
+#' Tab-Module for Activity (UI)
 #'
-#' @param id Session id
-#' @param tabname Name of the tab used to link it
+#' @inherit mod_ui_doc
 #'
-#' @return A tab
+#' @importFrom shinyWidgets pickerInput prettyRadioButtons
 #'
 #' @export
 db_activity_tab <- function(id, tabname) {
@@ -67,11 +66,10 @@ db_activity_tab <- function(id, tabname) {
   )
 }
 
-#' Title
+#' Tab-Module for Activity (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
 #' @export
 db_activity_server <- function(id) {
 

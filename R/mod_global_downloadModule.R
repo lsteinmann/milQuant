@@ -1,8 +1,8 @@
-#' Title
+#' Global Module: downloadPlotButtons (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return UI download plot button
+#' @return A `div()` with a `downloadButton()`
 #' @export
 downloadPlotButtons <- function(id) {
 
@@ -15,12 +15,12 @@ downloadPlotButtons <- function(id) {
   )
 }
 
-#' Title
+#' Global Module: downloadPlotButtons (Server Code)
 #'
-#' @inheritParams db_activity_tab
-#' @param dlPlot the plot to be downloaded
+#' @inherit mod_serv_doc
+#' @param dlPlot The plot to be downloaded.
 #'
-#' @return server code for download button
+#' @importFrom htmlwidgets saveWidget
 #'
 #' @export
 makeDownloadPlotHandler <- function(id, dlPlot) {
@@ -53,7 +53,7 @@ makeDownloadPlotHandler <- function(id, dlPlot) {
         filename = paste(format(Sys.Date(), "%Y%m%d"),
                          "_milQuant_plot.html", sep = ""),
         content <- function(file) {
-          htmlwidgets::saveWidget(as_widget(dlPlot()), file)
+          saveWidget(as_widget(dlPlot()), file)
         }
       )
 

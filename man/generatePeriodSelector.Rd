@@ -2,18 +2,19 @@
 % Please edit documentation in R/mod_global_periodSelection.R
 \name{generatePeriodSelector}
 \alias{generatePeriodSelector}
-\title{Title}
+\title{Global Module: periodSelector (Server Code)}
 \usage{
 generatePeriodSelector(id, inputid)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{inputid}{the inputid the selector should have}
+\item{inputid}{The \code{inputId} that should be used for the UI-Element.
+Specified here to avoid \code{ns()}-problems and keep track of the value easier.}
 }
 \value{
-server code for period selector
+Server Code for the Module
 }
 \description{
-Title
+Global Module: periodSelector (Server Code)
 }

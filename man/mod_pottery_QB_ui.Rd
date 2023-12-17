@@ -2,20 +2,20 @@
 % Please edit documentation in R/mod_tab_pottery_QB.R
 \name{mod_pottery_QB_ui}
 \alias{mod_pottery_QB_ui}
-\title{Title}
+\title{Tab-Module for Pottery Quantification B (UI)}
 \usage{
 mod_pottery_QB_ui(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-Tab with evaluation of the pottery quant B forms by period
+UI for the Module
 }
 \description{
-Title
+Tab-Module for Pottery Quantification B (UI)
 }
 \section{TODO might want to make it possible to do this with absolute}{
 values replaced from the periods

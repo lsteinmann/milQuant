@@ -1,8 +1,9 @@
-#' Title
+#' Tab-Module for Loomweight-Historgram (UI)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_ui_doc
 #'
-#' @return A tab which displays histogram of weights for loomweights, curated
+#'
+#' @importFrom shinyWidgets prettyRadioButtons
 #'
 #' @export
 mod_loomweights_hist_ui <- function(id, tabname) {
@@ -53,11 +54,13 @@ mod_loomweights_hist_ui <- function(id, tabname) {
 
 }
 
-#' Title
+#' Tab-Module for Loomweight-Historgram (Server Code)
 #'
-#' @inheritParams db_activity_tab
+#' @inherit mod_serv_doc
 #'
-#' @return server code
+#' @importFrom viridis viridis
+#' @importFrom forcats fct_na_value_to_level
+#'
 #' @export
 mod_loomweights_hist_serv <- function(id) {
 
@@ -99,7 +102,9 @@ mod_loomweights_hist_serv <- function(id) {
       })
 
       output$weight_slider <- renderUI({
-        max_weight <- round(max(na.omit(loomweights()$weightTotal))+5,-1)
+        max_weight <- loomweights()$weightTotal
+        max_weight <- max_weight[!is.na(max_weight)]
+        max_weight <- round(max(max_weight)+5,-1)
         # Slider Input to choose max and min weight
         sliderInput(ns("weight_slider_selection"), label = "Weight Range",
                     min = 0, max = max_weight, value = c(0, max_weight))

@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_global_totalResourcesValueBox.R
 \name{totalResources_serv}
 \alias{totalResources_serv}
-\title{Title}
+\title{Global Module: totalResourcesValueBox (Server Code)}
 \usage{
 totalResources_serv(id, sel_categories)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{sel_categories}{vector of selected categories}
+\item{sel_categories}{Vector of selected categories.}
 }
 \value{
-number of resources used in UI
+Server Code for the Module
 }
 \description{
-Title
+Global Module: totalResourcesValueBox (Server Code)
 }

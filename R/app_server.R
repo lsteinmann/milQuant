@@ -4,6 +4,9 @@
 #' @param output output
 #' @param session session
 #'
+#' @importFrom shinyjs hide show
+#'
+#'
 #' @return the server function
 app_server <- function(input, output, session) {
 
@@ -71,8 +74,8 @@ app_server <- function(input, output, session) {
       login_connection(test_connection)
       removeModal() # remove login dialog
       output$welcome_text <- renderText(
-        glue("Welcome to milQuant - Quantitative Analysis
-              with Data from Field, {input$tab_connect.user}!")
+        paste0("Welcome to milQuant - Quantitative Analysis
+              with Data from Field, ", input$tab_connect.user, "!")
         )
       shinyjs::show("welcome_div") # show welcome message
       message(milQ_message("Success! Can connect to Field."))

@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_global_downloadModule.R
 \name{makeDownloadPlotHandler}
 \alias{makeDownloadPlotHandler}
-\title{Title}
+\title{Global Module: downloadPlotButtons (Server Code)}
 \usage{
 makeDownloadPlotHandler(id, dlPlot)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{dlPlot}{the plot to be downloaded}
+\item{dlPlot}{The plot to be downloaded.}
 }
 \value{
-server code for download button
+Server Code for the Module
 }
 \description{
-Title
+Global Module: downloadPlotButtons (Server Code)
 }

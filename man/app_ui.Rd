@@ -2,16 +2,13 @@
 % Please edit documentation in R/app_ui.R
 \name{app_ui}
 \alias{app_ui}
-\title{UI for the milQuant app}
+\title{Complete UI for the milQuant-App}
 \usage{
-app_ui(app_version = packageVersion("milQuant"))
-}
-\arguments{
-\item{app_version}{Version of the Package to be display in UI}
+app_ui()
 }
 \value{
-the UI
+The UI of the milQuant-App Dashboard.
 }
 \description{
-UI for the milQuant app
+Complete UI for the milQuant-App
 }

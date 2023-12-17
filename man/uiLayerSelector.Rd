@@ -2,16 +2,16 @@
 % Please edit documentation in R/mod_global_layerSelection.R
 \name{uiLayerSelector}
 \alias{uiLayerSelector}
-\title{Title}
+\title{Global Module: layerSelector (UI)}
 \usage{
 uiLayerSelector(id)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 }
 \value{
-a htmloutput of the layerselector
+\code{htmlOutput()} of the layer selector.
 }
 \description{
-Title
+Global Module: layerSelector (UI)
 }

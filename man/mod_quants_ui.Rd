@@ -2,18 +2,18 @@
 % Please edit documentation in R/mod_tab_quants.R
 \name{mod_quants_ui}
 \alias{mod_quants_ui}
-\title{Title}
+\title{Tab-Module for Single Quantification Forms (UI)}
 \usage{
 mod_quants_ui(id, tabname)
 }
 \arguments{
-\item{id}{Session id}
+\item{id}{The namespace-id for this Module.}
 
-\item{tabname}{Name of the tab used to link it}
+\item{tabname}{Name of the tab used to link this module.}
 }
 \value{
-Generalized tab for Quantification forms, should work for all of them
+UI for the Module
 }
 \description{
-Title
+Tab-Module for Single Quantification Forms (UI)
 }

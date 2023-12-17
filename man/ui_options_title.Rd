@@ -2,16 +2,16 @@
 % Please edit documentation in R/funs_utility.R
 \name{ui_options_title}
 \alias{ui_options_title}
-\title{Title}
+\title{tagList for the Title of Selection- and Plot-Options}
 \usage{
 ui_options_title(type = "plot")
 }
 \arguments{
-\item{type}{plot or selection}
+\item{type}{chr. "plot" or "selection"}
 }
 \value{
-tagList with icon and title
+\code{tagList()} with Icon and Title
 }
 \description{
-Title
+tagList for the Title of Selection- and Plot-Options
 }
