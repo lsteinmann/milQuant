@@ -128,6 +128,7 @@ mod_search_serv <- function(id) {
             selection = "none",
             rownames = FALSE,
             options = list(
+              searchHighlight = TRUE,
               columnDefs = list(
                 list(className = "dt-left", targets = "_all"),
                 list(width = "75px", targets = 0)
