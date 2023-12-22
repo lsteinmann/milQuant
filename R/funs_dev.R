@@ -4,7 +4,7 @@
 #' @keywords internal
 devel_idf_version <- function () {
   idfdevel <- grepl("90", getNamespaceVersion("idaifieldR"))
-  check <- check_idaifieldr_version(getNamespaceVersion("idaifieldR"))
+  check <- idaifieldR::check_idaifieldr_version(getNamespaceVersion("idaifieldR"))
 
   if (idfdevel == TRUE) {
     msg <- paste(crayon::bold("You are working with a development-version of idaifieldR!"),
@@ -14,7 +14,7 @@ devel_idf_version <- function () {
       crayon::bgRed()
     warning(msg)
     return(FALSE)
-  } else if (check == TRUE) {
+  } else if (check == FALSE) {
     msg <- paste0(crayon::bold("You are working with idaifieldR v",
                                getNamespaceVersion("idaifieldR"), ". ",
                                "That is not the current release!"))
