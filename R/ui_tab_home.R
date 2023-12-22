@@ -22,8 +22,8 @@ make_home_tab <- function(tabname = "tab_home") {
                                        container = tags$p)))
           )
       ),
-      infoBox(width = 2, title = "Version",
-              subtitle = "date: 24.11.2023",
+      infoBox(width = 2, title = "R-Pkg Version",
+              subtitle = paste0("idaifieldR ", getNamespaceVersion("idaifieldR")),
               icon = icon("code-branch"),
               value = getNamespaceVersion("milQuant"),
               color = "black",

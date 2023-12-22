@@ -145,10 +145,20 @@ mod_pottery_single_serv <- function(id) {
           need(is.data.frame(plot_data()), "I am not getting the data!")
         )
 
+        if (grepl("period", input$fill_var)) {
+          per_values <- plot_data() %>%
+            pull(color) %>%
+            unique()
+          plot_colors <- unlist(milQuant_periods$colors)
+          plot_colors <- plot_colors[which(names(plot_colors) %in% per_values)]
+        } else {
+          plot_colors <- viridis(length(unique(plot_data()$color)))
+        }
+
         fig <- plot_ly(plot_data(), x = ~x, y = ~n,
                        color = ~color, customdata = ~color,
                        type = "bar", source = ns("plot"),
-                       colors = viridis(length(unique(plot_data()$color))),
+                       colors = plot_colors,
                        hovertemplate = milQuant_hovertemplate())
 
         fig <- fig %>% event_register('plotly_click')
