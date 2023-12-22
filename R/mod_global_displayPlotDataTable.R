@@ -10,9 +10,25 @@ plotDataTable_ui <- function(id) {
 
   fluidRow(
     box(width = 12,
+        footer = "",
         h2("Click a bar to display table of resources"),
-        htmlOutput(ns("column_selector")),
-        DTOutput(ns("clickDataTable"))
+        div(
+          column(width = 4,
+                 htmlOutput(ns("column_selector"))),
+          column(width = 8,
+                 div(
+                   style = "display: block; margin-top:25px; float:right;",
+                   downloadButton(ns("dCSV"), "Download table (csv)"))
+                 ),
+        ),
+        br(),
+        div(
+          style = "min-height: 100px;",
+          column(
+            width = 12,
+            DTOutput(ns("clickDataTable"))
+          )
+        )
     )
   )
 }
@@ -53,8 +69,7 @@ plotDataTable_server <- function(id, resources, click_data, x, customdata) {
         )
       })
 
-      output$clickDataTable <- renderDT({
-
+      displayData <- reactive({
         if (is.null(click_data())) {
           resources() %>%
             select(any_of(c("identifier", "shortDescription", "date", "processor")))
@@ -68,11 +83,24 @@ plotDataTable_server <- function(id, resources, click_data, x, customdata) {
         resources() %>%
           filter(get(customdata()) %in% click_data()$customdata) %>%
           filter(get(x()) %in% click_data()$x) %>%
-          select(any_of(c("identifier", input$selected_tbl_columns))) %>%
+          select(any_of(c("identifier", input$selected_tbl_columns)))
+      })
+
+      output$dCSV <- downloadHandler(
+        filename = paste(format(Sys.Date(), "%Y%m%d"),
+                         "_milQuant_clickData.csv", sep = ""),
+        content <- function(file) {
+          write.csv(displayData(), file = file, fileEncoding = "UTF-8", row.names = FALSE, na = "")
+        }
+      )
+
+      output$clickDataTable <- renderDT({
+        displayData() %>%
           datatable(
             escape = FALSE, rownames = FALSE,
             filter = "none", selection = "none",
             options = list(
+              searching = FALSE,
               columnDefs = list(
                 list(className = "dt-left", targets = "_all"),
                 list(width = "75px", targets = 0)))) %>%
