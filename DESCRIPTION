@@ -12,12 +12,12 @@ Description: The milQuant-Shiny Dashboard provides quick quantitative
     find-resources.
 License: GPL (>= 3)
 Depends: 
+    dplyr,
     idaifieldR,
+    plotly,
     R (>= 3.5),
     shiny,
-    shinydashboard,
-    plotly,
-    dplyr
+    shinydashboard
 Imports: 
     crayon,
     datplot,
@@ -25,12 +25,14 @@ Imports:
     forcats,
     htmlwidgets,
     magrittr,
+    rlang,
     shinyBS,
     shinycssloaders,
     shinyjs,
     shinyWidgets,
     stringi,
     tidyr,
+    utils,
     viridis
 Remotes: 
     lsteinmann/idaifieldR
