@@ -17,7 +17,7 @@ db_activity_tab <- function(id, tabname) {
       box(
         width = 9, collapsible = TRUE,
         style = "min-height:100px;",
-        title = ui_options_title(type = "plot"), solidHeader = TRUE,
+        title = uiOptionsTitle(type = "plot"), solidHeader = TRUE,
         column(
           width = 4,
           dateRangeInput(

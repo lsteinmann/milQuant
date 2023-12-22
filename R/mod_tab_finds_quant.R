@@ -17,7 +17,7 @@ mod_finds_quant_ui <- function(id, tabname) {
 
     fluidRow(
       box(
-        title = ui_options_title(type = "plot"),
+        title = uiOptionsTitle(type = "plot"),
         width = 3, height = 700,
         uiLayerSelector(ns("layers")),
         hr(class = "layer-hr"),

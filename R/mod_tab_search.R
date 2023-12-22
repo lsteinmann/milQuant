@@ -14,7 +14,7 @@ mod_search_ui <- function(id, tabname = NULL) {
     title = "Search",
     fluidRow(
       box(
-        title = ui_options_title(type = "selection"),
+        title = uiOptionsTitle(type = "selection"),
         solidHeader = TRUE, collapsible = TRUE,
         width = 12,
         column(width = 4, uiCategorySelector(ns("categories"))),

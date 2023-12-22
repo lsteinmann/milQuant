@@ -17,7 +17,7 @@ mod_quants_ui <- function(id, tabname) {
     fluidRow(
       box(
         #h3("Quantification of Bricks, Tiles and Pipes"),
-        title = ui_options_title(),
+        title = uiOptionsTitle(),
         width = 3, height = 700,
         uiLayerSelector(ns("layers")),
         hr(class = "layer-hr"),

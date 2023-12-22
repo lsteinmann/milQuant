@@ -16,7 +16,7 @@ mod_loomweights_hist_ui <- function(id, tabname) {
 
     fluidRow(
       box(
-        title = ui_options_title(type = "plot"),
+        title = uiOptionsTitle(type = "plot"),
         width = 3, height = 850,
         uiLayerSelector(ns("layers")),
         hr(class = "layer-hr"),

@@ -12,7 +12,7 @@ mod_barchart_finds_ui <- function(id, tabname) {
     tabName = tabname,
     fluidRow(
       box(
-        title = ui_options_title(type = "selection"),
+        title = uiOptionsTitle(type = "selection"),
         solidHeader = TRUE, collapsible = TRUE,
         width = 12,
         column(width = 4, uiCategorySelector(ns("categories"))),
@@ -27,7 +27,7 @@ mod_barchart_finds_ui <- function(id, tabname) {
     ),
     fluidRow(
       box(
-        title = ui_options_title(type = "plot"),
+        title = uiOptionsTitle(type = "plot"),
         width = 3, height = 700,
         uiLayerSelector(ns("layers")),
         hr(class = "layer-hr"),

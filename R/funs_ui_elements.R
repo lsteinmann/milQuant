@@ -4,7 +4,7 @@
 #'
 #' @return tagList with icon and title
 #' @export
-ui_options_title <- function(type = "plot"){
+uiOptionsTitle <- function(type = "plot"){
   match.arg(type, choices = c("plot", "selection"))
 
   if (type == "plot") {
