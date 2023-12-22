@@ -56,20 +56,6 @@ read_milQuant_settings <- function() {
 }
 
 
-#' mq_spinner
-#'
-#' @param object ui objects that needs a spinner
-#'
-#' @return ui object witht spinner
-#' @export
-mq_spinner <- function(object) {
-  withSpinner(object,
-              image = "img/quant-spinner-smooth.gif",
-              image.width = 100,
-              image.height = 100)
-}
-
-
 #' Title
 #'
 #' @param value what should it say in the third row? (count / weight etc)
@@ -84,23 +70,6 @@ milQuant_hovertemplate <- function(value = "count") {
 }
 
 
-#' Title
-#'
-#' @param type plot or selection
-#'
-#' @return tagList with icon and title
-#' @export
-ui_options_title <- function(type = "plot"){
-  match.arg(type, choices = c("plot", "selection"))
-
-  if (type == "plot") {
-    title <- tagList(icon("wrench"), "Plot options")
-  } else if (type == "selection") {
-    title <- tagList(icon("filter"), "Selection options")
-  }
-
-  return(title)
-}
 
 
 #' Days to Milliseconds for Plotly Histogram bins
@@ -114,23 +83,4 @@ ms_days <- function(x) {
 }
 
 
-#' Title
-#'
-#' @param input the ui object that the popover should be attached to
-#'
-#' @return same input with a tooltip/popover to inform of Load Resources button behaviour
-#' @export
-addLRPopover <- function(input) {
-
-  content <- paste0(
-    "The \"Load Resources\" button will query the ",
-    "database for all resources of the selected categories from the ",
-    "selected Operations. Depending on the number of resources, ",
-    "this may take a while."
-  )
-
-  input %>%
-    popify(title = "Load Resources", content = content, placement = "bottom")
-
-}
 
