@@ -56,6 +56,9 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
     if (length(data$period.end) == 0) {
       data$period.end <- NA
     }
+
+    milQuant_periods <- milQuant_periods
+
     data <- data %>%
       mutate_at(c("period", "period.end", "period.start"), as.character) %>%
       # fix value for periods that have been assigned multiple periods
@@ -67,13 +70,13 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
       mutate(period.end = ifelse(is.na(period.end), "unbestimmt", period.end)) %>%
       mutate(period.start = ifelse(is.na(period.start), "unbestimmt", period.start)) %>%
       mutate(period = factor(period,
-                             levels = levels(periods),
+                             levels = levels(milQuant_periods$order),
                              ordered = TRUE),
              period.end = factor(period.end,
-                                 levels = levels(periods),
+                                 levels = levels(milQuant_periods$order),
                                  ordered = TRUE),
              period.start = factor(period.start,
-                                   levels = levels(periods),
+                                   levels = levels(milQuant_periods$order),
                                    ordered = TRUE))
   }
 
@@ -298,7 +301,7 @@ get_resources <- function(resource_category = "Pottery",
 #' @return a vector of Place identifiers
 #' @export
 get_list_of_places_with_finds <- function(index) {
-  data("milQuant_cats")
+  milQuant_cats <- milQuant_cats
   tmp_places <- index %>%
     filter(category %in% c(milQuant_cats$Find, milQuant_cats$Quantification)) %>%
     pull(Place) %>%

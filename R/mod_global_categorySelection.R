@@ -27,7 +27,7 @@ generateCategorySelector <- function(id, inputid, parent = "Find", selected = "a
 
 
       output$ui_category_selector <- renderUI({
-        data("milQuant_cats")
+        milQuant_cats <- milQuant_cats
 
         sel_cats <- names(milQuant_cats) %in% parent
         sel_cats <- unlist(milQuant_cats[sel_cats], use.names = FALSE)

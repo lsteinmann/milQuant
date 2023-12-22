@@ -60,8 +60,8 @@ get_plot_vars <- function(resource_category, colnames, type = "categorical") {
           textual = default <- c("processor")
   )
 
-  data("milQuant_inputTypes")
-  data("milQuant_cats")
+  milQuant_inputTypes <- milQuant_inputTypes
+  milQuant_cats <- milQuant_cats
 
   parent <- lapply(milQuant_cats, function(x) {
     any(resource_category %in% x)

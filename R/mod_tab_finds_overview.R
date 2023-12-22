@@ -72,7 +72,7 @@ mod_finds_overview_serv <- function(id) {
           need(is.data.frame(react_index()), "No Index available.")
         )
 
-        data("milQuant_cats")
+        milQuant_cats <- milQuant_cats
 
         finds <- get_resources(resource_category = milQuant_cats$Find) %>%
           remove_na_cols() %>%

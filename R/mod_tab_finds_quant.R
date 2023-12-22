@@ -87,7 +87,7 @@ mod_finds_quant_serv <- function(id) {
                   "quantificationType",
                   "countTotal", "weightTotal")
 
-        data("milQuant_cats")
+        milQuant_cats <- milQuant_cats
 
         quants <- get_resources(resource_category = milQuant_cats$Quantification) %>%
           select(all_of(keep)) %>%

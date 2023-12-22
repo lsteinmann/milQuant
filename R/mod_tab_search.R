@@ -71,7 +71,7 @@ mod_search_serv <- function(id) {
           need(is.data.frame(react_index()), "No Index available.")
         )
 
-        data("milQuant_inputTypes")
+        milQuant_inputTypes <- milQuant_inputTypes
 
         ind <- milQuant_inputTypes$inputType %in% c("text", "input")
 

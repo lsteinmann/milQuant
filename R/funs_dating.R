@@ -29,7 +29,7 @@ period_filter <- function(find_df, is_milet = FALSE, selector = NULL) {
 #' @return data.frame with absolute values for dating where they were empty previously
 #' @export
 derive_dating_from_periods <- function(data) {
-  data("milQuant_periods")
+  milQuant_periods <- milQuant_periods
 
   needed_cols <- c("period.start", "period.end",
                    "dating.min", "dating.max",
@@ -89,7 +89,7 @@ multiply_resources_by_period_range <- function(data, split = TRUE) {
     return(data)
   }
 
-  data("milQuant_periods")
+  milQuant_periods <- milQuant_periods
 
   needed_cols <- c("period", "period.start", "period.end")
 
@@ -153,7 +153,7 @@ add_all_periods_to_all_contexts <- function(data) {
   }
   sp_data <- split(data, data$relation.liesWithinLayer)
 
-  data("milQuant_periods")
+  milQuant_periods <- milQuant_periods
 
   sp_data <- lapply(sp_data, function (x) {
     ind <- which(!milQuant_periods$order %in% unique(x$period))

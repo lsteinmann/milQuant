@@ -185,7 +185,7 @@ mod_pottery_QB_serv <- function(id) {
           plot_title <- paste0('<b>', input$title, '</b><br>', input$subtitle)
         }
 
-        data("milQuant_periods")
+        milQuant_periods <- milQuant_periods
 
         if (input$display_xaxis == "function") {
           legend_title <- "Period"
