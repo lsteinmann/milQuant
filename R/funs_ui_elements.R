@@ -55,3 +55,26 @@ mq_spinner <- function(object) {
   )
 }
 
+#' tagList of two textInputs for plot title
+#'
+#' inputIDs are always `ns("title")` and `ns("subtitle")`
+#'
+#' @param title chr. default value for title textInput
+#' @param subtitle chr. default value for subtitle textInput
+#'
+#'
+#' @return tagList with two textInput() UI elements
+#' @export
+plotTitleInputs <- function(id = id, title = "", subtitle = "") {
+  ns <- NS(id)
+  tagList(
+    textInput(inputId = ns("title"),
+              label = "Title",
+              value = title,
+              placeholder = "Enter title here"),
+    textInput(inputId = ns("subtitle"),
+              label = "Subtitle",
+              value = subtitle,
+              placeholder = "Enter subtitle here")
+  )
+}

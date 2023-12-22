@@ -31,10 +31,7 @@ mod_aoristic_finds_ui <- function(id, tabname) {
         width = 3, height = 700,
         uiLayerSelector(ns("layers")),
         hr(class = "layer-hr"),
-        textInput(inputId = ns("title"), label = "Title",
-                  placeholder = "Enter title here"),
-        textInput(inputId = ns("subtitle"), label = "Subtitle",
-                  placeholder = "Enter subtitle here"),
+        plotTitleInputs(id = id),
         div(
           style = "display:inline-block",
           switchInput(inputId = ns("derive_dating"),

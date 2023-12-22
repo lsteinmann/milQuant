@@ -21,10 +21,7 @@ mod_pottery_QA_ui <- function(id, tabname) {
         width = 3, height = 650,
         uiLayerSelector(ns("layers")),
         hr(class = "layer-hr"),
-        textInput(inputId = ns("title"), label = "Title",
-                  value = "", placeholder = "Enter title here"),
-        textInput(inputId = ns("subtitle"), label = "Subtitle",
-                  placeholder = "Enter subtitle here"),
+        plotTitleInputs(id = id),
         prettyRadioButtons(inputId = ns("plot_by"),
                            label = "Plot the ...",
                            choices = list("number of fragments" = "count",
@@ -174,13 +171,7 @@ mod_pottery_QA_serv <- function(id) {
                          hovertemplate = custom_hovertemplate)
         }
 
-        if (input$title == "") {
-          plot_title <- paste("Functional categories in Context: ",
-                              paste(input$selected_layers, collapse = ", "),
-                              sep = "")
-        } else {
-          plot_title <- paste0('<b>', input$title, '</b><br>', input$subtitle)
-        }
+        plot_title <- paste0('<b>', input$title, '</b><br>', input$subtitle)
 
         caption <- paste0("Total: ", sum(plot_data()$value))
 

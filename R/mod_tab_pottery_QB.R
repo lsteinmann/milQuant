@@ -21,10 +21,7 @@ mod_pottery_QB_ui <- function(id, tabname) {
         width = 3, height = 750,
         uiLayerSelector(ns("layers")),
         hr(class = "layer-hr"),
-        textInput(inputId = ns("title"), label = "Title",
-                  value = "", placeholder = "Enter title here"),
-        textInput(inputId = ns("subtitle"), label = "Subtitle",
-                  placeholder = "Enter subtitle here"),
+        plotTitleInputs(id = id),
         div(
           style = "display:inline-block",
           switchInput(inputId = ns("split_multiple"),
@@ -174,13 +171,7 @@ mod_pottery_QB_serv <- function(id) {
           need(is.data.frame(plot_data()), "Data not available.")
         )
 
-        if (input$title == "") {
-          plot_title <- paste("Functional categories by period from contexts:",
-                              paste(input$selected_layers, collapse = ", "),
-                              sep = "")
-        } else {
-          plot_title <- paste0('<b>', input$title, '</b><br>', input$subtitle)
-        }
+        plot_title <- paste0('<b>', input$title, '</b><br>', input$subtitle)
 
         data("milQuant_periods")
 
