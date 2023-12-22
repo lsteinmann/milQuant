@@ -22,6 +22,7 @@ db_activity_tab <- function(id, tabname) {
           dateRangeInput(
             inputId = ns("daterange"),
             weekstart = 1,
+            language = "en",
             label = "Select range of dates:",
             start = Sys.Date() - 7,
             end = Sys.Date(),
