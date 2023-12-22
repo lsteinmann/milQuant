@@ -126,10 +126,11 @@ mod_search_serv <- function(id) {
         resources() %>%
           select(any_of(c("identifier", input$selected_tbl_columns))) %>%
           datatable(
+            escape = FALSE,
+            selection = "none",
+            rownames = FALSE,
             options = list(
-              escape = FALSE,
-              selection = "none",
-              rownames = FALSE,
+              searchHighlight = TRUE,
               columnDefs = list(
                 list(className = "dt-left", targets = "_all"),
                 list(width = "75px", targets = 0)

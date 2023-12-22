@@ -39,11 +39,9 @@ vignettes/*.pdf
 .Renviron
 
 # private
-.notes/*
+notes/*
 profile.R
 README.html
-dist/*
-dataprep/*
 inst/app/www/settings/selection_settings.RDS
 .RDataTmp
 inst/extdata/Categories.json
