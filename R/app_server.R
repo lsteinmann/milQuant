@@ -25,31 +25,12 @@ app_server <- function(input, output, session) {
 
 
   # define the ui of the login modal
-  login_modal <- modalDialog(
-    title = "Enter connection details to continue",
-    footer = actionButton("tab_connect.connect","Connect"),
-    textInput("tab_connect.host","Host (Field Desktop)", value = "127.0.0.1"),
-    textInput("tab_connect.user","Username", value = "username"),
-    passwordInput("tab_connect.pwd","Password", value = "hallo"),
-    tags$div(class = "warn-text",textOutput("tab_connect.error_msg"))
-  )
+  login_modal <- create_login_modal()
 
   # show login dialog box when initiated
   showModal(login_modal, session = session)
 
-  # server code to handle the connection to field in the modal
-  username <- source(system.file(
-    package = "milQuant", mustWork = TRUE,
-    "app/www/settings/shared_settings.R"))$value$username
-  updateTextInput(session, "tab_connect.user", value = username)
-
-  password <- source(system.file(
-    package = "milQuant", mustWork = TRUE,
-    "app/www/settings/shared_settings.R"))$value$synchpw
-  updateTextInput(session, "tab_connect.pwd", value = password)
-
   observeEvent(input$tab_connect.connect, {
-
     # manually validate connection
     message("Checking the connection you provided.")
     test_connection <- suppressMessages(
@@ -74,6 +55,21 @@ app_server <- function(input, output, session) {
         glue("Welcome to milQuant - Quantitative Analysis
               with Data from Field, {input$tab_connect.user}!")
         )
+
+      if (isolate(input$tab_connect.savesettings) == TRUE) {
+        new_settings <- paste(
+          'list("fieldhost" = "', input$tab_connect.host,
+          '","username" = "', input$tab_connect.user,
+          '","synchpw" = "', input$tab_connect.pwd, '")',
+          sep = "")
+        writeLines(
+          new_settings,
+          system.file(package = "milQuant", mustWork = TRUE,
+                      "app/www/settings/shared_settings.R")
+        )
+      }
+
+
       shinyjs::show("welcome_div") # show welcome message
       message(milQ_message("Success! Can connect to Field."))
     } else if (ping == FALSE) {
@@ -118,6 +114,10 @@ app_server <- function(input, output, session) {
                        placeholder = "Please select an option below")
       )
     })
+  })
+
+  observeEvent(input$tab_connect.saveconnect, {
+    updateIn
   })
 
 
