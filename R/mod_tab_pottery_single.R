@@ -61,7 +61,9 @@ mod_pottery_single_serv <- function(id) {
 
       resources <- reactive({
         validate(
-          need(is.data.frame(react_index()), "No Trenches and/or Places selected.")
+          need(login_connection(), "Not connected."),
+          need(db_selected_operations(), "No Operations selected."),
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
         )
 
         resources <- get_resources(resource_category = "Pottery") %>%

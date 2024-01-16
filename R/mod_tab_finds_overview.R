@@ -63,7 +63,9 @@ mod_finds_overview_serv <- function(id) {
       finds <- reactive({
 
         validate(
-          need(is.data.frame(react_index()), "No Index available.")
+          need(login_connection(), "Not connected."),
+          need(db_selected_operations(), "No Operations selected."),
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
         )
 
         data("milQuant_cats")

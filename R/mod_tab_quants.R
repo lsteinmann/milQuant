@@ -72,7 +72,9 @@ mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
 
       quant <- reactive({
         validate(
-          need(is.data.frame(react_index()), "No Index available.")
+          need(login_connection(), "Not connected."),
+          need(db_selected_operations(), "No Operations selected."),
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
         )
 
 

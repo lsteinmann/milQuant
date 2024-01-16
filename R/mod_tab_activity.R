@@ -85,7 +85,7 @@ db_activity_server <- function(id) {
       latest_changed_resources <- reactive({
         validate(
           need(login_connection(), "Not connected."),
-          need(react_index(), "No project loaded.")
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No project loaded.")
         )
         idf_last_changed(login_connection(), index = react_index(), n = 10)
       })
@@ -95,6 +95,12 @@ db_activity_server <- function(id) {
       )
 
       plot_data <- reactive({
+        validate(
+          need(login_connection(), "Not connected."),
+          need(db_selected_operations(), "No Operations selected."),
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
+        )
+
         uuids <- react_index() %>%
           filter(isRecordedIn %in% db_selected_operations()) %>%
           pull(identifier) %>%

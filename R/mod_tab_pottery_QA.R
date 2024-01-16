@@ -78,7 +78,9 @@ mod_pottery_QA_serv <- function(id) {
 
       potteryQA <- reactive({
         validate(
-          need(is.data.frame(react_index()), "No Index available.")
+          need(login_connection(), "Not connected."),
+          need(db_selected_operations(), "No Operations selected."),
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
         )
 
         potteryQA <- get_resources(resource_category = "Pottery_Quantification_A") %>%

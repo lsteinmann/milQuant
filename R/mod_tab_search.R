@@ -67,7 +67,8 @@ mod_search_serv <- function(id) {
 
       resources <- eventReactive(input$loadResources, {
         validate(
-          need(is.data.frame(react_index()), "No Index available.")
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available."),
+          need(input$selected_categories, "No Categories selected.")
         )
 
         data("milQuant_inputTypes")
@@ -94,6 +95,11 @@ mod_search_serv <- function(id) {
 
 
       output$column_selector <- renderUI({
+
+        validate(
+          need(is.data.frame(resources()) && nrow(resources()) != 0, "No Resources available.")
+        )
+
         choices <- colnames(resources())
         choices <- choices[-which(choices == "identifier")]
 

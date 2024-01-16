@@ -77,7 +77,7 @@ mod_barchart_finds_serv <- function(id) {
 
       resources <- eventReactive(input$loadResources, {
         validate(
-          need(is.data.frame(react_index()), "No Trenches and/or Places selected."),
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available."),
           need(input$selected_categories, "No Categories selected.")
         )
         db_selected_categories(input$selected_categories)

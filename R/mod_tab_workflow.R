@@ -57,6 +57,10 @@ mod_worflow_serv <- function(id) {
       ns <- NS(id)
 
       tmp <- reactive({
+        validate(
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
+        )
+
         react_index() %>%
           filter(Operation %in% db_selected_operations()) %>%
           rename("relation.liesWithinLayer" = liesWithinLayer)
@@ -81,7 +85,9 @@ mod_worflow_serv <- function(id) {
 
       workflow_data <- eventReactive(input$loadResources, {
         validate(
-          need(is.data.frame(react_index()), "No Index available.")
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available."),
+          need(input$selected_categories, "No Categories selected."),
+          need(input$selected_layers, "No Layers selected.")
         )
 
         db_selected_categories(input$selected_categories)

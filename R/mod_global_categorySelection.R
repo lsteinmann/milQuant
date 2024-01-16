@@ -29,6 +29,10 @@ generateCategorySelector <- function(id, inputid, parent = "Find", selected = "a
 
 
       output$ui_category_selector <- renderUI({
+        validate(
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
+        )
+
         data("milQuant_cats")
 
         sel_cats <- names(milQuant_cats) %in% parent

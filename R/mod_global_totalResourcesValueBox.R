@@ -30,7 +30,7 @@ totalResources_serv <- function(id, sel_categories) {
 
       output$n <- renderText({
         validate(
-          need(is.data.frame(react_index()), "Waiting for data...")
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "Waiting for data...")
         )
 
         if (all(sel_categories == "")) {

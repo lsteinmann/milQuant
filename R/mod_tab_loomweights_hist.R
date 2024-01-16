@@ -67,7 +67,9 @@ mod_loomweights_hist_serv <- function(id) {
       loomweights <- reactive({
 
         validate(
-          need(is.data.frame(react_index()), "No Index available.")
+          need(login_connection(), "Not connected."),
+          need(db_selected_operations(), "No Operations selected."),
+          need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
         )
 
         loomweights <- get_resources(resource_category = "Loomweight") %>%
