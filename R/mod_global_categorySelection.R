@@ -42,11 +42,12 @@ generateCategorySelector <- function(id, inputid, parent = "Find", selected = "a
           unique() %>%
           sort()
 
-        if (selected == "auto") {
+        selected <- as.vector(selected)
+        if (selected[1] == "auto") {
           selected <- db_selected_categories()
-        } else if (selected == "all") {
+        } else if (selected[1] == "all") {
           selected <- available_cats
-        } else if (selected == "none") {
+        } else if (selected[1] == "none") {
           selected <- NA
         } else {
           match.arg(selected, choices = sel_cats, several.ok = TRUE)

@@ -54,9 +54,10 @@ mod_search_serv <- function(id) {
       ns <- NS(id)
 
       #generateLayerSelector("layers", resources, inputid = ns("selected_layers"))
+      milQuant_cats <- milQuant_cats
       generateCategorySelector("categories",
                                parent = c("Find", "Other", "Feature"),
-                               selected = "auto",
+                               selected = milQuant_cats$Other,
                                inputid = ns("selected_categories"))
 
       observeEvent(input$selected_categories, {
