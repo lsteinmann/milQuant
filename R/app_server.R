@@ -52,15 +52,15 @@ app_server <- function(input, output, session) {
       login_connection(test_connection)
       removeModal() # remove login dialog
       output$welcome_text <- renderText(
-        glue("Welcome to milQuant - Quantitative Analysis
-              with Data from Field, {input$tab_connect.user}!")
+        paste("Welcome, ", input$tab_connect.user, "!",
+              sep = "")
         )
 
       if (isolate(input$tab_connect.savesettings) == TRUE) {
         new_settings <- paste(
-          'list("fieldhost" = "', input$tab_connect.host,
-          '","username" = "', input$tab_connect.user,
-          '","synchpw" = "', input$tab_connect.pwd, '")',
+          'list("fieldhost" = "', input$tab_connect.host, '", ',
+          '"username" = "', input$tab_connect.user, '", ',
+          '"synchpw" = "', input$tab_connect.pwd, '")',
           sep = "")
         writeLines(
           new_settings,

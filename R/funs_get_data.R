@@ -287,7 +287,8 @@ get_resources <- function(resource_category = "Pottery",
                        keep_geometry = FALSE,
                        spread_fields = prep_for_shiny,
                        find_layers = TRUE,
-                       replace_uids = TRUE)
+                       replace_uids = TRUE,
+                       silent = TRUE)
 
   if (prep_for_shiny == TRUE) {
     result <- result %>%

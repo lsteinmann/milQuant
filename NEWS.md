@@ -1,3 +1,13 @@
+# milQuant 2.0.1 _wip_
+* The custom colour pallet for periods (also used in the [Map of Miletus](https://geoserver.dainst.org/catalogue/#/map/5764)) is now used in the plots that can display periods. 
+* The tables displayed when clicking a bar can be downloaded. 
+
+
+### Minor changes
+* No more forced titles for plots.
+* The settings used to connect can now be saved as defaults directly. 
+* Search result is highlighted in the Fulltext Search table.
+
 # milQuant 2.0.0 _2023-12-17_
 * Restructure the app as a package.
 * Generic Bar Chart and Aoristic Density graphs are now included instead of split tabs linked in the sidebar. 

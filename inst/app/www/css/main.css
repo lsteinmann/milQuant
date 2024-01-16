@@ -84,9 +84,20 @@ background-color: #e2001a;
 }
 
 .login-text {
-  /*color: #e2001a;
-  font-weight: bold;*/
-  font-size: 1.2em;
+  color: #3b515b;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.welcome_div-logo {
+  float: right;
+}
+#welcome_div {
+  padding-left: 10px;
+  float: left;
+}
+#welcome_text {
+  line-height: 69px;
 }
 
 .wip-show {

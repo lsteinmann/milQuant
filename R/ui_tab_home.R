@@ -9,20 +9,15 @@ make_home_tab <- function(tabname = "tab_home") {
     tabName = tabname,
     title = "Home",
     fluidRow(
-      box(width = 10,
-          column(width = 3,
-                 img(src = "img/milQuant-logo.png",
-                     height = 69, align = "center")
-          ),
-          column(width = 7,
-                 shinyjs::hidden(
-                   tags$div(id = "welcome_div",
-                            class = "login-text",
-                            textOutput("welcome_text",
-                                       container = tags$p)))
-          )
+      box(
+        width = 8,
+        div(
+          img(src = "img/milQuant-logo.png", height = 69, class = "welcome_div-logo"),
+          shinyjs::hidden(tags$div(id = "welcome_div", class = "login-text",
+                                   textOutput("welcome_text", container = tags$p)))
+        )
       ),
-      infoBox(width = 2, title = "R-Pkg Version",
+      infoBox(width = 4, title = "R-Pkg Version",
               subtitle = paste0("idaifieldR ", getNamespaceVersion("idaifieldR")),
               icon = icon("code-branch"),
               value = getNamespaceVersion("milQuant"),
