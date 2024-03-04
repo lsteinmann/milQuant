@@ -1,7 +1,6 @@
-# milQuant 2.0.1 _wip_
+# milQuant 2.0.1 _2024-03-04_
 * The custom colour pallet for periods (also used in the [Map of Miletus](https://geoserver.dainst.org/catalogue/#/map/5764)) is now used in the plots that can display periods. 
 * The tables displayed when clicking a bar can be downloaded. 
-
 
 ### Minor changes
 * No more forced titles for plots.
