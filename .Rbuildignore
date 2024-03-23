@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 .notes/
 ^data-raw$
+^TODO.md$
+^app.R$
