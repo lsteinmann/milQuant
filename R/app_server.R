@@ -116,9 +116,6 @@ app_server <- function(input, output, session) {
     })
   })
 
-  observeEvent(input$tab_connect.saveconnect, {
-    updateIn
-  })
 
 
   # % -------------------------------------------------------------Index
