@@ -1,3 +1,6 @@
+# milQuant 2.0.2 _2024-10-xx_
+* Fix bug in Workflow-tab where layer selection was not applied
+
 # milQuant 2.0.1 _2024-03-04_
 * The custom colour pallet for periods (also used in the [Map of Miletus](https://geoserver.dainst.org/catalogue/#/map/5764)) is now used in the plots that can display periods. 
 * The tables displayed when clicking a bar can be downloaded. 

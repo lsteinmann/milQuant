@@ -222,7 +222,7 @@ idf_uid_query <- function(login_connection, uids) {
 #'
 #' @param resource_category see milQuant_cats
 #' @param fields fields to get from the db
-#' @param liesWithinLayer if a vector of layers, will be filtered by finds from those layers according to index
+#' @param selected_layers if a vector of layers, will be filtered by finds from those layers according to index
 #' @param prep_for_shiny should prep_for_shiny() be run?
 #'
 #' @return depending on prep_for_shiny, either a list or a data.frame
@@ -240,14 +240,14 @@ idf_uid_query <- function(login_connection, uids) {
 #' uids <- unique(index$UID)
 get_resources <- function(resource_category = "Pottery",
                           fields = "all",
-                          liesWithinLayer = NULL,
+                          selected_layers = NULL,
                           prep_for_shiny = TRUE) {
   message(milQ_message("Invalidating and querying DB now:"))
 
-  if (!is.null(liesWithinLayer)) {
+  if (!is.null(selected_layers)) {
     uids <- react_index() %>%
       filter(isRecordedIn %in% db_selected_operations()) %>%
-      filter(liesWithinLayer %in% liesWithinLayer) %>%
+      filter(liesWithinLayer %in% selected_layers) %>%
       filter(category %in% resource_category) %>%
       pull(UID)
   } else {

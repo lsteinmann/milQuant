@@ -92,8 +92,10 @@ mod_worflow_serv <- function(id) {
 
         db_selected_categories(input$selected_categories)
 
-        base_data <- get_resources(resource_category = input$selected_categories,
-                                   liesWithinLayer = input$selected_layers) %>%
+        base_data <- get_resources(
+                        resource_category = input$selected_categories,
+                        selected_layers = input$selected_layers) %>%
+          #filter(relation.liesWithinLayer %in% input$selected_layers) %>%
           remove_na_cols() %>%
           select(any_of(wf_disp_cols()), contains("workflow")) %>%
           mutate_at(vars(contains("workflow")), ~ ifelse(is.na(.), FALSE, TRUE))
