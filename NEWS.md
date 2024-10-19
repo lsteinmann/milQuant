@@ -1,5 +1,8 @@
 # milQuant 2.0.2 _2024-10-xx_
+
+### Minor changes and fixes
 * Fix bug in Workflow-tab where layer selection was not applied
+* Display number of resources to be loaded in workflow tab already selected by layer
 
 # milQuant 2.0.1 _2024-03-04_
 * The custom colour pallet for periods (also used in the [Map of Miletus](https://geoserver.dainst.org/catalogue/#/map/5764)) is now used in the plots that can display periods. 

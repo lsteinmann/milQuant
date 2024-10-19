@@ -73,8 +73,14 @@ mod_worflow_serv <- function(id) {
                                inputid = ns("selected_categories"))
 
 
-      observeEvent(input$selected_categories, {
-        totalResources_serv("info", sel_categories = isolate(input$selected_categories))
+      resource_input_listener <- reactive({
+        list(input$selected_categories, input$selected_layers)
+        })
+
+      observeEvent(resource_input_listener(), {
+        totalResources_serv("info",
+                            sel_categories = isolate(input$selected_categories),
+                            sel_layer = isolate(input$selected_layers))
       })
 
       wf_disp_cols <- reactive({

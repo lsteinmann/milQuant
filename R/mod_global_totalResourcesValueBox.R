@@ -20,10 +20,11 @@ totalResourcesValueBox <- function(id, width = 2) {
 #'
 #' @inheritParams generateLayerSelector
 #' @param sel_categories vector of selected categories
+#' @param sel_layers vector of selected layers
 #'
 #' @return number of resources used in UI
 #' @export
-totalResources_serv <- function(id, sel_categories) {
+totalResources_serv <- function(id, sel_categories, sel_layers = NULL) {
   moduleServer(
     id,
     function(input, output, session) {
@@ -38,8 +39,12 @@ totalResources_serv <- function(id, sel_categories) {
         } else {
           n <- react_index() %>%
             filter(Operation %in% db_selected_operations()) %>%
-            filter(category %in% sel_categories) %>%
-            nrow()
+            filter(category %in% sel_categories)
+          if (!is.null(sel_layers)) {
+            n <- n %>%
+              filter(liesWithinLayer %in% sel_layers)
+          }
+          n <- nrow(n)
         }
 
         prettyNum(n, big.mark = ",")
