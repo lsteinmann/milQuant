@@ -7,7 +7,7 @@
 get_resources(
   resource_category = "Pottery",
   fields = "all",
-  liesWithinLayer = NULL,
+  selected_layers = NULL,
   prep_for_shiny = TRUE
 )
 }
@@ -16,7 +16,7 @@ get_resources(
 
 \item{fields}{fields to get from the db}
 
-\item{liesWithinLayer}{if a vector of layers, will be filtered by finds from those layers according to index}
+\item{selected_layers}{if a vector of layers, will be filtered by finds from those layers according to index}
 
 \item{prep_for_shiny}{should prep_for_shiny() be run?}
 }

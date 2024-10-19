@@ -4,12 +4,14 @@
 \alias{totalResources_serv}
 \title{Title}
 \usage{
-totalResources_serv(id, sel_categories)
+totalResources_serv(id, sel_categories, sel_layers = NULL)
 }
 \arguments{
 \item{id}{Session id}
 
 \item{sel_categories}{vector of selected categories}
+
+\item{sel_layers}{vector of selected layers}
 }
 \value{
 number of resources used in UI
