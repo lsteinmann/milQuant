@@ -1,4 +1,4 @@
-# milQuant 2.0.2 _2024-10-xx_
+# milQuant 2.0.2 _2024-10-19_
 
 ### Minor changes and fixes
 * Fix bug in Workflow-tab where layer selection was not applied

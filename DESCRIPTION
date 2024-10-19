@@ -1,7 +1,7 @@
 Package: milQuant
 Title: Basic Quantitative Visualizations of Data from Field Desktop for
     Find Processing in Miletus
-Version: 2.0.1.9000
+Version: 2.0.2
 Authors@R: 
     person("Lisa", "Steinmann", , "lisa.steinmann@rub.de", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-2215-1243"))
