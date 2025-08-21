@@ -1,5 +1,5 @@
-# milQuant 2.0.3 _2024-..._
-
+# milQuant 2.0.3 _2025-08-21_
+* Fix bug in Find Quantification where Pottery_Quantification_B was counted alongside Pottery_Quantification_A
 
 # milQuant 2.0.2 _2024-10-19_
 
