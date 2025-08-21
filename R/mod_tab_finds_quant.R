@@ -75,11 +75,9 @@ mod_finds_quant_serv <- function(id) {
           need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
         )
 
-        quant_cats <- c("Quantification",
-                        "Pottery_Quantification_A",
-                        "QuantMollusks",
-                        "Brick_Quantification",
-                        "PlasterQuantification")
+        quant_cats <- milQuant_cats$Quantification[
+          -which(milQuant_cats$Quantification == "Pottery_Quantification_B")
+        ] %>% droplevels()
 
         keep <- c("identifier", "relation.liesWithinLayer",
                   "quantificationType",
@@ -87,7 +85,7 @@ mod_finds_quant_serv <- function(id) {
 
         data("milQuant_cats")
 
-        quants <- get_resources(resource_category = milQuant_cats$Quantification) %>%
+        quants <- get_resources(resource_category = quant_cats) %>%
           select(all_of(keep)) %>%
           remove_na_cols() %>%
           droplevels() %>%
