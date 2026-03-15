@@ -1,7 +1,6 @@
 # TODO list 
 
-# Dieses Jahr: 
-* Inschriftenauswertung
+# ... asap
 * periods, periods, periods! (siehe unten)
 
 # Allgemein
@@ -14,9 +13,13 @@
 * Make a configurable period list object? with settings on 'home' tab
   * Settings to: Derive Dating from periods
   * Group / Ungroup periods
-* load language replacements
-* clean up the server code even more
+* ~load language replacements~ (won't do)
+* clean up the server code
+* nur die felder aus der DB holen die auch tatsächlich benutzt werden; bessere einbindung der config
 
 # Insgesamt
 * spalten anhand der config als factor / character / numeric klassifizieren (in prep_for_shiny)
 * filter in der Suche ausbauen
+
+# Karten
+* warum nicht!

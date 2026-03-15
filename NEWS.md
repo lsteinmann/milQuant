@@ -1,4 +1,4 @@
-# milQuant 2.1.0 _2026-03-XX_
+# milQuant 2.1.0 _2026-03-15_
 * Use idaifieldR v0.4.0
   * Updated connection settings. 
   * Updated usage of simplify_idaifield().
