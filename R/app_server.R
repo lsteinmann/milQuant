@@ -35,7 +35,7 @@ app_server <- function(input, output, session) {
     message("Checking the connection you provided.")
     test_connection <- suppressMessages(
       connect_idaifield(serverip = input$tab_connect.host,
-                        user = input$tab_connect.user,
+                        project = "test",
                         pwd = input$tab_connect.pwd)
       )
 
@@ -138,6 +138,7 @@ app_server <- function(input, output, session) {
       # update the loging connection in the settings-reactiveValues
       new_login_connection <- login_connection()
       new_login_connection$project <- input$selected_project
+      new_login_connection$params$project <- input$selected_project
       login_connection(new_login_connection)
       message(milQ_message("Success! Getting the Index:"))
 
