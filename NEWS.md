@@ -1,3 +1,6 @@
+# milQuant 2.1.0 _2026-03-XX_
+* Use idaifieldR v0.4.0
+
 # milQuant 2.0.3 _2025-08-21_
 * Fix bug in Find Quantification where Pottery_Quantification_B was counted alongside Pottery_Quantification_A
 
