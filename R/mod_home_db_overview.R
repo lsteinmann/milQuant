@@ -9,7 +9,7 @@ db_overview_tab <- function(id, tabname) {
   ns <- NS(id)
 
   tabPanel(
-    #tabName = tabname,
+    tabName = tabname,
     title = tagList(icon("graduation-cap"), "Project Overview"),
     fluidRow(
       box(
@@ -68,8 +68,6 @@ db_overview_tab <- function(id, tabname) {
       )
     )
   )
-
-
 }
 
 #' Title
@@ -79,13 +77,9 @@ db_overview_tab <- function(id, tabname) {
 #' @return server code for db_overview_tab
 #' @export
 db_overview_server <- function(id) {
-
   moduleServer(
     id,
     function(input, output, session) {
-
-      ns <- NS(id)
-
 
       output$overview_info <- renderText({
         validate(
@@ -104,14 +98,6 @@ db_overview_server <- function(id) {
           need(react_index(), "No project selected.")
         )
 
-        # tmp_index <- react_index()
-        # if (!is.null(input$selected_places)) {
-        #   tmp_index <- react_index() %>%
-        #     filter(Place %in% input$selected_places)
-        # } else {
-        #   tmp_index <- react_index()
-        # }
-
         do_not_display <- c("Place", "Project",
                             "Type", "TypeCatalog",
                             "Image", "Photo", "Drawing")
@@ -129,7 +115,7 @@ db_overview_server <- function(id) {
           group_by(x) %>%
           arrange(n)
 
-        plot_title <- paste0("resources in project ", input$selected_project)
+        plot_title <- paste0("All resources in project ", db_selected_project())
 
         x_label <- ifelse(x_var == "category", "Resource-Category", x_var)
         color_label <- ifelse(color_var == "category", "Resource-Category", color_var)
@@ -144,12 +130,8 @@ db_overview_server <- function(id) {
                               yaxis = list(title = "count"),
                               legend = list(title=list(text = color_label)))
 
-        milquant_plotly_layout(fig, caption = FALSE)
+        fig
       })
-
-
-
     }
   )
-
 }
