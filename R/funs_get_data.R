@@ -217,9 +217,13 @@ get_resources <- function(resource_category = "Pottery",
   if (length(fields) == 1 && fields == "all") {
     f_selector <- ""
   } else {
+    if ("date" %in% fields) {
+      fields <- c(fields, "beginningDate", "endDate")
+    }
     fields <- c("identifier", "category", "type",
                 "relations.liesWithin", "relations.isRecordedIn",
                 fields)
+
     fields <- paste0("resource.", fields)
     f_selector <- paste0(', "fields": [ ',
                          paste0('"', fields, '"', collapse = ", "),
