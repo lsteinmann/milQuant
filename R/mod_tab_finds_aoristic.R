@@ -118,9 +118,7 @@ mod_aoristic_finds_serv <- function(id) {
         resources <- get_resources(resource_category = input$selected_categories,
                                    fields = c("period", "dating")) %>%
           filter(!period == "unbestimmt") %>%
-          filter(!is.na(period) | !is.na(dating.complete)) %>%
-          inner_join(react_index()[,c("identifier", "Operation", "Place")],
-                     by = "identifier")
+          filter(!is.na(period) | !is.na(dating.complete))
 
         return(resources)
       })

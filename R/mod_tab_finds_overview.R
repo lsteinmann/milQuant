@@ -73,9 +73,7 @@ mod_finds_overview_serv <- function(id) {
         finds <- get_resources(resource_category = milQuant_cats$Find) %>%
           remove_na_cols() %>%
           mutate_if(is.logical, list(~ifelse(is.na(.), FALSE, .))) %>%
-          mutate_if(is.factor, list(~fct_na_value_to_level(., "N/A"))) %>%
-          inner_join(react_index()[,c("identifier", "Operation", "Place")],
-                     by = "identifier")
+          mutate_if(is.factor, list(~fct_na_value_to_level(., "N/A")))
         return(finds)
       })
 

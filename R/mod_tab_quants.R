@@ -80,9 +80,7 @@ mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
 
 
         quant <- get_resources(resource_category = resource_category) %>%
-          remove_na_cols() %>%
-          inner_join(react_index()[,c("identifier", "Operation", "Place")],
-                     by = "identifier")
+          remove_na_cols()
         return(quant)
       })
 

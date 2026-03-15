@@ -84,8 +84,6 @@ mod_pottery_QA_serv <- function(id) {
         )
 
         potteryQA <- get_resources(resource_category = "Pottery_Quantification_A") %>%
-          inner_join(react_index()[,c("identifier", "Operation", "Place")],
-                     by = "identifier") %>%
           remove_na_cols()
         return(potteryQA)
       })

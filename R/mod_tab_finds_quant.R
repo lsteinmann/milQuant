@@ -88,9 +88,8 @@ mod_finds_quant_serv <- function(id) {
         quants <- get_resources(resource_category = quant_cats) %>%
           select(all_of(keep)) %>%
           remove_na_cols() %>%
-          droplevels() %>%
-          inner_join(react_index()[,c("identifier", "Operation", "Place")],
-                     by = "identifier")
+          droplevels()
+
         return(quants)
       })
 

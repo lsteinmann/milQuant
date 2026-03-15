@@ -9,7 +9,9 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
   data <- data %>%
     idaifield_as_matrix() %>%
     as.data.frame() %>%
-    left_join(select(react_index(), c("identifier", "liesWithinLayer")), by = join_by(identifier)) %>%
+    left_join(select(react_index(),
+                     c("identifier", "liesWithinLayer", "Operation", "Place")),
+              by = join_by(identifier)) %>%
     rename(relation.liesWithinLayer = liesWithinLayer)
 
   # I am removing this to see if it had any sense or not!
