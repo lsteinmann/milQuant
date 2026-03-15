@@ -116,30 +116,51 @@ mod_aoristic_finds_serv <- function(id) {
         db_selected_categories(input$selected_categories)
 
         resources <- get_resources(resource_category = input$selected_categories,
-                                   fields = c("period", "dating")) %>%
-          filter(!period == "unbestimmt") %>%
-          filter(!is.na(period) | !is.na(dating.complete))
+                                   fields = c("period", "dating"))
 
         return(resources)
       })
 
-      generateLayerSelector("layers", resources, inputid = ns("selected_layers"))
-
-      plot_data <- reactive({
+      filtered_resources <- reactive({
         validate(
           need(is.data.frame(resources()), "Waiting for data...")
         )
 
         if (input$derive_dating) {
-          plot_data <- resources() %>%
+          filtered_resources <- resources() %>%
             derive_dating_from_periods()
         } else {
-          plot_data <- resources()
+          filtered_resources <- resources()
         }
 
+        filtered_resources <- filtered_resources %>%
+          filter(!is.na(dating.min) | !is.na(dating.max))
+
+        filtered_resources
+      })
+
+      generateLayerSelector("layers", filtered_resources, inputid = ns("selected_layers"))
+
+      n_displayed_res <- reactiveVal()
+
+      plot_data <- reactive({
+        validate(
+          need(is.data.frame(filtered_resources()), "No resources available...")
+        )
+
+        plot_data <- filtered_resources() %>%
+          filter(relation.liesWithinLayer %in% input$selected_layers)
+
+        validate(
+          need(nrow(plot_data) > 0, "No resources available for this context...")
+        )
+
+        n_displayed_res(nrow(plot_data))
+
         plot_data <- plot_data %>%
-          filter(relation.liesWithinLayer %in% input$selected_layers) %>%
           select(identifier, input$fill_var, dating.min, dating.max) %>%
+          mutate(dating.min = as.numeric(dating.min)) %>%
+          mutate(dating.max = as.numeric(dating.max)) %>%
           datsteps(stepsize = 1, calc = "prob", cumulative = TRUE)
 
 
@@ -228,7 +249,7 @@ mod_aoristic_finds_serv <- function(id) {
         plot_title <- paste0('<b>', input$title, '</b><br>', input$subtitle)
 
         caption <- paste0("Number of objects: ",
-                          length(unique(plot_data()$ID)))
+                          n_displayed_res())
 
         fig <- fig %>% layout(title = list(text = plot_title),
                               xaxis = list(title = "years BCE / CE"),

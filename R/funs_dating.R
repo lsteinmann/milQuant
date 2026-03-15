@@ -31,9 +31,7 @@ period_filter <- function(find_df, is_milet = FALSE, selector = NULL) {
 derive_dating_from_periods <- function(data) {
   data("milQuant_periods")
 
-  needed_cols <- c("period.start", "period.end",
-                   "dating.min", "dating.max",
-                   "dating.source")
+  needed_cols <- c("period.start", "period.end")
 
   if (!all(needed_cols %in% colnames(data))) {
     warning(milQ_warning("Cannot derive dating from periods because columns are missing!"))
@@ -41,6 +39,13 @@ derive_dating_from_periods <- function(data) {
   } else if (is_milet == FALSE) {
     warning(milQ_warning("Deriving dating from periods only works with the milet-config!"))
     return(data)
+  }
+
+  optional_cols <- c("dating.min", "dating.max", "dating.source")
+  for (col in optional_cols) {
+    if (!col %in% colnames(data)) {
+      data[, col] <- NA
+    }
   }
 
   new_dating <- apply(data, MARGIN = 1, FUN = function(x) {

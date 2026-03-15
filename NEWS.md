@@ -2,6 +2,10 @@
 * Use idaifieldR v0.4.0
   * Updated connection settings. 
   * Updated usage of simplify_idaifield().
+  * Adjust period and date handling accordingly. 
+  * Spread the dating fields manually here, since I do not know how I will continue with this in idaifieldR.
+* Fixed Overview and Activity Plots, now with better titles. 
+* Improved Aoristic Plots: Now also gets resources without any dating, but with periods assigned. Filters better and has better error messages. 
 
 # milQuant 2.0.3 _2025-08-21_
 * Fix bug in Find Quantification where Pottery_Quantification_B was counted alongside Pottery_Quantification_A
