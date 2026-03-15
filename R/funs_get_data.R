@@ -257,6 +257,7 @@ get_resources <- function(resource_category = "Pottery",
     } else {
       x
     }
+    x <- convert_to_onehot(x, inputtypes = react_inputtypes(), except = c("processor"))
   })
 
   if (prep_for_shiny == TRUE) {
