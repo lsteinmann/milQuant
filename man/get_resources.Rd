@@ -2,7 +2,7 @@
 % Please edit documentation in R/funs_get_data.R
 \name{get_resources}
 \alias{get_resources}
-\title{Title}
+\title{Get Resources}
 \usage{
 get_resources(
   resource_category = "Pottery",
@@ -24,7 +24,7 @@ get_resources(
 depending on prep_for_shiny, either a list or a data.frame
 }
 \description{
-Title
+Get Resources
 }
 \examples{
 conn <- connect_idaifield(project = "milet", pwd = "hallo")
