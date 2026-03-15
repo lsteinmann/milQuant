@@ -68,7 +68,7 @@ mod_worflow_serv <- function(id) {
 
       generateLayerSelector("layers", tmp, inputid = ns("selected_layers"))
       generateCategorySelector("categories",
-                               parent = "Find",
+                               parent_category = "Find",
                                selected = "all",
                                inputid = ns("selected_categories"))
 

@@ -75,6 +75,8 @@ mod_finds_quant_serv <- function(id) {
           need(is.data.frame(react_index()) && nrow(react_index()) != 0, "No Index available.")
         )
 
+        data("milQuant_cats")
+
         quant_cats <- milQuant_cats$Quantification[
           -which(milQuant_cats$Quantification == "Pottery_Quantification_B")
         ] %>% droplevels()
@@ -83,7 +85,6 @@ mod_finds_quant_serv <- function(id) {
                   "quantificationType",
                   "countTotal", "weightTotal")
 
-        data("milQuant_cats")
 
         quants <- get_resources(resource_category = quant_cats) %>%
           select(all_of(keep)) %>%

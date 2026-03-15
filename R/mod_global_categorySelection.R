@@ -20,7 +20,7 @@ uiCategorySelector <- function(id) {
 #'
 #' @return server code for category selector
 #' @export
-generateCategorySelector <- function(id, inputid, parent = "Find", selected = "auto") {
+generateCategorySelector <- function(id, inputid, parent_category = "Find", selected = "auto") {
   moduleServer(
     id,
     function(input, output, session) {
@@ -35,7 +35,7 @@ generateCategorySelector <- function(id, inputid, parent = "Find", selected = "a
 
         data("milQuant_cats")
 
-        sel_cats <- names(milQuant_cats) %in% parent
+        sel_cats <- names(milQuant_cats) %in% parent_category
         sel_cats <- unlist(milQuant_cats[sel_cats], use.names = FALSE)
 
         available_cats <- react_index() %>%

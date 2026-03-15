@@ -2,27 +2,43 @@
 
 # conn <- connect_idaifield(project = "milet", pwd = "hallo")
 # config <- get_configuration(connection = conn)
+# source("data-raw/milQuant_inputTypes.R")
 
-categories <- read.csv(system.file("extdata/milet_categories.csv",
-                                   package = "milQuant"))
+data("milQuant_inputTypes")
+
+finds <- milQuant_inputTypes %>%
+  filter(parent == "Find") %>%
+  pull(category) %>%
+  unique()
+
+quants <- milQuant_inputTypes %>%
+  filter(parent == "Quantification") %>%
+  pull(category) %>%
+  unique()
+
+features <- milQuant_inputTypes %>%
+  filter(parent == "Feature") %>%
+  pull(category) %>%
+  unique()
+
+other <- c("Sample", "Inscription", "Building", "Impression")
 
 milQuant_cats <- list(
-
   Find =
-    factor(categories$category[which(categories$parent == "Find")],
-           levels = categories$category[which(categories$parent == "Find")]),
+    factor(finds,
+           levels = finds),
 
   Feature =
-    factor(categories$category[which(categories$parent == "Feature")],
-           levels = categories$category[which(categories$parent == "Feature")]),
+    factor(features,
+           levels = features),
 
   Quantification =
-    factor(categories$category[which(categories$parent == "Quantification")],
-           levels = categories$category[which(categories$parent == "Quantification")]),
+    factor(quants,
+           levels = quants),
 
   Other =
-    factor(categories$category[which(categories$parent == "Other")],
-           levels = categories$category[which(categories$parent == "Other")])
+    factor(other,
+           levels = other)
 
 )
 

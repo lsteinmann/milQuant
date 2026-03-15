@@ -7,6 +7,7 @@
 * Fixed Overview and Activity Plots, now with better titles. 
 * Improved Aoristic Plots: Now also gets resources without any dating, but with periods assigned. Filters better and has better error messages. 
 * Plot Layouts now work a bit better.
+* Updated Categories and Input Types.
 
 # milQuant 2.0.3 _2025-08-21_
 * Fix bug in Find Quantification where Pottery_Quantification_B was counted alongside Pottery_Quantification_A

@@ -56,7 +56,7 @@ mod_pottery_single_serv <- function(id) {
       ns <- NS(id)
 
       generateCategorySelector("categories",
-                               parent = "Find",
+                               parent_category = "Find",
                                inputid = ns("selected_categories"))
 
       resources <- reactive({

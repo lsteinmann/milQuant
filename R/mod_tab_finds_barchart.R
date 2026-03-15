@@ -68,7 +68,7 @@ mod_barchart_finds_serv <- function(id) {
       ns <- NS(id)
 
       generateCategorySelector("categories",
-                               parent = "Find",
+                               parent_category = "Find",
                                inputid = ns("selected_categories"))
 
       observeEvent(input$selected_categories, {

@@ -281,9 +281,13 @@ get_resources <- function(resource_category = "Pottery",
 #' @return a vector of Place identifiers
 #' @export
 get_list_of_places_with_finds <- function(index) {
-  data("milQuant_cats")
+  find_quant_cats <- react_inputtypes() %>%
+    filter(parent %in% c("Find", "Quantification")) %>%
+    pull(category) %>%
+    unique()
+
   tmp_places <- index %>%
-    filter(category %in% c(milQuant_cats$Find, milQuant_cats$Quantification)) %>%
+    filter(category %in% find_quant_cats) %>%
     pull(Place) %>%
     unique()
 

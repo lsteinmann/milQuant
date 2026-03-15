@@ -122,6 +122,7 @@ app_server <- function(input, output, session) {
 
   react_index <<- reactiveVal(value = NULL)
   react_config <<- reactiveVal(value = NULL)
+  react_inputtypes <<- reactiveVal(value = NULL)
 
   observeEvent(input$loadDatabase, {
     busy_dialog <- make_busy_dialog(project = isolate(input$selected_project))
@@ -141,7 +142,7 @@ app_server <- function(input, output, session) {
       new_login_connection$project <- input$selected_project
       new_login_connection$params$project <- input$selected_project
       login_connection(new_login_connection)
-      message(milQ_message("Success! Getting the Index:"))
+      message(milQ_message("Success! Getting the Index..."))
 
       # THEN get the index and the config.
       if (in_dev()) {
@@ -158,7 +159,9 @@ app_server <- function(input, output, session) {
       } else {
         react_index(get_index(connection = login_connection()))
       }
+      message(milQ_message("Success! Getting the Project Configuration..."))
       react_config(get_configuration(connection = login_connection()))
+      react_inputtypes(parse_field_inputtypes(react_config()))
       message("Done.")
 
       # show project info and success msg in sidebar
