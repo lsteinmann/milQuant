@@ -125,12 +125,13 @@ db_overview_server <- function(id) {
                        colors = viridis(length(unique(plot_data$color))),
                        hovertemplate = milQuant_hovertemplate())
         fig <- fig %>% layout(barmode = input$barmode,
-                              title = plot_title,
                               xaxis = list(title = x_label, categoryorder = "total descending"),
-                              yaxis = list(title = "count"),
-                              legend = list(title=list(text = color_label)))
+                              yaxis = list(title = "count"))
 
-        fig
+        fig %>%
+          milquant_plotly() %>%
+          add_legend(title = color_label, position = "bottom", mb = 200, y = -0.5) %>%
+          add_title(title = plot_title)
       })
     }
   )

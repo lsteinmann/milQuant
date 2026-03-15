@@ -174,15 +174,15 @@ mod_finds_overview_serv <- function(id) {
         caption <- paste0("Total: ", sum(plot_data()$n))
 
         fig <- fig %>% layout(barmode = input$bar_display,
-                              title = list(text = plot_title),
                               xaxis = list(title = x_title,
                                            categoryorder = "total descending"),
-                              yaxis = list(title = "count"),
-                              legend = list(title = list(text = legend_title)))
+                              yaxis = list(title = "count"))
 
-        fig <- milquant_plotly_layout(fig, caption = caption)
-
-        return(fig)
+        fig %>%
+          milquant_plotly() %>%
+          add_caption(caption = caption) %>%
+          add_title(title = plot_title) %>%
+          add_legend(title = legend_title, position = "right")
       })
 
       output$display_plot <- renderPlotly({

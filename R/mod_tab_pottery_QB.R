@@ -245,13 +245,12 @@ mod_pottery_QB_serv <- function(id) {
         caption <- paste0("Total: ", sum(plot_data()$value))
 
         fig <- fig %>% layout(barmode = input$bar_display,
-                              title = list(text = plot_title),
                               yaxis = list(title = "count"))
 
-        fig <- milquant_plotly_layout(fig, caption = caption)
-
-        return(fig)
-
+        fig %>%
+          milquant_plotly() %>%
+          add_caption(caption = caption) %>%
+          add_title(title = plot_title)
       })
 
       output$display_plot <- renderPlotly({

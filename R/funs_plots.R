@@ -1,38 +1,77 @@
-
-#' milquant_plotly_layout
+#' milquant_plotly
 #'
 #' general layout parameters for all plotly plots
 #'
 #' @param plotly_fig a plotly plot
-#' @param caption the caption that should be attached
 #'
 #' @return a plotly plot
 #' @export
-milquant_plotly_layout <- function(plotly_fig, caption = FALSE) {
-  plotly_fig <- plotly_fig %>%
+milquant_plotly <- function(plotly_fig) {
+  plotly_fig %>%
     config(displaylogo = FALSE,
-           modeBarButtonsToRemove = c("select2d", "lasso2d")) %>%
-    layout(yaxis = list(tickmode = "auto", showline = FALSE, gridwidth = 3,
-                        gridcolor = "grey20"),
-           xaxis = list(gridcolor = "grey60"),
-           title = list(xanchor = "left", x = 0,
-                        pad = list(b = 70),
-                        yref = "container", automargin = TRUE))
-
-  if (is.character(caption)) {
-    plotly_fig <- plotly_fig %>%
-      layout(annotations = list(text = caption,
-                                xref = "paper", yref = "paper",
-                                xanchor = "right", yanchor = "top",
-                                x = 1, y = 1,
-                                showarrow = FALSE,
-                                bgcolor = "white",
-                                font = list(size = 10)))
-  }
-
-  return(plotly_fig)
+           modeBarButtonsToRemove = c("select2d", "lasso2d"))
+}
+#' add caption to plotly layout in upper right corner
+#'
+#'
+#' @param caption chr (content of caption)
+#'
+#' @return a plotly plot
+#' @export
+add_caption <- function(plotly_fig, caption = "") {
+  plotly_fig %>%
+    layout(annotations =
+             list(text = caption,
+                  xref = "paper", yref = "paper",
+                  xanchor = "right", yanchor = "top",
+                  x = 1, y = 1,
+                  showarrow = FALSE,
+                  bgcolor = "white",
+                  font = list(size = 10)
+              )
+           )
+}
+#' add title to plotly layout in upper left corner
+#'
+#'
+#' @param title chr (content of title)
+#'
+#' @return a plotly plot
+#' @export
+add_title <- function(plotly_fig, title = "") {
+  plotly_fig %>%
+    layout(
+      title = list(
+        text = title,
+        xref = "paper", yref = "container",
+        xanchor = "left", yanchor = "top",
+        x = 0, y = 0.98,
+        pad = list(t = 10, b = 10, l = 0, r = 0)),
+      margin = list(t = 50)
+    )
 }
 
+#' use bottom legend
+#'
+#' @param legend_title chr (content of title)
+#'
+#' @return a plotly plot
+#' @export
+add_legend <- function(plotly_fig, title = "", position = "bottom", mb = 100, y = -0.2) {
+  if (position == "bottom") {
+    plotly_fig %>%
+      layout(legend = list(title = list(text = title),
+                           orientation = "h",   # show entries horizontally
+                           xanchor = "center",  # use center of legend as anchor
+                           x = 0.5, y = y),
+             margin = list(b = mb))
+  } else if (position == "right") {
+    plotly_fig %>%
+      layout(legend = list(title = list(text = title)),
+             margin = list(r = 50)
+             )
+  }
+}
 
 #' Title
 #'

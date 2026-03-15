@@ -190,17 +190,16 @@ db_activity_server <- function(id) {
 
         fig <- fig %>%
           layout(barmode = "stack",
-                 title = plot_title,
                  xaxis = list(title = x_label,
                               range = c(input$daterange[1], input$daterange[2]),
                               dtick = date_binsize(),
                               tick0 = "2000-01-01"),
-                 yaxis = list(title = y_label),
-                 legend = list(title = list(text = color_label)))
+                 yaxis = list(title = y_label))
 
-        fig <- milquant_plotly_layout(fig)
-
-        return(fig)
+        fig %>%
+          milquant_plotly() %>%
+          add_title(title = plot_title) %>%
+          add_legend(title = color_label, position = "right")
       })
 
     }

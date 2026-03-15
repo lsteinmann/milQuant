@@ -158,14 +158,14 @@ mod_loomweights_hist_serv <- function(id) {
         caption <- paste0("Total: ", nrow(plot_data()))
 
         fig <- fig %>% layout(barmode = "stack",# bargap = 0.1,
-                              title = list(text = plot_title),
                               xaxis = list(title = x_title),
-                              yaxis = list(title = "count"),
-                              legend = list(title = list(text = legend_title)))
+                              yaxis = list(title = "count"))
 
-        fig <- milquant_plotly_layout(fig, caption = caption)
-
-        return(fig)
+        fig %>%
+          milquant_plotly() %>%
+          add_caption(caption = caption) %>%
+          add_title(title = plot_title) %>%
+          add_legend(title = legend_title, position = "right")
       })
 
       output$display_plot <- renderPlotly({

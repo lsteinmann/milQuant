@@ -162,14 +162,14 @@ mod_finds_quant_serv <- function(id) {
                           "weight in kg")
 
         fig <- fig %>% layout(barmode = input$bar_display,# bargap = 0.1,
-                              title = list(text = plot_title),
                               xaxis = list(title = x_title,
                                            categoryorder = "total descending"),
                               yaxis = list(title = y_title))
 
-        fig <- milquant_plotly_layout(fig, caption = caption)
-
-        return(fig)
+        fig %>%
+          milquant_plotly() %>%
+          add_caption(caption = caption) %>%
+          add_title(title = plot_title)
       })
 
 

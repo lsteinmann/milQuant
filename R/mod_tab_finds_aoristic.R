@@ -251,13 +251,17 @@ mod_aoristic_finds_serv <- function(id) {
         caption <- paste0("Number of objects: ",
                           n_displayed_res())
 
-        fig <- fig %>% layout(title = list(text = plot_title),
-                              xaxis = list(title = "years BCE / CE"),
+        fig <- fig %>% layout(xaxis = list(title = "years BCE / CE"),
                               yaxis = list(title = "maximum number of objects per year"),
-                              yaxis2 = list(title = "density"))
+                              yaxis2 = list(title = "density"),
+                              margin = list(r = 75))
 
 
-        milquant_plotly_layout(fig, caption = caption)
+        fig %>%
+          milquant_plotly() %>%
+          add_legend(title = "", position = "bottom") %>%
+          add_caption(caption = caption) %>%
+          add_title(title = plot_title)
       })
 
       output$display_plot <- renderPlotly({
@@ -265,5 +269,4 @@ mod_aoristic_finds_serv <- function(id) {
       })
     }
   )
-
 }
