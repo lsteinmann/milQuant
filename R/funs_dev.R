@@ -27,3 +27,12 @@ devel_idf_version <- function () {
     return(TRUE)
   }
 }
+
+
+in_dev <- function() {
+  version <- unlist(strsplit(getNamespaceVersion("milQuant"), ".", fixed = TRUE))
+  last <- version[length(version)]
+
+  as.numeric(last) > 100
+}
+

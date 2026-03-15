@@ -144,7 +144,20 @@ app_server <- function(input, output, session) {
       message(milQ_message("Success! Getting the Index:"))
 
       # THEN get the index and the config.
-      react_index(get_index(connection = login_connection()))
+      if (in_dev()) {
+        message(milQ_warning("Running in Development."))
+        last_index <- try(
+          readRDS(system.file(package = "milQuant", mustWork = TRUE,
+                              "app/www/settings/last_react_index.RDS")))
+        if (inherits(last_index, "data.frame")) {
+          react_index(last_index)
+          message(milQ_warning("Restored index from file."))
+        } else {
+          react_index(get_index(connection = login_connection()))
+        }
+      } else {
+        react_index(get_index(connection = login_connection()))
+      }
       react_config(get_configuration(connection = login_connection()))
       message("Done.")
 
@@ -276,7 +289,16 @@ app_server <- function(input, output, session) {
                 selected_operations = isolate(db_selected_operations()),
                 selected_categories = isolate(db_selected_categories()))
     try(saveRDS(tmp, system.file(package = "milQuant", mustWork = TRUE,
-                             "app/www/settings/db_settings.RDS")))
+                                 "app/www/settings/db_settings.RDS")))
+
+    if (in_dev()) {
+      milQ_message("In Development. Saving index.")
+      try(saveRDS(isolate(react_index()),
+                  system.file(package = "milQuant",
+                              mustWork = TRUE,
+                              "app/www/settings/last_react_index.RDS")))
+      # If the file does not exist yet, this wont work. Create the file first.
+    }
     print("Shiny: EXIT")
     stopApp()
   })

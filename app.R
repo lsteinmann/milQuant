@@ -5,8 +5,8 @@ options(shiny.reactlog = TRUE)
 source("data-raw/NEWS.R")
 
 pkgload::load_all()
-milQuant::run_milQuant_app()
 milQuant:::devel_idf_version()
+milQuant::run_milQuant_app()
 
 reactlogShow()
 
