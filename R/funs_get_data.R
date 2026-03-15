@@ -44,9 +44,8 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
 
 
   if(reorder_periods) {
-    if (length(data$period) == 0) {
-      data$period <- NA
-    }
+    # if the column does not exist, it will be NULL of length 0; we need the
+    # columns to exist for most plots, so we just pretend here:
     if (length(data$period.start) == 0) {
       data$period.start <- NA
     }
@@ -54,15 +53,14 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
       data$period.end <- NA
     }
     data <- data %>%
-      mutate_at(c("period", "period.end", "period.start"), as.character) %>%
-      # fix value for periods that have been assigned multiple periods
-      # TODO i need to think of something better here, it is horrible
-      mutate(period = ifelse(grepl(pattern = ";", period), "multiple", period)) %>%
-      # assign "unbestimmt" instead of NA to make period picker work
-      # TODO i need to think of something better here as well
+      mutate_at(c("period.end", "period.start"), as.character) %>%
+      # add "multiple" as the value when start and end are not the same
+      mutate(period = ifelse(period.start == period.end, period.end, "multiple")) %>%
+      # the period picket will not work with NA, we have to use "unbestimmt"
       mutate(period = ifelse(is.na(period), "unbestimmt", period)) %>%
       mutate(period.end = ifelse(is.na(period.end), "unbestimmt", period.end)) %>%
       mutate(period.start = ifelse(is.na(period.start), "unbestimmt", period.start)) %>%
+      # finally, we also need to make all of them an ordered factor
       mutate(period = factor(period,
                              levels = levels(periods),
                              ordered = TRUE),
