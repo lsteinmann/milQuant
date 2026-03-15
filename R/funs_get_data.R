@@ -167,53 +167,7 @@ get_index <- function(connection) {
   return(index)
 }
 
-
-#' idf_uid_query
-#'
-#' @param login_connection connect_idaifield()-object
-#' @param uids vector of UUIDs that should be downloaded
-#'
-#' @return a docs list with the resources of said UUIDs
-#' @export
-idf_uid_query <- function(login_connection, uids) {
-  message(milQ_message("Started the query..."))
-  query <- paste('{ "selector": { "_id": { "$in": [',
-                 paste0('"', uids, '"', collapse = ", "),
-                 '] } }}',
-                 sep = "")
-  proj_client <- idaifieldR:::proj_idf_client(login_connection,
-                                              include = "query")
-  message("Loading...")
-
-  response <- proj_client$post(body = query)
-  response <- idaifieldR:::response_to_list(response)
-  message("Done.\nProcessing...")
-
-  result <- lapply(response$docs,
-                   function(x) list("id" = x$resource$id, "doc" = x))
-
-
-  result <- idaifieldR:::name_docs_list(result)
-  result <- idaifieldR:::type_to_category(result)
-
-  new_names <- lapply(result, function(x) x$identifier)
-  new_names <- unlist(new_names)
-  names(result) <- new_names
-
-  message("Done.")
-
-  attr(result, "connection") <- login_connection
-  attr(result, "projectname") <- login_connection$project
-  message("Getting config at this point:")
-  attr(result, "config") <- get_configuration(login_connection)
-
-  result <- structure(result, class = "idaifield_docs")
-  return(result)
-}
-
-
-
-#' Title
+#' Get Resources
 #'
 #' @param resource_category see milQuant_cats
 #' @param fields fields to get from the db
