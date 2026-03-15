@@ -8,16 +8,20 @@
 prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
   data <- data %>%
     idaifield_as_matrix() %>%
-    as.data.frame()
+    as.data.frame() %>%
+    left_join(select(react_index(), c("identifier", "liesWithinLayer")), by = join_by(identifier)) %>%
+    rename(relation.liesWithinLayer = liesWithinLayer)
 
   if (is.null(data$relation.liesWithin)) {
     data$relation.liesWithin <- NA
   }
   if (is.null(data$relation.liesWithinLayer)) {
-    data$relation.liesWithinLayer <- "NA"
+    # was: data$relation.liesWithinLayer <- "NA" # why was I doing this?
+    data$relation.liesWithinLayer <- NA
   }
 
   data <- data %>%
+    # Why am I doing this?
     mutate(relation.liesWithinLayer = na_if(relation.liesWithinLayer, "NA")) %>%
     mutate(relation.liesWithinLayer = ifelse(is.na(relation.liesWithinLayer),
                                              relation.liesWithin,
@@ -30,18 +34,9 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
 
   tryCatch({
     data <- data %>%
-      mutate(date = as.Date(as.character(date), format = "%d.%m.%Y"))
-  }, error = function(e) message(paste("Caught problem in prep_for_shiny(): ", e)))
-
-  tryCatch({
-    data <- data %>%
-      mutate(beginningDate = as.Date(as.character(beginningDate), format = "%d.%m.%Y"))
-  }, error = function(e) message(paste("Caught problem in prep_for_shiny(): ", e)))
-
-  tryCatch({
-    data <- data %>%
-      mutate(endDate = as.Date(as.character(endDate), format = "%d.%m.%Y"))
-  }, error = function(e) message(paste("Caught problem in prep_for_shiny(): ", e)))
+      mutate(date.start = as.Date(as.character(date.start), format = "%d.%m.%Y")) %>%
+      mutate(date.end = as.Date(as.character(date.end), format = "%d.%m.%Y"))
+  }, error = function(e) message(paste("Caught date problem in prep_for_shiny(): ", e)))
 
 
   if(reorder_periods) {
@@ -152,14 +147,12 @@ alt_gather_trenches <- function(uidlist) {
 #'
 #' @export
 get_index <- function(connection) {
-  options(digits = 20)
-
   index <- get_field_index(connection,
                            verbose = TRUE,
                            find_layers = TRUE,
                            gather_trenches = FALSE)
   index <- index %>%
-    left_join(alt_gather_trenches(index))
+    left_join(alt_gather_trenches(index), by = join_by(identifier))
 
 
   # everything will need an individual fix for surveys or the plots will
@@ -283,16 +276,15 @@ get_resources <- function(resource_category = "Pottery",
 
   message("Processing data (simplify_idaifield(), prep_for_shiny()).\nMay point out possible problems:")
   result <- selected %>%
-    simplify_idaifield(uidlist = react_index(),
+    simplify_idaifield(index = react_index(),
+                       config = react_config(),
                        keep_geometry = FALSE,
-                       spread_fields = prep_for_shiny,
-                       find_layers = TRUE,
-                       replace_uids = TRUE,
+                       find_layers = FALSE,
                        silent = TRUE)
 
   if (prep_for_shiny == TRUE) {
     result <- result %>%
-    prep_for_shiny(reorder_periods = reorder_periods)
+      prep_for_shiny(reorder_periods = reorder_periods)
   }
 
   message(milQ_message("Done."))
