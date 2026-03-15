@@ -234,7 +234,7 @@ get_resources <- function(resource_category = "Pottery",
 
   selected <- idf_json_query(login_connection(), query = query)
 
-  message("Processing data (simplify_idaifield(), prep_for_shiny()).\nMay point out possible problems:")
+  message("Processing data (simplify_idaifield()) ...")
   result <- selected %>%
     simplify_idaifield(index = react_index(),
                        config = react_config(),
@@ -243,6 +243,7 @@ get_resources <- function(resource_category = "Pottery",
                        silent = TRUE)
 
   if (prep_for_shiny == TRUE) {
+    message("Processing data (prep_for_shiny()) ...")
     result <- result %>%
       prep_for_shiny(reorder_periods = reorder_periods)
   }
