@@ -49,7 +49,7 @@ db_activity_tab <- function(id, tabname) {
         )
       ),
       box(
-        title = "Last changed",
+        title = "Last changes overall",
         width = 3, background = "light-blue",
         solidHeader = TRUE, collapsible = TRUE,
         style = "min-height:100px;",
@@ -58,7 +58,7 @@ db_activity_tab <- function(id, tabname) {
     ),
     fluidRow(
       box(
-        title = "Recent database activity", status = "primary",
+        title = "Recent database activity in the selected Operations", status = "primary",
         solidHeader = TRUE, collapsible = FALSE,
         width = 12, height = 700,
         plotlyOutput(ns("display_plot"), height = 630) %>%
@@ -181,7 +181,7 @@ db_activity_server <- function(id) {
                   type = "histogram",
                   xbins = list(size = date_binsize()))
 
-        plot_title <- paste0("Activity in project ", input$selected_project)
+        plot_title <- paste0("Activity in project ", db_selected_project())
 
         x_label <- "date of action"
         color_label <- "Place"
