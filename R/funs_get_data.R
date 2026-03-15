@@ -12,23 +12,25 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
     left_join(select(react_index(), c("identifier", "liesWithinLayer")), by = join_by(identifier)) %>%
     rename(relation.liesWithinLayer = liesWithinLayer)
 
-  if (is.null(data$relation.liesWithin)) {
-    data$relation.liesWithin <- NA
-  }
-  if (is.null(data$relation.liesWithinLayer)) {
-    # was: data$relation.liesWithinLayer <- "NA" # why was I doing this?
-    data$relation.liesWithinLayer <- NA
-  }
-
+  # I am removing this to see if it had any sense or not!
+  #if (is.null(data$relation.liesWithin)) {
+  #  data$relation.liesWithin <- NA
+  #}
+  #if (is.null(data$relation.liesWithinLayer)) {
+  #  # was: data$relation.liesWithinLayer <- "NA" # why was I doing this?
+  #  data$relation.liesWithinLayer <- NA
+  #}
+  #
+  #data <- data %>%
+  #  # Why am I doing this?
+  #  mutate(relation.liesWithinLayer = na_if(relation.liesWithinLayer, "NA")) %>%
+  #  mutate(relation.liesWithinLayer = ifelse(is.na(relation.liesWithinLayer),
+  #                                           relation.liesWithin,
+  #                                           relation.liesWithinLayer)) %>%
+  #  mutate(relation.liesWithinLayer = ifelse(is.na(relation.liesWithinLayer),
+  #                                           relation.isRecordedIn,
+  #                                           relation.liesWithinLayer)) %>%
   data <- data %>%
-    # Why am I doing this?
-    mutate(relation.liesWithinLayer = na_if(relation.liesWithinLayer, "NA")) %>%
-    mutate(relation.liesWithinLayer = ifelse(is.na(relation.liesWithinLayer),
-                                             relation.liesWithin,
-                                             relation.liesWithinLayer)) %>%
-    mutate(relation.liesWithinLayer = ifelse(is.na(relation.liesWithinLayer),
-                                             relation.isRecordedIn,
-                                             relation.liesWithinLayer)) %>%
     remove_na_cols() %>%
     type.convert(as.is = FALSE)
 
