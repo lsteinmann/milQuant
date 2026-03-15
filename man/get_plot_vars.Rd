@@ -4,10 +4,10 @@
 \alias{get_plot_vars}
 \title{Title}
 \usage{
-get_plot_vars(resource_category, colnames, type = "categorical")
+get_plot_vars(resource_categories, colnames, type = "categorical")
 }
 \arguments{
-\item{resource_category}{category of resources to get vars for}
+\item{resource_categories}{category of resources to get vars for}
 
 \item{colnames}{colnames in the data}
 
