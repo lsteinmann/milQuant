@@ -9,19 +9,13 @@
 try_project_connection <- function(connection, project) {
   result <- tryCatch({
     connection$project <- project
-    client <- idaifieldR:::proj_idf_client(connection,
-                                           include = "query")
-    query <- paste0(
-      '{
-      "selector": { "resource.id": "project" },
-      "fields": [ "resource.id", "resource.identifier" ]
-       }')
-    response <- idaifieldR:::response_to_list(client$post(body = query))
-    project %in% unlist(response)
+    idf_ping(connection)
   }, warning = function(w) {
     conditionMessage(w)
+    FALSE
   }, error = function(e) {
     conditionMessage(e)
+    FALSE
   })
 
   return(result)
