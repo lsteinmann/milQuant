@@ -36,12 +36,16 @@ prep_for_shiny <- function(data, reorder_periods = reorder_periods) {
     remove_na_cols() %>%
     type.convert(as.is = FALSE)
 
-  tryCatch({
-    data <- data %>%
-      mutate(date.start = as.Date(as.character(date.start), format = "%d.%m.%Y")) %>%
-      mutate(date.end = as.Date(as.character(date.end), format = "%d.%m.%Y"))
-  }, error = function(e) message(paste("Caught date problem in prep_for_shiny(): ", e)))
-
+  if ("date.start" %in% colnames(data)) {
+    data$date.start <- as.Date(as.character(data$date.start), format = "%d.%m.%Y")
+  } else {
+    data$date.start <- NA
+  }
+  if ("date.end" %in% colnames(data)) {
+    data$date.end <- as.Date(as.character(data$date.end), format = "%d.%m.%Y")
+  } else {
+    data$date.end <- NA
+  }
 
   if(reorder_periods) {
     # if the column does not exist, it will be NULL of length 0; we need the
@@ -240,7 +244,20 @@ get_resources <- function(resource_category = "Pottery",
                        config = react_config(),
                        keep_geometry = FALSE,
                        find_layers = FALSE,
-                       silent = TRUE)
+                       silent = FALSE)
+
+  # Spread the dating in another step, otherwise we wont have it at all...
+  # even though I should maybe still rethink that.
+  result <- lapply(result, function(x) {
+    if ("dating" %in% names(x)) {
+      new_dating <- fix_dating(x$dating, use_exact_dates = TRUE)
+      x$dating <- NULL
+      x <- append(x, new_dating)
+      x
+    } else {
+      x
+    }
+  })
 
   if (prep_for_shiny == TRUE) {
     message("Processing data (prep_for_shiny()) ...")
