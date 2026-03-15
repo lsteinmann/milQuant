@@ -127,7 +127,7 @@ mod_barchart_finds_serv <- function(id) {
         )
         cols <- colnames(resources())
 
-        var_choices <- get_plot_vars(input$selected_categories, cols, type = "categorical")
+        var_choices <- get_plot_vars(resource_categories = input$selected_categories, colnames = cols, type = "categorical")
 
         return(var_choices)
       })

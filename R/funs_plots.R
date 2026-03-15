@@ -77,13 +77,13 @@ add_legend <- function(plotly_fig, title = "", position = "bottom", mb = 100, y 
 #'
 #' get the plottable variables from the config to preselect for fields that may otherwise be impossible to plot
 #'
-#' @param resource_category category of resources to get vars for
+#' @param resource_categories category of resources to get vars for
 #' @param colnames colnames in the data
 #' @param type which sort of vars for plotting should be selected
 #'
 #' @return a vector of possible variables
 #' @export
-get_plot_vars <- function(resource_category, colnames, type = "categorical") {
+get_plot_vars <- function(resource_categories, colnames, type = "categorical") {
 
   match.arg(type, choices = c("categorical", "continuous", "textual"), several.ok = TRUE)
 
@@ -99,12 +99,13 @@ get_plot_vars <- function(resource_category, colnames, type = "categorical") {
           textual = default <- c("processor")
   )
   useable <- react_inputtypes() %>%
-    filter(category == resource_category) %>%
+    filter(category %in% resource_categories) %>%
     filter(inputType %in% posInputTypes) %>%
     pull(fieldname) %>%
     unique()
 
   useable <- c(default, useable)
 
-  sort(useable)
+  result <- colnames[colnames %in% useable]
+  return(sort(result))
 }

@@ -93,7 +93,7 @@ mod_pottery_single_serv <- function(id) {
         )
         cols <- colnames(resources())
 
-        var_choices <- get_plot_vars("Pottery", cols, type = "categorical")
+        var_choices <- get_plot_vars(resource_categories = "Pottery", colnames = cols, type = "categorical")
 
         return(var_choices)
       })
