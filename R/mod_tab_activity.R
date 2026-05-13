@@ -103,7 +103,7 @@ db_activity_server <- function(id) {
 
         uuids <- react_index() %>%
           filter(isRecordedIn %in% db_selected_operations()) %>%
-          pull(identifier) %>%
+          pull(UID) %>%
           unique()
 
         plot_data <- idf_get_changes(connection = login_connection(),
