@@ -210,7 +210,11 @@ get_resources <- function(resource_category = "Pottery",
       pull(UID)
   }
 
-
+  if (length(uids) == 0) {
+    msg <- paste("No resources of category", paste0(resource_category, collapse = ", "), "in the selected operations.")
+    milQ_warning(msg)
+    stop(msg)
+  }
 
   message(paste0("Getting ", length(uids), " resources of category: ",
                  paste(resource_category, collapse = ", "), "..."))
@@ -222,6 +226,7 @@ get_resources <- function(resource_category = "Pottery",
     f_selector <- ""
   } else {
     if ("date" %in% fields) {
+      # TODO this can be deleted? no - legacy stuff still may have old format
       fields <- c(fields, "beginningDate", "endDate")
     }
     fields <- c("identifier", "category", "type",
