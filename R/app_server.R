@@ -284,34 +284,6 @@ app_server <- function(input, output, session) {
   })
 
 
-  # % ----------------------------------------------------------------On Exit
-
-  observeEvent(input$close_app,{
-    tmp <- list(selected_project = isolate(db_selected_project()),
-                selected_places = isolate(db_selected_places()),
-                selected_operations = isolate(db_selected_operations()),
-                selected_categories = isolate(db_selected_categories()))
-    try(saveRDS(tmp, system.file(package = "milQuant", mustWork = TRUE,
-                                 "app/www/settings/db_settings.RDS")))
-
-    if (in_dev()) {
-      milQ_message("In Development. Saving index.")
-      try(saveRDS(isolate(react_index()),
-                  system.file(package = "milQuant",
-                              mustWork = TRUE,
-                              "app/www/settings/last_react_index.RDS")))
-      # If the file does not exist yet, this wont work. Create the file first.
-    }
-    print("Shiny: EXIT")
-    stopApp()
-  })
-
-  # run this is file does not exist
-  #tmp <- list(selected_project = "milet-test",
-  #            selected_places = "",
-  #            selected_operations = "")
-  #saveRDS(tmp, "inst/app/www/settings/db_settings.RDS")
-
 
   # % ----------------------------------------------------------------Modules
 
@@ -350,11 +322,40 @@ app_server <- function(input, output, session) {
   # test commit
   #source('source/server/sculpture_serv.R', local = TRUE)
 
-  # close the R session when Chrome closes
-  if (!interactive()) {
-    session$onSessionEnded(function() {
-      stopApp()
-    })
-  }
+
+  # % ----------------------------------------------------------------On Exit
+
+  # close the Shiny session when Window closes
+  session$onSessionEnded(function() {
+    message(milQ_message("Exiting."))
+    stopApp()
+  })
+
+  observeEvent(input$close_app, {
+    tmp <- list(selected_project = isolate(db_selected_project()),
+                selected_places = isolate(db_selected_places()),
+                selected_operations = isolate(db_selected_operations()),
+                selected_categories = isolate(db_selected_categories()))
+    try(saveRDS(tmp, system.file(package = "milQuant", mustWork = TRUE,
+                                 "app/www/settings/db_settings.RDS")))
+
+    if (in_dev()) {
+      milQ_message("In Development. Saving index.")
+      try(saveRDS(isolate(react_index()),
+                  system.file(package = "milQuant",
+                              mustWork = TRUE,
+                              "app/www/settings/last_react_index.RDS")))
+      # If the file does not exist yet, this wont work. Create the file first.
+    }
+    print("Shiny: EXIT")
+    stopApp()
+  })
+
+  # run this is file does not exist
+  #tmp <- list(selected_project = "milet-test",
+  #            selected_places = "",
+  #            selected_operations = "")
+  #saveRDS(tmp, "inst/app/www/settings/db_settings.RDS")
+
 
 }
