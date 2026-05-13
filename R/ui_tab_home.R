@@ -12,7 +12,7 @@ make_home_tab <- function(tabname = "tab_home") {
       box(
         width = 8,
         div(
-          img(src = "img/milQuant-logo.png", height = 69, class = "welcome_div-logo"),
+          img(src = "img/milquant-logo.png", height = 69, class = "welcome_div-logo"),
           shinyjs::hidden(tags$div(id = "welcome_div", class = "login-text",
                                    textOutput("welcome_text", container = tags$p)))
         )
