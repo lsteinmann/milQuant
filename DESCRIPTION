@@ -21,7 +21,7 @@ Depends:
     glue,
     idaifieldR,
     plotly,
-    R (>= 3.5),
+    R (>= 4.1),
     remotes,
     reshape2,
     shiny,
