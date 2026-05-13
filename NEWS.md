@@ -1,3 +1,10 @@
+# milQuant 2.1.1 _2026-05-13_
+* Added tabs for new Quantification categories.
+
+Minor:
+* If no resources of the selected category exist, a meaningful error now informs users of this instead of failing without explanation. 
+* Bug in Activity tab where identifiers instead of UUIDs were used in the query is now fixed. 
+
 # milQuant 2.1.0 _2026-03-15_
 * Use idaifieldR v0.4.0
   * Updated connection settings. 
