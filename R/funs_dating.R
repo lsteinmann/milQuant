@@ -28,7 +28,7 @@ period_filter <- function(find_df, is_milet = FALSE, selector = NULL) {
 #'
 #' @return data.frame with absolute values for dating where they were empty previously
 #' @export
-derive_dating_from_periods <- function(data) {
+derive_dating_from_periods <- function(data, is_milet = is_milet) {
   data("milQuant_periods")
 
   needed_cols <- c("period.start", "period.end")
@@ -86,7 +86,7 @@ derive_dating_from_periods <- function(data) {
 #' @return data.frame with duplicated rows and counts devided by nr of duplicates
 #'
 #' @export
-multiply_resources_by_period_range <- function(data, split = TRUE) {
+multiply_resources_by_period_range <- function(data, split = TRUE, is_milet = is_milet) {
 
   if (split == FALSE) {
     # a way out to switch of this function when the switch input is disable
