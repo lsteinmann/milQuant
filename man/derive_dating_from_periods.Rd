@@ -4,7 +4,7 @@
 \alias{derive_dating_from_periods}
 \title{derive_dating_from_periods}
 \usage{
-derive_dating_from_periods(data)
+derive_dating_from_periods(data, is_milet = is_milet)
 }
 \arguments{
 \item{data}{data.frame with the resources to be transformed}

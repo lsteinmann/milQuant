@@ -4,7 +4,7 @@
 \alias{multiply_resources_by_period_range}
 \title{multiply_resources_by_period_range}
 \usage{
-multiply_resources_by_period_range(data, split = TRUE)
+multiply_resources_by_period_range(data, split = TRUE, is_milet = is_milet)
 }
 \arguments{
 \item{data}{data.frame with the resources to be transformed}
