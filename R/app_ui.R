@@ -34,7 +34,10 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
                menuSubItem("Quantification (General)", tabName = "tab_finds_quant", icon = icon("chart-simple")),
                menuSubItem("Bricks/Tiles/Pipes", tabName = "tab_bricksQ", icon = icon("shapes")),
                menuSubItem("Mollusks", tabName = "tab_molluskQ", icon = icon("shrimp")),
-               menuSubItem("Plaster", tabName = "tab_plasterQ", icon = icon("brush"))
+               menuSubItem("Plaster", tabName = "tab_plasterQ", icon = icon("brush")),
+               menuSubItem("Glass", tabName = "tab_glassQ", icon = icon("wine-bottle")),
+               menuSubItem("Slags", tabName = "tab_slagQ", icon = icon("industry")),
+               menuSubItem("Tesserae", tabName = "tab_tesseraeQ", icon = icon("gem"))
       ),
       menuItem("Pottery", tabName = "tab_pottery_all", icon = icon("trophy"),
                menuSubItem("Pottery (single)", tabName = "tab_pottery_single",
@@ -85,7 +88,10 @@ app_ui <- function(app_version = packageVersion("milQuant")) {
       # quants
       mod_quants_ui("bricksQ", tabname = "tab_bricksQ"),
       mod_quants_ui("molluskQ", tabname = "tab_molluskQ"),
-      mod_quants_ui("plasterQ", tabname = "tab_plasterQ")
+      mod_quants_ui("plasterQ", tabname = "tab_plasterQ"),
+      mod_quants_ui("glassQ", tabname = "tab_glassQ"),
+      mod_quants_ui("slagQ", tabname = "tab_slagQ"),
+      mod_quants_ui("tesseraeQ", tabname = "tab_tesseraeQ")
     )
   )
 

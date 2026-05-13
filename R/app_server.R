@@ -340,7 +340,9 @@ app_server <- function(input, output, session) {
   mod_quants_serv("bricksQ", resource_category = "Brick_Quantification")
   mod_quants_serv("molluskQ", resource_category = "Milet:QuantMollusks")
   mod_quants_serv("plasterQ", resource_category = "Milet:PlasterQuantification")
-
+  mod_quants_serv("glassQ", resource_category = "Milet:GlassQuantification")
+  mod_quants_serv("slagQ", resource_category = "Milet:SlagQuantification")
+  mod_quants_serv("tesseraeQ", resource_category = "Milet:TesseraeQuantification")
 
 
 

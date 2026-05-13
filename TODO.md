@@ -2,6 +2,7 @@
 
 # ... asap
 * periods, periods, periods! (siehe unten)
+* Hardcoded Quantification category identifiers are horrible and lead to problems, affected: module callers, switch statement in module, why did you make it a switch statement, trying to be fancy?
 
 # Allgemein
 * update Pottery + Pottery Quant tabs with more love

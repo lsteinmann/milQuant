@@ -81,6 +81,8 @@ mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
 
         quant <- get_resources(resource_category = resource_category) %>%
           remove_na_cols()
+
+
         return(quant)
       })
 
@@ -141,7 +143,10 @@ mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
         switch(resource_category,
                Brick_Quantification = x_title <- "Type of Brick / Tile / Pipe",
                `Milet:QuantMollusks` = x_title <- "Type of Mollusk",
-               `Milet:PlasterQuantification` = x_title <- "Type of Mortar / Plaster")
+               `Milet:PlasterQuantification` = x_title <- "Type of Mortar / Plaster",
+               `Milet:GlassQuantification` = x_title <- "Type of Glass",
+               `Milet:SlagQuantification` = x_title <- "Type of Slag",
+               `Milet:TesseraeQuantification` = x_title <- "Type of Tesserae")
 
 
         y_title <- ifelse(input$plot_by == "count",
