@@ -140,8 +140,8 @@ mod_quants_serv <- function(id, resource_category = "Brick_Quantification") {
 
         switch(resource_category,
                Brick_Quantification = x_title <- "Type of Brick / Tile / Pipe",
-               QuantMollusks = x_title <- "Type of Mollusk",
-               PlasterQuantification = x_title <- "Type of Mortar / Plaster")
+               `Milet:QuantMollusks` = x_title <- "Type of Mollusk",
+               `Milet:PlasterQuantification` = x_title <- "Type of Mortar / Plaster")
 
 
         y_title <- ifelse(input$plot_by == "count",

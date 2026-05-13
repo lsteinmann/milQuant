@@ -338,8 +338,8 @@ app_server <- function(input, output, session) {
 
   mod_finds_quant_serv("finds_quant")
   mod_quants_serv("bricksQ", resource_category = "Brick_Quantification")
-  mod_quants_serv("molluskQ", resource_category = "QuantMollusks")
-  mod_quants_serv("plasterQ", resource_category = "PlasterQuantification")
+  mod_quants_serv("molluskQ", resource_category = "Milet:QuantMollusks")
+  mod_quants_serv("plasterQ", resource_category = "Milet:PlasterQuantification")
 
 
 
