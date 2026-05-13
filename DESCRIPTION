@@ -22,7 +22,6 @@ Depends:
     idaifieldR,
     plotly,
     R (>= 4.1),
-    remotes,
     reshape2,
     shiny,
     shinyBS,
@@ -33,6 +32,8 @@ Depends:
     stringi,
     tidyr,
     viridis
+Suggests: 
+    remotes
 Remotes: 
     lsteinmann/idaifieldR
 Encoding: UTF-8
