@@ -79,7 +79,7 @@ mod_search_serv <- function(id) {
 
 
         resources <- get_resources(resource_category = input$selected_categories,
-                                   fields = milQuant_inputTypes$field_prj[ind]) %>%
+                                   fields = milQuant_inputTypes$fieldname[ind]) %>%
           remove_na_cols() %>%
           mutate_all(~gsub("\n", "<br>", .)) %>%
           mutate_all(~gsub("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", .))
