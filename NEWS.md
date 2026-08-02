@@ -1,3 +1,6 @@
+# milQuant 2.1.2 _2026-08-02_
+* fixed bug: full text search is now offering all columns.
+
 # milQuant 2.1.1 _2026-05-13_
 * Added tabs for new Quantification categories.
 
